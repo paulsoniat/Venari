@@ -1,7 +1,6 @@
 const db = require('./index');
 const models = require('./models');
 
-// const makeAssociations = function() {
 // users have many submissions
 models.User.hasMany(models.Submission);
 models.Submission.belongsTo(models.User);
@@ -25,7 +24,4 @@ models.Item.belongsTo(models.Challenge);
 // a challenge has one badge
 models.Challenge.belongsTo(models.Badge);
 
-return db.sync();
-// };
-
-// module.exports = makeAssociations;
+db.sync();

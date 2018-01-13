@@ -10,7 +10,7 @@ const User = db.define('user', {
   score: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
-  }
+  },
 });
 
 
