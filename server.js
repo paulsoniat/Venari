@@ -9,7 +9,7 @@ const PORT = process.env.port;
 passport.use(new Strategy({
   clientID: process.env.FBAPPID,
   clientSecret: process.env.FBAPPSECRET,
-  callbackURL: `http://localhost:${PORT}/login/facebook/return`
+  callbackURL: `/login/facebook/return`
 },
   function (accessToken, refreshToken, profile, cb) {
     console.log(accessToken, "this is a-token")
