@@ -1,5 +1,6 @@
 const passport = require('passport');
 const Strategy = require('passport-facebook').Strategy;
+const routeHelpers = require('./routehelpers.js');
 
 passport.use(new Strategy(
   {
@@ -7,7 +8,10 @@ passport.use(new Strategy(
     clientSecret: process.env.FBAPPSECRET,
     callbackURL: '/login/facebook/return',
   },
-  ((accessToken, refreshToken, profile, cb) => cb(null, profile)),
+  (accessToken, refreshToken, profile, cb) => {
+    routeHelpers.findOrCreateUser(profile);
+    cb(null, profile);
+  },
 ));
 
 passport.serializeUser((user, cb) => {
