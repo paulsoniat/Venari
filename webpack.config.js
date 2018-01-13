@@ -20,7 +20,6 @@ module.exports = {
           presets: ['react']
         }
       },
-
     ],
   },
 

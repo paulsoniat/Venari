@@ -1,14 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ImageUploadForm from './components/ImageUploadForm.jsx';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
 
-const Hello = name => (
-  <div>
-    Hello, {name}
-    <ImageUploadForm challenge="Cute Animals Challenge" username="Jeff Bezos" item="cat" />
-  </div>
+const Login = () => (
+  <MuiThemeProvider>
+    <RaisedButton
+      className="signin-button"
+      label="Login/Signup With Facebook"
+      href="/login/facebook"
+      primary
+      labelColor="blue"
+    />
+  </MuiThemeProvider>
 );
-const view = Hello('Abby');
 
-const element = document.getElementById('root');
-ReactDOM.render(view, element);
+ReactDOM.render(
+  <Login />,
+  document.getElementById('login'),
+);
