@@ -11,6 +11,10 @@ const User = db.define('user', {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
+  fbId: {
+    type: Sequelize.INTEGER,
+    unique: true,
+  },
 });
 
 
