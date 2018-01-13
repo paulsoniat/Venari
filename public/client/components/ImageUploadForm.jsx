@@ -1,7 +1,12 @@
+/**
+ * Image Upload Form to upload images to S3 storage
+ * Takes in the name of the challenge, user, and item as props
+ */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class ImageUploadForm extends React.Component {
+export default class ImageUploadForm extends React.Component {
   constructor(props) {
     super(props);
     this.filepath = `${props.challenge}/${props.username}/${props.item}.jpg`;
@@ -32,5 +37,3 @@ ImageUploadForm.propTypes = {
   username: PropTypes.string.isRequired,
   item: PropTypes.string.isRequired,
 };
-
-module.exports = ImageUploadForm;
