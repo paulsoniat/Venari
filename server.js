@@ -6,6 +6,8 @@ require('dotenv').config();
 
 const PORT = process.env.port;
 
+const dbHelper = require('./database/dbHelper');
+
 passport.use(new Strategy({
   clientID: process.env.FBAPPID,
   clientSecret: process.env.FBAPPSECRET,
