@@ -36,7 +36,7 @@ module.exports = (app) => {
       res.render('login');
     },
   );
-
+ 
   app.get(
     '/login/facebook',
     passport.authenticate('facebook'),
