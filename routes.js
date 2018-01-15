@@ -50,9 +50,10 @@ module.exports = (app) => {
       res.redirect('/main');
     },
   );
+  
+  app.get('/challenges', routeHelpers.findAllChallenges);
 
   app.get('/main', (req, res) => {
-    console.log('in get main')
     res.sendFile(path.join(__dirname, './public/main.html'));
   });
 };

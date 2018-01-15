@@ -14,11 +14,6 @@ app.use(express.static('public'));
 
 require('./routes')(app);
 
-//route used to test webpack
-app.get('/challenge', (req, res) => {
-  res.sendFile(path.join(__dirname, '/public/challenge.html'));
-});
-
 app.listen(PORT, () => {
   console.log(`listening on ${PORT}`);
 });
