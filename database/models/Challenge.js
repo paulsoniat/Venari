@@ -10,6 +10,9 @@ const Challenge = db.define('challenge', {
   description: {
     type: Sequelize.STRING,
   },
+  image: {
+    type: Sequelize.STRING,
+  },
   startDate: {
     type: Sequelize.DATE,
     defaultValue: Sequelize.NOW,

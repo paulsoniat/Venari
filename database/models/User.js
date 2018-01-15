@@ -5,14 +5,13 @@ const User = db.define('user', {
   name: {
     type: Sequelize.STRING,
     allowNull: false,
-    unique: true,
   },
   score: {
     type: Sequelize.INTEGER,
     defaultValue: 0,
   },
   fbId: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     unique: true,
   },
 });
