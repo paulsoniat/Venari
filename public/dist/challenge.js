@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 203);
+/******/ 	return __webpack_require__(__webpack_require__.s = 204);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -29507,7 +29507,8 @@ exports.default = {
 };
 
 /***/ }),
-/* 203 */
+/* 203 */,
+/* 204 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -29527,19 +29528,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-const Login = () => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+const main = () => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
   __WEBPACK_IMPORTED_MODULE_3_material_ui_styles_MuiThemeProvider___default.a,
   null,
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_4_material_ui_RaisedButton___default.a, {
     className: 'signin-button',
-    label: 'Login/Signup With Facebook',
+    label: 'Login/Signup ',
     href: '/login/facebook',
     primary: true,
     labelColor: 'blue'
   })
 );
 
-__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Login, null), document.getElementById('login'));
+__WEBPACK_IMPORTED_MODULE_1_react_dom___default.a.render(__WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(Main, null), document.getElementById('main'));
 
 /***/ })
 /******/ ]);

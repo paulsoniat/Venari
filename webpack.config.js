@@ -2,12 +2,15 @@ const webpack = require('webpack');
 const path = require('path');
 
 const BUILD_DIR = path.resolve(__dirname, 'public/dist');
-const APP_DIR = path.resolve(__dirname, 'public/dist');
+const APP_DIR = path.resolve(__dirname, 'public/client/components');
 module.exports = {
-  entry: APP_DIR + '/index.js',
+  entry: {
+    index: APP_DIR + '/index.jsx', 
+    challenge: APP_DIR + '/challenge.jsx' ,
+    upload: APP_DIR + '/ImageUploadForm.jsx'},
   output: {
     path: BUILD_DIR,
-    filename: 'index_bundle.js'
+    filename: '[name].js',
   },
   module: {
 
