@@ -4,10 +4,12 @@ const path = require('path');
 const BUILD_DIR = path.resolve(__dirname, 'public/dist');
 const APP_DIR = path.resolve(__dirname, 'public/dist');
 module.exports = {
-  entry: APP_DIR + '/index.js',
+  entry: {
+    index: APP_DIR + '/index.js', 
+    challenge: APP_DIR + '/challenge.js' },
   output: {
     path: BUILD_DIR,
-    filename: 'index_bundle.js'
+    filename: '[name].js',
   },
   module: {
 
