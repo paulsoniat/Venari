@@ -1,18 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ImageUploadForm from './components/ImageUploadForm.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import RotatingCarousel from './components/RotatingCarousel.jsx';
+import Leaderboard from './components/Leaderboard.jsx';
 
 const Main = () => (
   <MuiThemeProvider>
-    <RaisedButton
-      className="signin-button"
-      label="Losaifhalkhsflk"
-      href="/login/facebook"
-      primary
-      labelColor="blue"
-    />
+    <RotatingCarousel />
   </MuiThemeProvider>
 );
 
