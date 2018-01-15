@@ -4,7 +4,7 @@ import { BarChart } from 'react-easy-chart';
 export default class RotatingCarousel extends React.Component {
   constructor(props) {
     super(props);
-    this.data = 'need to get leaderboard data here, must be an array of objects [{user1: wins#}, {user2: wins#}]';
+    this.data = 'need to get leaderboard data here, must be an array of objects [{ wiuser1:ns#}, {user2: wins#}]';
   }
 
   render() {

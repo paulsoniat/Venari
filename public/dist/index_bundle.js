@@ -46921,20 +46921,7 @@ class RotatingCarousel extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Com
           title: 'This is a very cool feature',
           subtitle: 'Just using this will blow your mind.'
         }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_material_auto_rotating_carousel__["Slide"], {
-          media: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: 'http://www.icons101.com/icon_png/size_256/id_80975/GoogleInbox.png' }),
-          mediaBackgroundStyle: { backgroundColor: __WEBPACK_IMPORTED_MODULE_2_material_ui_styles_colors__["blue400"] },
-          contentStyle: { backgroundColor: __WEBPACK_IMPORTED_MODULE_2_material_ui_styles_colors__["blue600"] },
-          title: 'Ever wanted to be popular?',
-          subtitle: 'Well just mix two colors and your are good to go!'
-        }),
-        __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_material_auto_rotating_carousel__["Slide"], {
-          media: __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('img', { src: 'http://www.icons101.com/icon_png/size_256/id_76704/Google_Settings.png' }),
-          mediaBackgroundStyle: { backgroundColor: __WEBPACK_IMPORTED_MODULE_2_material_ui_styles_colors__["green400"] },
-          contentStyle: { backgroundColor: __WEBPACK_IMPORTED_MODULE_2_material_ui_styles_colors__["green600"] },
-          title: 'May the force be with you',
-          subtitle: 'The Force is a metaphysical and ubiquitous power in the Star Wars universe.'
-        })
+        this.state.data.map((item, index) => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('span', { className: 'indent', key: index }))
       )
     );
   }
@@ -51487,7 +51474,7 @@ Slide.propTypes = {
 class RotatingCarousel extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
   constructor(props) {
     super(props);
-    this.data = 'need to get leaderboard data here, must be an array of objects [{user1: wins#}, {user2: wins#}]';
+    this.data = 'need to get leaderboard data here, must be an array of objects [{ wiuser1:ns#}, {user2: wins#}]';
   }
 
   render() {
