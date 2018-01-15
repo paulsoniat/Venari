@@ -16,7 +16,6 @@ export default class RotatingCarousel extends React.Component {
         yAxisOrientLeft
         height={250}
         width={500}
-        data={this.state.data}
       />
     );
   }
