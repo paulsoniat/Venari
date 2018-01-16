@@ -63,7 +63,6 @@ module.exports = (app) => {
         id: challengeId,
       },
     }).then((challenge) => {
-      console.log('in then');
       res.send(challenge);
     });
   });
