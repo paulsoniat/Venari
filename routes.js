@@ -53,6 +53,8 @@ module.exports = (app) => {
   
   app.get('/challenges', routeHelpers.findAllChallenges);
 
+  app.get('/challenge:id', () => { console.log('in route'); });
+
   app.get('/main', (req, res) => {
     res.sendFile(path.join(__dirname, './public/main.html'));
   });
