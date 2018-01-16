@@ -8,6 +8,7 @@ export default class RotatingCarousel extends React.Component {
     super();
     this.state = {
       challengeData: [],
+      challengeId: 0,
     };
   }
 
@@ -27,13 +28,15 @@ export default class RotatingCarousel extends React.Component {
           open
           mobile
           style={{ position: 'inherit', width: '100%', height: '50%' }}
+          onStart={() => { axios.get(`/challenge:${this.state.challengeData[this.state.challengeId].id}`).then((res) => {console.log(res);}); }}
+          onChange={(index) => { this.setState({ challengeId: index }); } }
         >
           {this.state.challengeData.map(challenge =>
           (<Slide
             key={challenge.id}
-            media={<img src={challenge.image} />}
-            mediaBackgroundStyle={green600}
-            contentStyle={green400}
+            media={<img src={challenge.image}/>}
+            mediaBackgroundStyle={{ backgroundColor: green600 }}
+            contentStyle={{ backgroundColor: green400 }}
             title={challenge.title}
             subtitle={challenge.description}
           />))}

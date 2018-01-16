@@ -6,7 +6,7 @@ module.exports = {
   findOrCreateUser: function findOrCreateUser(userProfile) {
     models.User.findOrCreate({
       where: { fbId: userProfile.id },
-      defaults: { name: userProfile.displayName } 
+      defaults: { name: userProfile.displayName },
     })
       .spread((user, created) => {
         console.log(user.get({
@@ -21,9 +21,12 @@ module.exports = {
       challenges.forEach((challenge) => {
         challengeData.push(challenge.dataValues);
       });
-      console.log(challengeData, "this is challenge data")
+      console.log(challengeData, 'this is challenge data');
       res.send(challengeData);
     });
+  },
+  findSpecificChallenge: function findSpecificChallenge(req, res, challengeId) {
+    console.log('placeholder for a more modular specific challenge finder');
   },
 };
 
