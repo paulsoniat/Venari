@@ -1,8 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ImageUploadForm from './ImageUploadForm.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Challenge from './challenge.jsx';
+import Main from './main.jsx';
+
 
 const Login = () => (
   <MuiThemeProvider>
@@ -14,9 +17,20 @@ const Login = () => (
       labelColor="blue"
     />
   </MuiThemeProvider>
+  
+);
+
+const AppRouter = () => (
+    <Router>
+      <div>
+        <Route path="/challenge" component={Challenge} />
+        <Route path="/main" component={Main} />
+        <Route exact path="/" component={Login} />
+      </div>
+    </Router>
 );
 
 ReactDOM.render(
-  <Login />,
+  <AppRouter />,
   document.getElementById('login'),
 );
