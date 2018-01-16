@@ -15,4 +15,15 @@ module.exports = {
         console.log(created);
       });
   },
+  findAllChallenges: function findAllChallenges(req, res) {
+    models.Challenge.findAll().then((challenges) => {
+      const challengeData = [];
+      challenges.forEach((challenge) => {
+        challengeData.push(challenge.dataValues);
+      });
+      console.log(challengeData, "this is challenge data")
+      res.send(challengeData);
+    });
+  },
 };
+

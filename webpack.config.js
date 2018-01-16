@@ -8,7 +8,8 @@ module.exports = {
     index: APP_DIR + '/index.jsx', 
     challenge: APP_DIR + '/challenge.jsx' ,
     upload: APP_DIR + '/ImageUploadForm.jsx',
-    main: APP_DIR + '/Main.jsx'
+    main: APP_DIR + '/Main.jsx',
+    rotatingCarousel: APP_DIR + '/RotatingCarousel.jsx',
   },
   output: {
     path: BUILD_DIR,
