@@ -5,10 +5,13 @@ import RaisedButton from 'material-ui/RaisedButton';
 import RotatingCarousel from './RotatingCarousel.jsx';
 import Leaderboard from './Leaderboard.jsx';
 
-const Main = ({ history }) => (
+const Main = () => (
   <MuiThemeProvider>
-    <RotatingCarousel history={history} />
+    <RotatingCarousel />
   </MuiThemeProvider>
 );
 
-export default Main;
+ReactDOM.render(
+  <Main />,
+  document.getElementById('main'),
+);

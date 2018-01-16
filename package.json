@@ -38,7 +38,6 @@
     "react-dom": "^16.2.0",
     "react-easy-chart": "^1.0.0",
     "react-router": "^4.2.0",
-    "react-router-dom": "^4.2.2",
     "react-swipeable-views": "^0.12.12",
     "requestify": "^0.2.5",
     "sequelize": "^4.31.1",
