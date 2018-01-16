@@ -24,12 +24,14 @@ export default class RotatingCarousel extends React.Component {
     return (
       <div>
         <AutoRotatingCarousel
-          label="Begin this Challenge"
-          open
-          mobile
+          mobile={true}
           style={{ position: 'inherit', width: '100%', height: '50%' }}
+<<<<<<< 84c00652f1a7657c354f959ef5be2963f76d2129
           onStart={() => { axios.get(`/challenge:${this.state.challengeData[this.state.challengeId].id}`).then((res) => {console.log(res);}); }}
           onChange={(index) => { this.setState({ challengeId: index }); } }
+=======
+         open
+>>>>>>> [Nav bar] add dynamic nav bar component
         >
           {this.state.challengeData.map(challenge =>
           (<Slide
