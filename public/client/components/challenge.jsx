@@ -4,19 +4,15 @@ import ImageUploadForm from './ImageUploadForm.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const main = () => (
+const Challenge = () => (
   <MuiThemeProvider>
-    <RaisedButton
-      className="signin-button"
-      label="Login/Signup "
-      href="/login/facebook"
-      primary
-      labelColor="blue"
-    />
+    <h1>challenge component </h1>
   </MuiThemeProvider>
 );
 
-ReactDOM.render(
-  <Main />,
-  document.getElementById('main'),
-);
+// ReactDOM.render(
+//   <Challenge />,
+//   document.getElementById('challenge'),
+// );
+
+export default Challenge;
