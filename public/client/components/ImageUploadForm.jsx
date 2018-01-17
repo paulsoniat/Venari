@@ -26,7 +26,7 @@ export default class ImageUploadForm extends React.Component {
             <input type="submit" value="Send" />
           </div>
         </form>
-        <img src={`http://bnwrainbows.s3.amazonaws.com/${this.filepath}`} alt="where is the cat?" />
+        <img src={`http://bnwrainbows.s3.amazonaws.com/${this.filepath}`} height="300" width="300" alt="where is the cat?" />
       </div>
     );
   }

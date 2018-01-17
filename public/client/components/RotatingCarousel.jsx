@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
+import Navbar from './Navbar.jsx';
 import { green400, green600, blue400, blue600, red400, red600 } from 'material-ui/styles/colors';
 
 export default class RotatingCarousel extends React.Component {
@@ -26,6 +27,7 @@ export default class RotatingCarousel extends React.Component {
     if (!this.state.loaded) return <div>Loading New Challenges</div>;
     return (
       <div>
+        <Navbar/>
         <AutoRotatingCarousel
           label="Begin this Challenge"
           open
@@ -36,16 +38,17 @@ export default class RotatingCarousel extends React.Component {
           onChange={(index) => { this.setState({ challengeId: index }); } }
         >
           {this.state.challengeData.map(challenge =>
-          (<Slide
-            key={challenge.id}
-            media={<img src={challenge.image}/>}
-            mediaBackgroundStyle={{ backgroundColor: green600 }}
-            contentStyle={{ backgroundColor: green400 }}
-            title={challenge.title}
-            subtitle={challenge.description}
-          />))}
+            (<Slide
+              key={challenge.id}
+              media={<img src={challenge.image} height="400" width="400"/>}
+              mediaBackgroundStyle={{ backgroundColor: green600 }}
+              contentStyle={{ backgroundColor: green400 }}
+              title={challenge.title}
+              subtitle={challenge.description}
+            />))}
         </AutoRotatingCarousel>
       </div>
+      
     );
   }
 }
