@@ -13,6 +13,7 @@ export default class ImageUploadForm extends React.Component {
   }
 
   render() {
+    
     return (
       <div>
         <form action="http://bnwrainbows.s3.amazonaws.com/" encType="multipart/form-data" method="post">

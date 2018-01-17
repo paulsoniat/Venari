@@ -4,6 +4,8 @@ const routeHelpers = require('./routehelpers.js');
 const models = require('./database/models');
 const path = require('path');
 
+let userName = '';
+
 passport.use(new Strategy(
   {
     clientID: process.env.FBAPPID,
@@ -76,12 +78,8 @@ module.exports = (app) => {
     const resArr = [];
     resArr.push(req._parsedOriginalUrl);
     const challengeId = resArr[0].path.slice(-1);
-    models.Challenge.findAll({
-      where: {
-        id: challengeId,
-      },
-    }).then((challenge) => {
-      res.send(challenge);
+    models.Item.findAll({ where: { challengeId } }).then((items) => {
+      res.send(items);
     });
   });
 

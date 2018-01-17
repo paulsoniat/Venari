@@ -3,6 +3,7 @@ import axios from 'axios';
 import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 import Navbar from './Navbar.jsx';
 import { green400, green600, blue400, blue600, red400, red600 } from 'material-ui/styles/colors';
+import NavBar from './navbar.jsx';
 
 export default class RotatingCarousel extends React.Component {
   constructor(props) {
