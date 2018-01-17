@@ -21,7 +21,6 @@ module.exports = {
       challenges.forEach((challenge) => {
         challengeData.push(challenge.dataValues);
       });
-      console.log(challengeData, 'this is challenge data');
       res.send(challengeData);
     });
   },
