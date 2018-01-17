@@ -6,10 +6,6 @@ const APP_DIR = path.resolve(__dirname, 'public/client/components');
 module.exports = {
   entry: {
     index: APP_DIR + '/index.jsx', 
-    // challenge: APP_DIR + '/Challenge.jsx' ,
-    // upload: APP_DIR + '/ImageUploadForm.jsx',
-    // main: APP_DIR + '/Main.jsx',
-    // rotatingCarousel: APP_DIR + '/RotatingCarousel.jsx',
   },
   output: {
     path: BUILD_DIR,
