@@ -48,3 +48,11 @@ export default class ChallengeItems extends React.Component {
     );
   }
 }
+
+// const Challenge = ({ match }) => (
+//   <div>
+//     <h1> {match.params.id.slice(1)} component </h1>
+//   </div>
+// );
+
+export default Challenge;

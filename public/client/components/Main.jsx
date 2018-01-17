@@ -8,16 +8,10 @@ import NavBar from './Navbar.jsx'
 import ChallengeItems from './challenge.jsx'
 
 
-const Main = () => (
+const Main = ({ history }) => (
   <MuiThemeProvider>
-    <NavBar />
-    <ChallengeItems />
-
-    {/* <RotatingCarousel /> */}
+    <RotatingCarousel history={history} />
   </MuiThemeProvider>
 );
 
-ReactDOM.render(
-  <Main />,
-  document.getElementById('main'),
-);
+export default Main;
