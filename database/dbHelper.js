@@ -27,5 +27,10 @@ module.exports = {
   findSpecificChallenge: function findSpecificChallenge(req, res, challengeId) {
     console.log('placeholder for a more modular specific challenge finder');
   },
+  getLeaderboardData: (callback) => {
+    models.User.findAll().then((users) => {
+      
+    });
+  },
 };
 
