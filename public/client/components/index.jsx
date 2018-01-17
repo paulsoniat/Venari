@@ -8,6 +8,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Main from './Main.jsx';
 import Challenge from './Challenge.jsx';
 import MovingLogo from './MovingLogo.jsx';
+import Gallery from './Gallery.jsx';
+import Trophies from './Trophies.jsx';
 
 const Login = () => (
   <MuiThemeProvider>
@@ -23,6 +25,8 @@ const AppRouter = () => (
       <Route exact path="/" component={Login} />
       <Route path="/challenge/:id" component={Challenge} />
       <Route path="/main" component={Main} />
+      <Route path="/Gallery" component={Gallery} />
+      <Route path="/Trophies" component={Trophies} />
     </div>
   </Router>
 );

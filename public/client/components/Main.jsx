@@ -6,6 +6,7 @@ import RotatingCarousel from './RotatingCarousel.jsx';
 import Leaderboard from './Leaderboard.jsx';
 import NavBar from './Navbar.jsx'
 import ChallengeItems from './Challenge.jsx'
+import Gallery from './Gallery.jsx'
 
 
 const Main = ({ history }) => (
