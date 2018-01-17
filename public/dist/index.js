@@ -25628,7 +25628,7 @@ class RotatingCarousel extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Com
           style: { position: 'inherit', width: '100%', height: '50%' }
           // onStart={() => { axios.get(`/challenge:${this.state.challengeData[this.state.challengeId].id}`).then((res) => {console.log(res);}); }}
           , onStart: () => {
-            this.changePage;
+            this.changePage();
           },
           onChange: index => {
             this.setState({ challengeId: index });
@@ -37221,6 +37221,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_material_ui_RaisedButton___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_material_ui_RaisedButton__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Main_jsx__ = __webpack_require__(280);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Challenge_jsx__ = __webpack_require__(279);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__VectorLogo_jsx__ = __webpack_require__(1254);
+
 
 
 
@@ -37248,9 +37250,18 @@ const AppRouter = () => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElem
   __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
     'div',
     null,
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { exact: true, path: '/', component: Login }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/challenge', component: __WEBPACK_IMPORTED_MODULE_7__Challenge_jsx__["default"] }),
-    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Route */], { path: '/main', component: __WEBPACK_IMPORTED_MODULE_6__Main_jsx__["default"] })
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+      'h1',
+      null,
+      __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
+        __WEBPACK_IMPORTED_MODULE_1_react_router_dom__["b" /* Link */],
+        { to: '/main' },
+        'Check out the Challenges!'
+      )
+    ),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Route */], { exact: true, path: '/', component: Login }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Route */], { path: '/challenge', component: __WEBPACK_IMPORTED_MODULE_7__Challenge_jsx__["default"] }),
+    __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1_react_router_dom__["c" /* Route */], { path: '/main', component: __WEBPACK_IMPORTED_MODULE_6__Main_jsx__["default"] })
   )
 );
 
@@ -37266,7 +37277,7 @@ __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__HashRouter__ = __webpack_require__(292);
 /* unused harmony reexport HashRouter */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Link__ = __webpack_require__(284);
-/* unused harmony reexport Link */
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_2__Link__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__MemoryRouter__ = __webpack_require__(294);
 /* unused harmony reexport MemoryRouter */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__NavLink__ = __webpack_require__(297);
@@ -37276,7 +37287,7 @@ __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__Redirect__ = __webpack_require__(302);
 /* unused harmony reexport Redirect */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__Route__ = __webpack_require__(285);
-/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
+/* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return __WEBPACK_IMPORTED_MODULE_7__Route__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__Router__ = __webpack_require__(238);
 /* unused harmony reexport Router */
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__StaticRouter__ = __webpack_require__(308);
@@ -88759,6 +88770,27 @@ exports.default = {
 };
 module.exports = exports['default'];
 //# sourceMappingURL=defaultStyles.js.map
+
+/***/ }),
+/* 1254 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom__);
+
+
+
+const MovingLogo = () => __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement('embed', { src: 'https://vectr.com/ncreshon/avKl9L66R.svg?width=640&height=640&select=avKl9L66Rpage0' });
+
+// ReactDOM.render(
+//   <Challenge />,
+//   document.getElementById('challenge'),
+// );
+
+/* unused harmony default export */ var _unused_webpack_default_export = (MovingLogo);
 
 /***/ })
 /******/ ]);
