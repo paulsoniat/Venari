@@ -46,6 +46,7 @@ export default class RotatingCarousel extends React.Component {
             />))}
         </AutoRotatingCarousel>
       </div>
+      
     );
   }
 }
