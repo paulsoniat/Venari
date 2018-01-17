@@ -67,14 +67,14 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/main', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/main.html'));
-  });
+  // app.get('/main', (req, res) => {
+  //   res.sendFile(path.join(__dirname, './public/main.html'));
+  // });
 
-  app.get('/leaderboard', (req, res) => {
-    console.log('in get leaderboard')
-    res.sendFile(path.join(__dirname, './public/leaderboard.html'));
-  });
+  // app.get('/leaderboard', (req, res) => {
+  //   console.log('in get leaderboard')
+  //   res.sendFile(path.join(__dirname, './public/leaderboard.html'));
+  // });
 
   app.get('/users', routeHelpers.getUsersData);
 };

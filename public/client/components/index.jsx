@@ -6,10 +6,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Style from '../css/index.styl';
 import RaisedButton from 'material-ui/RaisedButton';
 import Main from './Main.jsx';
-import Challenge from './Challenge.jsx';
+import Challenge from './challenge.jsx';
 import MovingLogo from './MovingLogo.jsx';
 import Gallery from './Gallery.jsx';
 import Trophies from './Trophies.jsx';
+import Leaderboard from './Leaderboard.jsx';
 
 const Login = () => (
   <MuiThemeProvider>
@@ -35,9 +36,11 @@ const AppRouter = () => (
   <Router>
     <div>
       <h1><Link to="/main">Check out the Challenges!</Link></h1>
+      <h1><Link to="/leaderboard">Check out the Leaderboard!</Link></h1>
       <Route exact path="/" component={Login} />
       <Route path="/challenge/:id" component={Challenge} />
       <Route path="/main" component={Main} />
+      <Route path="/leaderboard" component={Leaderboard} />
     </div>
   </Router>
 );
