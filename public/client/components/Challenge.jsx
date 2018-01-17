@@ -12,7 +12,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 
-export default class ChallengeItems extends React.Component {
+export default class Challenge extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -55,4 +55,4 @@ export default class ChallengeItems extends React.Component {
 //   </div>
 // );
 
-export default Challenge;
+// export default Challenge;

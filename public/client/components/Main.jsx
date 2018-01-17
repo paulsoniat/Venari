@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import RotatingCarousel from './RotatingCarousel.jsx';
 import Leaderboard from './Leaderboard.jsx';
 import NavBar from './Navbar.jsx'
-import ChallengeItems from './challenge.jsx'
+import ChallengeItems from './Challenge.jsx'
 
 
 const Main = ({ history }) => (
