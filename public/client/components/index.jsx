@@ -28,18 +28,6 @@ const AppRouter = () => (
       <Route path="/main" component={Main} />
       <Route path="/Gallery" component={Gallery} />
       <Route path="/Trophies" component={Trophies} />
-    </div>
-  </Router>
-);
-
-const AppRouter = () => (
-  <Router>
-    <div>
-      <h1><Link to="/main">Check out the Challenges!</Link></h1>
-      <h1><Link to="/leaderboard">Check out the Leaderboard!</Link></h1>
-      <Route exact path="/" component={Login} />
-      <Route path="/challenge/:id" component={Challenge} />
-      <Route path="/main" component={Main} />
       <Route path="/leaderboard" component={Leaderboard} />
     </div>
   </Router>
