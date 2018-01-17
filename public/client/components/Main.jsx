@@ -5,13 +5,15 @@ import RaisedButton from 'material-ui/RaisedButton';
 import RotatingCarousel from './RotatingCarousel.jsx';
 import Leaderboard from './Leaderboard.jsx';
 import NavBar from './Navbar.jsx'
+import ChallengeItems from './challenge.jsx'
 
 
 const Main = () => (
   <MuiThemeProvider>
-    <NavBar></NavBar>
+    <NavBar />
+    <ChallengeItems />
 
-    <RotatingCarousel />
+    {/* <RotatingCarousel /> */}
   </MuiThemeProvider>
 );
 

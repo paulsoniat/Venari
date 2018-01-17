@@ -6,7 +6,7 @@ import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 function handleClick() {
-  alert('onClick triggered on the title component');
+  console.log('onClick triggered on the title component');
 }
 
 const styles = {
