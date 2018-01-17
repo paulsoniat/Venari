@@ -8,7 +8,6 @@ import NavBar from './Navbar.jsx'
 import ChallengeItems from './Challenge.jsx'
 import Gallery from './Gallery.jsx'
 
-
 const Main = ({ history }) => (
   <MuiThemeProvider>
     <RotatingCarousel history={history} />
