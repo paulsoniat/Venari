@@ -6,17 +6,11 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import Main from './Main.jsx';
 import Challenge from './Challenge.jsx';
-import MovingLogo from './VectorLogo.jsx';
+import MovingLogo from './MovingLogo.jsx';
 
 const Login = () => (
   <MuiThemeProvider>
-    <RaisedButton
-      className="signin-button"
-      label="Login/Signup With Facebook"
-      href="/login/facebook"
-      primary
-      labelColor="blue"
-    />
+    <MovingLogo />
   </MuiThemeProvider>
 );
 
@@ -25,7 +19,7 @@ const AppRouter = () => (
     <div>
       <h1><Link to="/main">Check out the Challenges!</Link></h1>
       <Route exact path="/" component={Login} />
-      <Route path="/challenge" component={Challenge} />
+      <Route path="/challenge/:id" component={Challenge} />
       <Route path="/main" component={Main} />
     </div>
   </Router>
@@ -33,5 +27,5 @@ const AppRouter = () => (
 
 ReactDOM.render(
   <AppRouter />,
-  document.getElementById('login'),
+  document.getElementById('appRouter'),
 );

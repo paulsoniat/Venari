@@ -38,7 +38,7 @@ module.exports = (app) => {
       res.render('login');
     },
   );
- 
+
   app.get(
     '/login/facebook',
     passport.authenticate('facebook'),
@@ -48,24 +48,24 @@ module.exports = (app) => {
     '/login/facebook/return',
     passport.authenticate('facebook', { failureRedirect: '/login' }),
     (req, res) => {
-      res.redirect('/main');
+      res.redirect('/');
     },
   );
-  
-  app.get('/challenges', routeHelpers.findAllChallenges);
 
-  app.get('/challenge:id', (req, res) => {
-    const resArr = []
-    resArr.push(req._parsedOriginalUrl)
-    const challengeId = resArr[0].path.slice(-1);
-    models.Challenge.findAll({
-      where: {
-        id: challengeId,
-      },
-    }).then((challenge) => {
-      res.send(challenge);
-    });
-  });
+  // app.get('/challenges', routeHelpers.findAllChallenges);
+
+  // app.get('/challenge:id', (req, res) => {
+  //   const resArr = []
+  //   resArr.push(req._parsedOriginalUrl)
+  //   const challengeId = resArr[0].path.slice(-1);
+  //   models.Challenge.findAll({
+  //     where: {
+  //       id: challengeId,
+  //     },
+  //   }).then((challenge) => {
+  //     res.send(challenge);
+  //   });
+  // });
 
   app.get('/main', (req, res) => {
     res.sendFile(path.join(__dirname, './public/main.html'));

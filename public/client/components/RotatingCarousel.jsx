@@ -19,7 +19,7 @@ export default class RotatingCarousel extends React.Component {
     });
   }
   changePage() {
-    this.props.history.push('/challenge')
+    this.props.history.push(`/challenge/:${this.state.challengeData[this.state.challengeId].id}`)
   }
 
   render() {

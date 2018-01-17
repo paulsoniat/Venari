@@ -11,9 +11,4 @@ const Main = ({ history }) => (
   </MuiThemeProvider>
 );
 
-// ReactDOM.render(
-//   <Main />,
-//   document.getElementById('main'),
-// );
-
 export default Main;

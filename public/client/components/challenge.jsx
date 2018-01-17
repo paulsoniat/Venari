@@ -4,15 +4,10 @@ import ImageUploadForm from './ImageUploadForm.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const Challenge = () => (
-  <MuiThemeProvider>
-    <h1>challenge component </h1>
-  </MuiThemeProvider>
+const Challenge = ({ match }) => (
+  <div>
+    <h1> {match.params.id.slice(1)} component </h1>
+  </div>
 );
-
-// ReactDOM.render(
-//   <Challenge />,
-//   document.getElementById('challenge'),
-// );
 
 export default Challenge;
