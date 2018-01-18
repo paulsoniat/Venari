@@ -81,6 +81,11 @@ module.exports = (app) => {
       res.send(items);
     });
   });
+  
+  app.get('/pictureAnalysis', (req, res) => {
+    console.log(req, "this is request");
+    res.send('hello');
+  });
 
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
 
