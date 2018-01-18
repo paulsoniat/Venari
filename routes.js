@@ -67,7 +67,14 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/main', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/main.html'));
+  // app.get('/main', (req, res) => {
+  //   res.sendFile(path.join(__dirname, './public/main.html'));
+  // });
+
+
+  app.get('/users', routeHelpers.getUsersData);
+
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
   });
 };

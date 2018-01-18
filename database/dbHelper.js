@@ -1,3 +1,4 @@
+const sequelize = require('./index');
 require('./associations');
 const models = require('./models');
 
@@ -26,6 +27,29 @@ module.exports = {
   },
   findSpecificChallenge: function findSpecificChallenge(req, res, challengeId) {
     console.log('placeholder for a more modular specific challenge finder');
+  },
+  getLeaderboardData: (callback) => {
+    models.User.findAll({
+      order: [['score', 'DESC']],
+      include: [
+        {
+          model: models.Badge,
+        },
+        {
+          model: models.Challenge,
+        },
+        {
+          model: models.Submission,
+        },
+      ],
+    })
+      .then((users) => {
+        callback(null, users);
+      })
+      .catch((err) => {
+        console.log(err);
+        callback(err);
+      });
   },
 };
 

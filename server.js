@@ -3,7 +3,6 @@ require('dotenv').config();
 
 const PORT = process.env.port;
 
-const dbHelper = require('./database/dbHelper');
 const app = express();
 app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
