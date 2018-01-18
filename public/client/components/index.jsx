@@ -22,7 +22,7 @@ const Login = () => (
 const AppRouter = () => (
   <Router>
     <div>
-      <h1><Link to="/main">Check out the Challenges!</Link></h1>
+      {/* <h1><Link to="/main">Check out the Challenges!</Link></h1> */}
       <Route exact path="/" component={Login} />
       <Route path="/challenge/:id" component={Challenge} />
       <Route path="/main" component={Main} />
