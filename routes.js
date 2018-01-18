@@ -4,7 +4,6 @@ const routeHelpers = require('./routehelpers.js');
 const models = require('./database/models');
 const path = require('path');
 
-let userName = '';
 
 passport.use(new Strategy(
   {

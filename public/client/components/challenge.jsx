@@ -30,10 +30,11 @@ export default class Challenge extends React.Component {
   }
 
   componentWillMount() {
-
     // axios.get('/login/facebook/getUser').then((res) => {
     //   console.log(res, "this is FB res")
     //   this.setState({ user: res, userLoaded: true})
+    // }).catch((err) => {
+    //   console.log(err);
     // });
 
     axios.get('/challenges').then((res) => {
@@ -47,7 +48,6 @@ export default class Challenge extends React.Component {
         this.setState({ items: res.data, loaded: true });
       });
     });
-
   }
 
   render() {
@@ -64,11 +64,11 @@ export default class Challenge extends React.Component {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {this.state.items.map((item, index) =>
-                (<TableRow key={index}>
+              {this.state.items.map((item, index) => (
+                <TableRow key={index}>
                   <TableRowColumn>{item.itemName}</TableRowColumn>
                   <ImageUploadForm challenge={this.state.challengeData.title} username="bob" item={item.name} />
-                 </TableRow>
+                </TableRow>
                 ))}
             </TableBody>
           </Table>
