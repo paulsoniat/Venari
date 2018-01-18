@@ -82,8 +82,9 @@ module.exports = (app) => {
     });
   });
   
-  app.get('/pictureAnalysis', (req, res) => {
-    console.log(req, "this is request");
+  app.post('/pictureAnalysis', (req, res) => {
+    console.log("in picture analysis")
+    console.log(req.body.imageFile, "this is request");
     res.send('hello');
   });
 
