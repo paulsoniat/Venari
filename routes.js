@@ -24,6 +24,13 @@ passport.deserializeUser((obj, cb) => {
   cb(null, obj);
 });
 
+const isLoggedIn = (req, res, next) => {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  return res.redirect('/');
+};
+
 module.exports = (app) => {
   app.use(passport.initialize());
   app.use(passport.session());
@@ -46,17 +53,22 @@ module.exports = (app) => {
 
   app.get(
     '/login/facebook/return',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
-    (req, res) => {
-      res.redirect('/main');
-    },
+    passport.authenticate('facebook', {
+      successRedirect: '/main',
+      failureRedirect: '/login',
+    }),
   );
 
-  app.get('/challenges', routeHelpers.findAllChallenges);
+  app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+  });
 
-  app.get('/challenge:id', (req, res) => {
-    const resArr = []
-    resArr.push(req._parsedOriginalUrl)
+  app.get('/challenges', isLoggedIn, routeHelpers.findAllChallenges);
+
+  app.get('/challenge:id', isLoggedIn, (req, res) => {
+    const resArr = [];
+    resArr.push(req._parsedOriginalUrl);
     const challengeId = resArr[0].path.slice(-1);
     models.Challenge.findAll({
       where: {
@@ -72,9 +84,9 @@ module.exports = (app) => {
   // });
 
 
-  app.get('/users', routeHelpers.getUsersData);
+  app.get('/users', isLoggedIn, routeHelpers.getUsersData);
 
-  app.get('/*', (req, res) => {
+  app.get('/*', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });
 };
