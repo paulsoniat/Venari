@@ -35,7 +35,7 @@ const Navbar = () => (
         targetOrigin={{ horizontal: 'left', vertical: 'top' }}
       >
         <MenuItem primaryText="Trophy Room" containerElement={<Link to="/Trophies" />} />
-        <MenuItem primaryText="Leader Board" />
+        <MenuItem primaryText="Leader Board" containerElement={<Link to="/leaderboard" />}  />
         <MenuItem primaryText="Gallery" containerElement={<Link to="/Gallery" />} />
         <MenuItem  primaryText='Challenges' containerElement={ <Link to="/main" />} />
         <MenuItem primaryText="Sign out" />
