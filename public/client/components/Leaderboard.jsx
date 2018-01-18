@@ -4,6 +4,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import axios from 'axios';
+import Navbar from './Navbar.jsx';
+
 
 import {
   Table,
@@ -56,6 +58,7 @@ export default class Leaderboard extends React.Component {
     return (
       <div>
         <MuiThemeProvider>
+          <Navbar />
           <div>
             <Table onRowSelection={this.handleSelected}>
               <TableHeader
