@@ -108,24 +108,35 @@ module.exports = (app) => {
         res.send(JSON.stringify(response, null, 2))
     });
   });
+
   app.post('/checkData', (req, res) => {
-    // if reults array contains item name
-    // send back a yes
-    // else send back no
+    console.log("in check data")
     const splitData = req.body.dataArray.split(',');
+    const checkData = splitData.slice(0, splitData.length - 2);
+    console.log(checkData, "this is check data")
     const challengeItem = splitData[splitData.length - 1];
-    if (splitData.includes(challengeItem)) {
+    console.log(challengeItem, "this is challenge item");
+    if (checkData.includes(challengeItem)) {
       res.send("yaaaaaaas");
     } else {
       res.send('no');
+      //res.redirect to challenge at id?
     }
   });
 
-  // in point count route
-  // send in challenge and item
-  // query for item name
-  // get point value for item
-  // add point to existing user
+  app.post('/addPoint', (req, res) => {
+    // const user = document.cookie.user;
+    const user = 'bob';
+    // in point count route
+    // send in challenge and item
+    console.log(req.body, "this is addpoint req body")
+    // query for item name
+    // get point value for item
+    // add point to existing user
+    console.log('in point add')
+
+  });
+
   app.get('/users', routeHelpers.getUsersData);
 
   app.get('/*', isLoggedIn, (req, res) => {

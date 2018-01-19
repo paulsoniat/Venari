@@ -19,10 +19,18 @@ export default class ImageUploadForm extends React.Component {
         classData.forEach(function (value) {
           classDataStructure.push(value.class)
         });
-        console.log(classDataStructure, "this is classData strucutre")
         axios.post('/checkData', `dataArray=${classDataStructure}, ${this.props.item}`)
           .then((res) => {
-            console.log(res, "ok")
+            console.log(res, "this is check data res")
+            if (res.data === "yaaaaaaas") {
+              axios.post('/addPoint', `pointData=${this.props.item}`)
+                .then((res) => {
+                  console.log(res, "this is add point res")
+                })
+                .catch((err) => {
+                  console.log(err, "this is add point err")
+                });
+            }
           })
           .catch((err) => {
             console.log(err, "this is error in check data")
