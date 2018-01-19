@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ImageUploadForm from './ImageUploadForm.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import {
@@ -12,6 +11,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import axios from 'axios';
+import ImageUploadForm from './ImageUploadForm.jsx';
 
 
 export default class Challenge extends React.Component {
@@ -27,13 +27,6 @@ export default class Challenge extends React.Component {
   }
 
   componentWillMount() {
-    // axios.get('/login/facebook/getUser').then((res) => {
-    //   console.log(res, "this is FB res")
-    //   this.setState({ user: res, userLoaded: true})
-    // }).catch((err) => {
-    //   console.log(err);
-    // });
-
     axios.get('/challenges').then((res) => {
       res.data.forEach((challenge) => {
         if (challenge.id.toString() === this.state.challengeId) {
@@ -52,9 +45,7 @@ export default class Challenge extends React.Component {
     return (
       <div>
         <MuiThemeProvider>
-          <Table
-            // onCellClick={(index) => { this.setState({ itemIndex: index }); }}
-          >
+          <Table>
             <TableHeader
               displaySelectAll={false}
               adjustForCheckbox={false}
@@ -81,5 +72,4 @@ export default class Challenge extends React.Component {
       </div>
     );
   }
-
 }

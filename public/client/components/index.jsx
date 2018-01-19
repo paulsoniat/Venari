@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import ReactDOM from 'react-dom';
-import ImageUploadForm from './ImageUploadForm.jsx';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Style from '../css/index.styl';
 import RaisedButton from 'material-ui/RaisedButton';
+import Style from '../css/index.styl';
+import ImageUploadForm from './ImageUploadForm.jsx';
 import Main from './Main.jsx';
 import Challenge from './challenge.jsx';
 import MovingLogo from './MovingLogo.jsx';
