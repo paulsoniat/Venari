@@ -46,8 +46,7 @@ export default class ImageUploadForm extends React.Component {
         console.error('error uploading image', err);
       } else {
         const filepath = data.Location;
-        console.log('filepath', filepath);
-        axios.post('/pictureAnalysis', `imageFile=${filepath}`)
+        axios.post('/pictureAnalysis', `imageFile=http://bnwrainbows.s3.amazonaws.com/${this.filepath}`)
           .then((res) => {
             const classData = res.data.images[0].classifiers[0].classes;
             const classDataStructure = [];
@@ -57,12 +56,21 @@ export default class ImageUploadForm extends React.Component {
             axios.post('/checkData', `dataArray=${classDataStructure}, ${this.props.item}`)
               .then((response) => {
                 if (response.data === 'yaaaaaaas') {
-                  axios.post('/addPoint', `pointData=${this.props.item}`)
-                    .then((pointResponse) => {
-                      console.log(pointResponse, 'this is add point res');
+                  // add another then satement that checks Y/N from user submission check
+                  axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challenge},${this.filepath}`)
+                    .then((res) => {
+                      if (res.data === 'newSubmission') {
+                        axios.post('/addPoint', `pointData=${this.props.item}`)
+                          .then((pointResponse) => {
+                            console.log(pointResponse, 'this is add point res');
+                          })
+                          .catch((err) => {
+                            console.log(err, 'this is add point err');
+                          });
+                      }
                     })
                     .catch((err) => {
-                      console.log(err, 'this is add point err');
+                      console.log(err, 'this is submission error');
                     });
                 }
               })

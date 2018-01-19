@@ -116,13 +116,26 @@ module.exports = (app) => {
   });
 
   app.post('/saveSubmission', (req, res) => {
-    console.log('in save submission')
-  })
+    const userId = req.user.id;
+    const splitData = req.body.submissionData.split(',');
+    const itemName = splitData[0];
+    models.Item.findOne({
+      where: { name: itemName },
+    }).then((item) => {
+      routeHelpers.findOrCreateSubmission(userId, item.dataValues.id, 'http://2wk128489wjq47m3kwxwe9hh.wpengine.netdna-cdn.com/wp-content/uploads/2017/08/burgers_main-bacon-cheeseburger-hamburger-stand.jpg')
+        .then((res) => {
+          console.log(res, 'this is submission find or create response');
+        });
+    }).catch((err) => {
+      console.log(err, 'error in submission on server side');
+    });
+  });
 
   app.post('/addPoint', (req, res) => {
     // const userData = 'Paul';
     const userData = req.user.name;
-    console.log(userData, "this is user data")
+    const fullUserData = req.user;
+    console.log(userData, 'this is user data');
     let pointValue = 0;
     models.Item.findOne({
       where: { name: req.body.pointData },
@@ -136,7 +149,7 @@ module.exports = (app) => {
           score: userScore + pointValue,
         }).then((res) => {
           console.log('updated points');
-        }).catch((err)=> {
+        }).catch((err) => {
           console.log(err, 'this is user point error');
         });
       });
