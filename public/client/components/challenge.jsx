@@ -18,11 +18,8 @@ export default class Challenge extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
-=======
       items: [],
       itemIndex: '',
->>>>>>> [challenge] challenge page renders dynamic items related to that challenge on page load
       challengeData: [],
       challengeId: props.match.params.id.slice(1),
       user: '',
