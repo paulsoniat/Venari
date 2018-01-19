@@ -11,8 +11,11 @@ passport.use(new Strategy(
     callbackURL: '/login/facebook/return',
   },
   (accessToken, refreshToken, profile, cb) => {
-    routeHelpers.findOrCreateUser(profile);
-    cb(null, profile);
+    process.nextTick(() => {
+      routeHelpers.findOrCreateUser(profile, accessToken, (user) => {
+        cb(null, user);
+      });
+    });
   },
 ));
 
@@ -23,6 +26,14 @@ passport.serializeUser((user, cb) => {
 passport.deserializeUser((obj, cb) => {
   cb(null, obj);
 });
+
+const isLoggedIn = (req, res, next) => {
+  console.log('req.user', req.user);
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  return res.redirect('/');
+};
 
 module.exports = (app) => {
   app.use(passport.initialize());
@@ -46,17 +57,24 @@ module.exports = (app) => {
 
   app.get(
     '/login/facebook/return',
-    passport.authenticate('facebook', { failureRedirect: '/login' }),
-    (req, res) => {
-      res.redirect('/main');
-    },
+    passport.authenticate('facebook', {
+      successRedirect: '/main',
+      failureRedirect: '/login',
+    }),
   );
 
-  app.get('/challenges', routeHelpers.findAllChallenges);
+  app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+  });
 
-  app.get('/challenge:id', (req, res) => {
-    const resArr = []
-    resArr.push(req._parsedOriginalUrl)
+  app.get('/user', isLoggedIn, routeHelpers.getUserSession);
+
+  app.get('/challenges', isLoggedIn, routeHelpers.findAllChallenges);
+
+  app.get('/challenge:id', isLoggedIn, (req, res) => {
+    const resArr = [];
+    resArr.push(req._parsedOriginalUrl);
     const challengeId = resArr[0].path.slice(-1);
     models.Challenge.findAll({
       where: {
@@ -67,14 +85,9 @@ module.exports = (app) => {
     });
   });
 
-  // app.get('/main', (req, res) => {
-  //   res.sendFile(path.join(__dirname, './public/main.html'));
-  // });
+  app.get('/users', isLoggedIn, routeHelpers.getUsersData);
 
-
-  app.get('/users', routeHelpers.getUsersData);
-
-  app.get('/*', (req, res) => {
+  app.get('/*', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });
 };
