@@ -55,7 +55,6 @@ export default class ImageUploadForm extends React.Component {
             });
             axios.post('/checkData', `dataArray=${classDataStructure}, ${this.props.item}`)
               .then((response) => {
-                console.log('in check data on client')
                 if (response.data === 'yaaaaaaas') {
                   // add another then satement that checks Y/N from user submission check
                   axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challenge},http://bnwrainbows.s3.amazonaws.com/${photoKey}`)
