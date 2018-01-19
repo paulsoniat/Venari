@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import Navbar from './Navbar.jsx';
+
 import {
   Table,
   TableBody,
@@ -48,16 +50,19 @@ export default class Challenge extends React.Component {
   render() {
     if (!this.state.loaded) return <div>Loading New Challenges</div>;
     return (
-      <div>
+      <div id="challenge" >
         <MuiThemeProvider>
-          <Table>
-            <TableHeader
+          <Navbar />
+          <Table
+            // onCellClick={(index) => { this.setState({ itemIndex: index }); }}
+          >
+            <TableHeader 
               displaySelectAll={false}
               adjustForCheckbox={false}
               enableSelectAll={false}
             >
               <TableRow>
-                <TableHeaderColumn>{this.state.challengeData.title}</TableHeaderColumn>
+                <TableHeaderColumn style={{ fontWeight: 'bold', fontSize: '24px'}}>{this.state.challengeData.title}</TableHeaderColumn>
               </TableRow>
             </TableHeader>
             <TableBody
