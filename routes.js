@@ -115,9 +115,14 @@ module.exports = (app) => {
     }
   });
 
+  app.post('/saveSubmission', (req, res) => {
+    console.log('in save submission')
+  })
+
   app.post('/addPoint', (req, res) => {
-    const userData = 'Paul';
-    // const userData = req.user.name;
+    // const userData = 'Paul';
+    const userData = req.user.name;
+    console.log(userData, "this is user data")
     let pointValue = 0;
     models.Item.findOne({
       where: { name: req.body.pointData },
