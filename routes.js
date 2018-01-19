@@ -93,7 +93,7 @@ module.exports = (app) => {
     });
 
     const parameters = {
-      url: "http://2wk128489wjq47m3kwxwe9hh.wpengine.netdna-cdn.com/wp-content/uploads/2017/08/burgers_main-bacon-cheeseburger-hamburger-stand.jpg"
+      url: 'http://2wk128489wjq47m3kwxwe9hh.wpengine.netdna-cdn.com/wp-content/uploads/2017/08/burgers_main-bacon-cheeseburger-hamburger-stand.jpg',
     };
 
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
@@ -102,39 +102,57 @@ module.exports = (app) => {
     };
 
     visual_recognition.classify(params, (err, response) => {
-      if (err)
-        console.log(err);
-      else
-        res.send(JSON.stringify(response, null, 2))
+      if (err) { console.log(err); } else { res.send(JSON.stringify(response, null, 2)); }
     });
   });
 
   app.post('/checkData', (req, res) => {
-    console.log("in check data")
+    console.log('in check data');
     const splitData = req.body.dataArray.split(',');
     const checkData = splitData.slice(0, splitData.length - 2);
-    console.log(checkData, "this is check data")
-    const challengeItem = splitData[splitData.length - 1];
-    console.log(challengeItem, "this is challenge item");
-    if (checkData.includes(challengeItem)) {
-      res.send("yaaaaaaas");
+    console.log(checkData, 'this is check data');
+    const challengeItem = splitData[splitData.length - 1].toString();
+    console.log(challengeItem, 'this is challenge item');
+
+    // got to account for no somehow above
+    if (splitData.includes(challengeItem)) {
+      res.send('yaaaaaaas');
     } else {
       res.send('no');
-      //res.redirect to challenge at id?
+      // res.redirect to challenge at id?
     }
   });
 
   app.post('/addPoint', (req, res) => {
     // const user = document.cookie.user;
-    const user = 'bob';
+    const user = 'Paul';
+    let pointValue = 0;
     // in point count route
     // send in challenge and item
-    console.log(req.body, "this is addpoint req body")
+    console.log(req.body, 'this is addpoint req body');
     // query for item name
+    models.Item.findOne({
+      where: { name: req.body.pointData },
+    }).then((item) => {
+      pointValue = item.dataValues.value;
+      models.User.findOne({
+        where: { name: user },
+      }).then((user) => {
+        console.log(user);
+        const userScore = user.dataValues.score;
+        user.updateAttributes({
+          score: userScore + pointValue,
+        }).then((res) => {
+          console.log("updated points")
+        }).catch((err)=> {
+          console.log(err, "this is user point error")
+        })
+      });
+    }).catch((err) => {
+      console.log(err, 'this is error from item finding');
+    });
     // get point value for item
     // add point to existing user
-    console.log('in point add')
-
   });
 
   app.get('/users', routeHelpers.getUsersData);
