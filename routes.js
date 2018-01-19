@@ -86,10 +86,6 @@ module.exports = (app) => {
   app.post('/pictureAnalysis', (req, res) => {
     // send the url to watson
     // get the results of watson into an array
-    // if reults array contains item name
-    // send back a yes
-    // else send back no
-    console.log('in picture analysis');
     const visual_recognition = watson.visual_recognition({
       api_key: process.env.WATSONKEY,
       version: 'v3',
@@ -97,7 +93,7 @@ module.exports = (app) => {
     });
 
     const parameters = {
-      url: "https://www.tacobueno.com/assets/food/tacos/Taco_BFT_Beef_990x725.jpg"
+      url: "http://2wk128489wjq47m3kwxwe9hh.wpengine.netdna-cdn.com/wp-content/uploads/2017/08/burgers_main-bacon-cheeseburger-hamburger-stand.jpg"
     };
 
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
@@ -111,6 +107,18 @@ module.exports = (app) => {
       else
         res.send(JSON.stringify(response, null, 2))
     });
+  });
+  app.post('/checkData', (req, res) => {
+    // if reults array contains item name
+    // send back a yes
+    // else send back no
+    const splitData = req.body.dataArray.split(',');
+    const challengeItem = splitData[splitData.length - 1];
+    if (splitData.includes(challengeItem)) {
+      res.send("yaaaaaaas");
+    } else {
+      res.send('no');
+    }
   });
 
   // in point count route
