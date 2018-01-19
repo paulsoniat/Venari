@@ -55,7 +55,7 @@ module.exports = {
         callback(err);
       });
   },
-  findOrCreateSubmission: function findOrCreateSubmission(userId, itemId, image) {
+  findOrCreateSubmission: function findOrCreateSubmission(userId, itemId, image, cb) {
     models.Submission.findOrCreate({
       where: {
         userId,
@@ -65,11 +65,9 @@ module.exports = {
         image,
       },
     }).spread((submission, created) => {
-      if (created) {
-        return true;
-      } return false;
+      cb(created);
     }).catch((err) => {
-      console.log(err, "this is error after spread")
+      console.log(err, 'this is error after spread');
     });
   },
 };

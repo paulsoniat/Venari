@@ -59,14 +59,16 @@ export default class ImageUploadForm extends React.Component {
                   // add another then satement that checks Y/N from user submission check
                   axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challenge},${this.filepath}`)
                     .then((res) => {
-                      if (res.data === 'newSubmission') {
+                      if (res.data === 'created') {
                         axios.post('/addPoint', `pointData=${this.props.item}`)
                           .then((pointResponse) => {
-                            console.log(pointResponse, 'this is add point res');
+                            console.log(pointResponse, 'this is add point res so we added a point to this MAFK');
                           })
                           .catch((err) => {
                             console.log(err, 'this is add point err');
                           });
+                      } else {
+                        console.log("already given points for this challenge, stupid MAFK")
                       }
                     })
                     .catch((err) => {

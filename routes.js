@@ -122,10 +122,13 @@ module.exports = (app) => {
     models.Item.findOne({
       where: { name: itemName },
     }).then((item) => {
-      routeHelpers.findOrCreateSubmission(userId, item.dataValues.id, 'http://2wk128489wjq47m3kwxwe9hh.wpengine.netdna-cdn.com/wp-content/uploads/2017/08/burgers_main-bacon-cheeseburger-hamburger-stand.jpg')
-        .then((res) => {
-          console.log(res, 'this is submission find or create response');
-        });
+      routeHelpers.findOrCreateSubmission(3, item.dataValues.id, 'k128489wjq47m3kwxwe9hh.wpengine.netdna-cdn.com/wp-content/uploads/2017/08/burgers_main-bacon-cheeseburger-hamburger-stand.jpg', (created) => {
+        if (created) {
+          res.send('created');
+        } else {
+          res.send('exists');
+        }
+      });
     }).catch((err) => {
       console.log(err, 'error in submission on server side');
     });
