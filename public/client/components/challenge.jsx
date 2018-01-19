@@ -55,10 +55,11 @@ export default class Challenge extends React.Component {
           <Table
             // onCellClick={(index) => { this.setState({ itemIndex: index }); }}
           >
-            <TableHeader 
+            <TableHeader
               displaySelectAll={false}
               adjustForCheckbox={false}
-              enableSelectAll={false}>
+              enableSelectAll={false}
+            >
               <TableRow>
                 <TableHeaderColumn>{this.state.challengeData.title}</TableHeaderColumn>
               </TableRow>
@@ -68,9 +69,10 @@ export default class Challenge extends React.Component {
               showRowHover
             >
               {this.state.items.map((item, index) => (
-                <TableRow key={index}>
-                  <TableRowColumn><ImageUploadForm challenge={this.state.challengeData.title} username="bob" item={item.name} /></TableRowColumn>
-                  {/* <ImageUploadForm challenge={this.state.challengeData.title} username="bob" item={item.name} /> */}
+                <TableRow key={item.id}>
+                  <TableRowColumn>
+                    <ImageUploadForm index={index} challenge={this.state.challengeData.title} username="bob" item={item.name} />
+                  </TableRowColumn>
                 </TableRow>
                 ))}
             </TableBody>
