@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import axios from 'axios';
-import Navbar from './Navbar.jsx';
-
-
 import {
   Table,
   TableBody,
@@ -15,6 +12,8 @@ import {
   TableRow,
   TableRowColumn,
 } from 'material-ui/Table';
+import Navbar from './Navbar.jsx';
+
 
 export default class Leaderboard extends React.Component {
   constructor(props) {
@@ -33,7 +32,6 @@ export default class Leaderboard extends React.Component {
 
   componentDidMount() {
     axios.get('/users').then((response) => {
-      console.log(response.data);
       this.setState({
         data: response.data,
       });
@@ -58,8 +56,8 @@ export default class Leaderboard extends React.Component {
     return (
       <div>
         <MuiThemeProvider>
-          <Navbar />
           <div>
+            <Navbar />
             <Table onRowSelection={this.handleSelected}>
               <TableHeader
                 displaySelectAll={false}
@@ -70,9 +68,6 @@ export default class Leaderboard extends React.Component {
                   <TableHeaderColumn style={this.state.numColStyle}>Rank</TableHeaderColumn>
                   <TableHeaderColumn>User</TableHeaderColumn>
                   <TableHeaderColumn style={this.state.numColStyle}>Score</TableHeaderColumn>
-                  {/* <TableHeaderColumn style={this.state.numColStyle}>Badges</TableHeaderColumn> */}
-                  {/* <TableHeaderColumn style={this.state.numColStyle}>Challenges Completed</TableHeaderColumn> */}
-                  {/* <TableHeaderColumn style={this.state.numColStyle}>Total Submissions</TableHeaderColumn> */}
                 </TableRow>
               </TableHeader>
               <TableBody
@@ -84,9 +79,6 @@ export default class Leaderboard extends React.Component {
                     <TableRowColumn style={this.state.numColStyle}>{i + 1}</TableRowColumn>
                     <TableRowColumn>{user.name}</TableRowColumn>
                     <TableRowColumn style={this.state.numColStyle}>{user.score}</TableRowColumn>
-                    {/* <TableRowColumn style={this.state.numColStyle}>{user.badges.length}</TableRowColumn> */}
-                    {/* <TableRowColumn style={this.state.numColStyle}>{user.challenges.length}</TableRowColumn> */}
-                    {/* <TableRowColumn style={this.state.numColStyle}>{user.submissions.length}</TableRowColumn> */}
                   </TableRow>
                 ))}
               </TableBody>
@@ -123,4 +115,9 @@ const Selected = ({ user, open, close }) => {
         <p>Total Score: {user.score}</p>
       </Dialog> : null
   );
+};
+
+Selected.propTypes = {
+  open: PropTypes.bool.isRequired,
+  close: PropTypes.func.isRequired,
 };

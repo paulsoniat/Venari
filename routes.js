@@ -1,5 +1,5 @@
 const passport = require('passport');
-const Strategy = require('passport-facebook').Strategy;
+const { Strategy } = require('passport-facebook');
 const routeHelpers = require('./routehelpers.js');
 const models = require('./database/models');
 const path = require('path');
@@ -93,7 +93,6 @@ module.exports = (app) => {
       url: 'http://2wk128489wjq47m3kwxwe9hh.wpengine.netdna-cdn.com/wp-content/uploads/2017/08/burgers_main-bacon-cheeseburger-hamburger-stand.jpg',
     };
 
-  app.get('/users', isLoggedIn, routeHelpers.getUsersData);
     const params = {
       parameters,
     };
@@ -141,7 +140,7 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/users', routeHelpers.getUsersData);
+  app.get('/users', isLoggedIn, routeHelpers.getUsersData);
 
   app.get('/*', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
