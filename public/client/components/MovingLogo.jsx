@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 
+//separate logo and login
+
 const MovingLogo = () => (
   <div>
     <h1>
