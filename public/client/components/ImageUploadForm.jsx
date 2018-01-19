@@ -14,27 +14,25 @@ export default class ImageUploadForm extends React.Component {
     axios.post('/pictureAnalysis', `imageFile=http://bnwrainbows.s3.amazonaws.com/${this.filepath}`)
       .then((res) => {
         const classData = res.data.images[0].classifiers[0].classes;
-        console.log(classData, "this is data")
-        let classDataStructure = [];
-        classData.forEach(function (value) {
-          classDataStructure.push(value.class)
+        const classDataStructure = [];
+        classData.forEach((value) => {
+          classDataStructure.push(value.class);
         });
         axios.post('/checkData', `dataArray=${classDataStructure}, ${this.props.item}`)
-          .then((res) => {
-            console.log(res, "this is check data res")
-            if (res.data === "yaaaaaaas") {
+          .then((response) => {
+            if (response.data === 'yaaaaaaas') {
               axios.post('/addPoint', `pointData=${this.props.item}`)
-                .then((res) => {
-                  console.log(res, "this is add point res")
+                .then((pointResponse) => {
+                  console.log(pointResponse, 'this is add point res');
                 })
                 .catch((err) => {
-                  console.log(err, "this is add point err")
+                  console.log(err, 'this is add point err');
                 });
             }
           })
           .catch((err) => {
-            console.log(err, "this is error in check data")
-          })
+            console.log(err, 'this is error in check data');
+          });
       }).catch((err) => {
         console.log(err.response, 'this is error overall');
       });

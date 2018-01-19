@@ -84,8 +84,6 @@ module.exports = (app) => {
   });
 
   app.post('/pictureAnalysis', (req, res) => {
-    // send the url to watson
-    // get the results of watson into an array
     const visual_recognition = watson.visual_recognition({
       api_key: process.env.WATSONKEY,
       version: 'v3',
@@ -107,20 +105,10 @@ module.exports = (app) => {
   });
 
   app.post('/checkData', (req, res) => {
-    console.log('in check data');
     const splitData = req.body.dataArray.split(',');
     const checkData = splitData.slice(0, splitData.length - 2);
-    console.log(checkData, 'this is check data');
     let challengeItem = splitData[splitData.length - 1];
     challengeItem = challengeItem.slice(1, challengeItem.length);
-    console.log(challengeItem, 'this is challenge item');
-
-    // got to account for no somehow above
-    var x = checkData.indexOf(challengeItem)
-    console.log(typeof challengeItem, "this is challenge item")
-    console.log(challengeItem.length, checkData[0].length, "compare these mafks")
-    console.log(x, "this is x")
-
     if (checkData.indexOf(challengeItem) !== -1) {
       res.send('yaaaaaaas');
     } else {
@@ -130,35 +118,28 @@ module.exports = (app) => {
   });
 
   app.post('/addPoint', (req, res) => {
-    // const user = document.cookie.user;
-    const user = 'Paul';
+    const userData = 'Paul';
+    // const userData = req.user.name;
     let pointValue = 0;
-    // in point count route
-    // send in challenge and item
-    console.log(req.body, 'this is addpoint req body');
-    // query for item name
     models.Item.findOne({
       where: { name: req.body.pointData },
     }).then((item) => {
       pointValue = item.dataValues.value;
       models.User.findOne({
-        where: { name: user },
+        where: { name: userData },
       }).then((user) => {
-        console.log(user);
         const userScore = user.dataValues.score;
         user.updateAttributes({
           score: userScore + pointValue,
         }).then((res) => {
-          console.log("updated points")
+          console.log('updated points');
         }).catch((err)=> {
-          console.log(err, "this is user point error")
-        })
+          console.log(err, 'this is user point error');
+        });
       });
     }).catch((err) => {
       console.log(err, 'this is error from item finding');
     });
-    // get point value for item
-    // add point to existing user
   });
 
   app.get('/users', routeHelpers.getUsersData);
