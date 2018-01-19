@@ -4,16 +4,20 @@ const models = require('./models');
 
 // add database functions here
 module.exports = {
-  findOrCreateUser: function findOrCreateUser(userProfile) {
+  findOrCreateUser: function findOrCreateUser(userProfile, accessToken, callback) {
     models.User.findOrCreate({
       where: { fbId: userProfile.id },
-      defaults: { name: userProfile.displayName },
+      defaults: {
+        name: userProfile.displayName,
+        // fbToken: accessToken,
+      },
     })
       .spread((user, created) => {
         console.log(user.get({
           plain: true,
         }));
         console.log(created);
+        callback(user);
       });
   },
   findAllChallenges: function findAllChallenges(req, res) {

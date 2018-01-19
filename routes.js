@@ -11,8 +11,11 @@ passport.use(new Strategy(
     callbackURL: '/login/facebook/return',
   },
   (accessToken, refreshToken, profile, cb) => {
-    routeHelpers.findOrCreateUser(profile);
-    cb(null, profile);
+    process.nextTick(() => {
+      routeHelpers.findOrCreateUser(profile, accessToken, (user) => {
+        cb(null, user);
+      });
+    });
   },
 ));
 
@@ -25,6 +28,7 @@ passport.deserializeUser((obj, cb) => {
 });
 
 const isLoggedIn = (req, res, next) => {
+  console.log('req.user', req.user);
   if (req.isAuthenticated()) {
     return next();
   }
@@ -64,6 +68,8 @@ module.exports = (app) => {
     res.redirect('/');
   });
 
+  app.get('/user', isLoggedIn, routeHelpers.getUserSession);
+
   app.get('/challenges', isLoggedIn, routeHelpers.findAllChallenges);
 
   app.get('/challenge:id', isLoggedIn, (req, res) => {
@@ -78,11 +84,6 @@ module.exports = (app) => {
       res.send(challenge);
     });
   });
-
-  // app.get('/main', (req, res) => {
-  //   res.sendFile(path.join(__dirname, './public/main.html'));
-  // });
-
 
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
 

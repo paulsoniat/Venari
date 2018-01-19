@@ -11,6 +11,9 @@ module.exports = {
       } else {
         res.send(data);
       }
-    })
+    });
+  },
+  getUserSession: (req, res) => {
+    res.send(req.user);
   },
 };
