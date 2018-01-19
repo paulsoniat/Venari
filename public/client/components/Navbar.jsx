@@ -37,11 +37,7 @@ const Navbar = () => (
         <MenuItem primaryText="Trophy Room" containerElement={<Link to="/Trophies" />} />
         <MenuItem primaryText="Leader Board" containerElement={<Link to="/leaderboard" />} />
         <MenuItem primaryText="Gallery" containerElement={<Link to="/Gallery" />} />
-<<<<<<< 34c0ad2116934e9cdf7bfd4ec80cd874169769ce
         <MenuItem primaryText='Challenges' containerElement={<Link to="/main" />} />
-=======
-        <MenuItem  primaryText='Challenges' containerElement={ <Link to="/main" />} />
->>>>>>> [navbar] add link to logout route and add minor styling changes to rotatingcarousel.jsx
         <MenuItem primaryText="Sign out" href="/logout" />
       </IconMenu>}
   />
