@@ -111,11 +111,17 @@ module.exports = (app) => {
     const splitData = req.body.dataArray.split(',');
     const checkData = splitData.slice(0, splitData.length - 2);
     console.log(checkData, 'this is check data');
-    const challengeItem = splitData[splitData.length - 1].toString();
+    let challengeItem = splitData[splitData.length - 1];
+    challengeItem = challengeItem.slice(1, challengeItem.length);
     console.log(challengeItem, 'this is challenge item');
 
     // got to account for no somehow above
-    if (splitData.includes(challengeItem)) {
+    var x = checkData.indexOf(challengeItem)
+    console.log(typeof challengeItem, "this is challenge item")
+    console.log(challengeItem.length, checkData[0].length, "compare these mafks")
+    console.log(x, "this is x")
+
+    if (checkData.indexOf(challengeItem) !== -1) {
       res.send('yaaaaaaas');
     } else {
       res.send('no');
