@@ -38,7 +38,7 @@ const Navbar = () => (
         <MenuItem primaryText="Leader Board" containerElement={<Link to="/leaderboard" />} />
         <MenuItem primaryText="Gallery" containerElement={<Link to="/Gallery" />} />
         <MenuItem primaryText='Challenges' containerElement={<Link to="/main" />} />
-        <MenuItem primaryText="Sign out" containerElement={<Link to={{ pathname: "/logout" }} />} />
+        <MenuItem primaryText="Sign out" href="/logout" />
       </IconMenu>}
   />
 );

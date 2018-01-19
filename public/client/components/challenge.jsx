@@ -53,18 +53,24 @@ export default class Challenge extends React.Component {
       <div>
         <MuiThemeProvider>
           <Table
-            onCellClick={(index) => { this.setState({ itemIndex: index }); }}
+            // onCellClick={(index) => { this.setState({ itemIndex: index }); }}
           >
-            <TableHeader>
+            <TableHeader 
+              displaySelectAll={false}
+              adjustForCheckbox={false}
+              enableSelectAll={false}>
               <TableRow>
-                <TableHeaderColumn>Hunt List</TableHeaderColumn>
+                <TableHeaderColumn>{this.state.challengeData.title}</TableHeaderColumn>
               </TableRow>
             </TableHeader>
-            <TableBody>
+            <TableBody
+              displayRowCheckbox={false}
+              showRowHover
+            >
               {this.state.items.map((item, index) => (
                 <TableRow key={index}>
-                  <TableRowColumn>{item.itemName}</TableRowColumn>
-                  <ImageUploadForm challenge={this.state.challengeData.title} username="bob" item={item.name} />
+                  <TableRowColumn><ImageUploadForm challenge={this.state.challengeData.title} username="bob" item={item.name} /></TableRowColumn>
+                  {/* <ImageUploadForm challenge={this.state.challengeData.title} username="bob" item={item.name} /> */}
                 </TableRow>
                 ))}
             </TableBody>

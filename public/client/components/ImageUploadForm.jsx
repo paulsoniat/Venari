@@ -40,7 +40,6 @@ export default class ImageUploadForm extends React.Component {
 
   render() {
     return (
-      <div>
         <form action="http://bnwrainbows.s3.amazonaws.com/" encType="multipart/form-data" method="post">
           <p>
             Upload an image of a {this.props.item} for {this.props.challenge}:
@@ -48,11 +47,8 @@ export default class ImageUploadForm extends React.Component {
             <input type="hidden" name="key" value={this.filepath} />
             <input type="file" accept="image/jpeg" name="file" />
           </p>
-          <div>
             <button type="submit" onClick={this.handleSubmit}>Upload Image</button>
-          </div>
         </form>
-      </div>
     );
   }
 }
