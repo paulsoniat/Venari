@@ -13,6 +13,7 @@
   "author": "Black and White Rainbows",
   "license": "ISC",
   "dependencies": {
+    "aws-sdk": "^2.184.0",
     "axios": "^0.17.1",
     "babel": "^6.23.0",
     "babel-core": "^6.26.0",
