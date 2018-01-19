@@ -83,6 +83,7 @@ module.exports = (app) => {
   });
 
   app.post('/pictureAnalysis', (req, res) => {
+    console.log(req.body, "this is picture analysis request")
     const visual_recognition = watson.visual_recognition({
       api_key: process.env.WATSONKEY,
       version: 'v3',
@@ -90,7 +91,7 @@ module.exports = (app) => {
     });
 
     const parameters = {
-      url: 'http://2wk128489wjq47m3kwxwe9hh.wpengine.netdna-cdn.com/wp-content/uploads/2017/08/burgers_main-bacon-cheeseburger-hamburger-stand.jpg',
+      url: req.body.imageFile,
     };
 
     const params = {
@@ -116,13 +117,15 @@ module.exports = (app) => {
   });
 
   app.post('/saveSubmission', (req, res) => {
-    const userId = req.user.id;
+    // const userId = req.user.id;
     const splitData = req.body.submissionData.split(',');
+    const link = splitData[2];
     const itemName = splitData[0];
     models.Item.findOne({
       where: { name: itemName },
     }).then((item) => {
-      routeHelpers.findOrCreateSubmission(3, item.dataValues.id, 'k128489wjq47m3kwxwe9hh.wpengine.netdna-cdn.com/wp-content/uploads/2017/08/burgers_main-bacon-cheeseburger-hamburger-stand.jpg', (created) => {
+      const itemId = item.dataValues.id;
+      routeHelpers.findOrCreateSubmission(3, itemId, link, (created) => {
         if (created) {
           res.send('created');
         } else {
