@@ -5,7 +5,7 @@ import axios from 'axios';
 export default class ImageUploadForm extends React.Component {
   constructor(props) {
     super(props);
-    this.filepath = `${props.challenge}/${props.username}/${props.item}.jpg`;
+    this.filepath = `${props.challenge.split(' ').join('')}/${props.username}/${props.item}.jpg`;
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -22,12 +22,12 @@ export default class ImageUploadForm extends React.Component {
   render() {
     return (
       <div>
-        <form action="http://bnwrainbows.s3.amazonaws.com/" encType="multipart/form-data" method="post" onSubmit={this.handleSubmit}>
+        <form action="http://bnwrainbows.s3.amazonaws.com/" encType="multipart/form-data" method="post">
           <p>
             Upload an image of a {this.props.item} for {this.props.challenge}:
             <br />
             <input type="hidden" name="key" value={this.filepath} />
-            <input type="file" name="file" />
+            <input type="file" accept="image/jpeg" name="file" />
           </p>
           <div>
             <button type="submit" onClick={this.handleSubmit}>Upload Image</button>
@@ -44,3 +44,54 @@ ImageUploadForm.propTypes = {
   item: PropTypes.string.isRequired,
 };
 
+// class ImageUpload extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       file: '',
+//       imagePreviewUrl: ''
+//     };
+//     this._handleImageChange = this._handleImageChange.bind(this);
+//     this._handleSubmit = this._handleSubmit.bind(this);
+//   }
+
+//   _handleSubmit(e) {
+//     e.preventDefault();
+//     // TODO: do something with -> this.state.file
+//   }
+
+//   _handleImageChange(e) {
+//     e.preventDefault();
+
+//     let reader = new FileReader();
+//     let file = e.target.files[0];
+
+//     reader.onloadend = () => {
+//       this.setState({
+//         file: file,
+//         imagePreviewUrl: reader.result
+//       });
+//     }
+
+//     reader.readAsDataURL(file)
+//   }
+
+//   render() {
+//     let { imagePreviewUrl } = this.state;
+//     let $imagePreview = null;
+//     if (imagePreviewUrl) {
+//       $imagePreview = (<img src={imagePreviewUrl} />);
+//     }
+
+//     return (
+//       <div>
+//         <form onSubmit={this._handleSubmit}>
+//           <input type="file" onChange={this._handleImageChange} />
+//           <button type="submit" onClick={this._handleSubmit}>Upload Image</button>
+//         </form>
+//         {$imagePreview}
+//       </div>
+//     )
+//   }
+
+// }

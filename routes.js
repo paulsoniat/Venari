@@ -3,7 +3,8 @@ const Strategy = require('passport-facebook').Strategy;
 const routeHelpers = require('./routehelpers.js');
 const models = require('./database/models');
 const path = require('path');
-
+const watson = require('watson-developer-cloud');
+const fs = require('fs');
 
 passport.use(new Strategy(
   {
@@ -81,14 +82,43 @@ module.exports = (app) => {
       res.send(items);
     });
   });
-  
+
   app.post('/pictureAnalysis', (req, res) => {
-    console.log("in picture analysis")
-    console.log(req.body.imageFile, "this is request");
-    res.send('hello');
-  });
+    // send the url to watson
+    // get the results of watson into an array
+    // if reults array contains item name
+    // send back a yes
+    // else send back no
+    console.log('in picture analysis');
+    const visual_recognition = watson.visual_recognition({
+      api_key: process.env.WATSONKEY,
+      version: 'v3',
+      version_date: '2016-05-20',
+    });
+
+    const parameters = {
+      url: "https://www.tacobueno.com/assets/food/tacos/Taco_BFT_Beef_990x725.jpg"
+    };
 
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
+    const params = {
+      parameters,
+    };
+
+    visual_recognition.classify(params, (err, response) => {
+      if (err)
+        console.log(err);
+      else
+        res.send(JSON.stringify(response, null, 2))
+    });
+  });
+
+  // in point count route
+  // send in challenge and item
+  // query for item name
+  // get point value for item
+  // add point to existing user
+  app.get('/users', routeHelpers.getUsersData);
 
   app.get('/*', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
