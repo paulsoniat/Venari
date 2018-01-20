@@ -2,10 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import AWS from 'aws-sdk';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
 
 const albumBucketName = 'bnwrainbows';
 const bucketRegion = 'us-east-2';
 const IdPoolId = 'us-east-2:5cdc129e-149d-4a6a-92dc-064f77740edf';
+const capitalize = word => word.split('')[0].toUpperCase() + word.split('').slice(1).join('');
+
 
 export default class ImageUploadForm extends React.Component {
   constructor(props) {
@@ -13,6 +17,9 @@ export default class ImageUploadForm extends React.Component {
 
     this.state = {
       loading: false,
+      open: false,
+      message: 'this should not show up',
+      title: 'this too',
     };
 
     AWS.config.update({
@@ -28,6 +35,7 @@ export default class ImageUploadForm extends React.Component {
     });
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.closeModal = this.closeModal.bind(this);
   }
 
   handleSubmit(e) {
@@ -68,20 +76,37 @@ export default class ImageUploadForm extends React.Component {
                       if (res.data === 'created') {
                         axios.post('/addPoint', `pointData=${this.props.item}`)
                           .then((pointResponse) => {
-                            this.setState({ loading: false });
                             console.log(pointResponse, 'this is add point res so we added a point to this MAFK');
+                            this.setState({
+                              loading: false,
+                              open: true,
+                              message: `${capitalize(this.props.item)} submission successful`,
+                              title: 'Success!',
+                            });
                           })
                           .catch((err) => {
                             console.log(err, 'this is add point err');
                           });
-                        } else {
-                          this.setState({ loading: false });
-                        console.log('already given points for this challenge, stupid MAFK');
+                      } else {
+                        console.log("already given points for this challenge, stupid MAFK")
+                        this.setState({
+                          loading: false,
+                          open: true,
+                          message: `Updated ${capitalize(this.props.item)} submission`,
+                          title: 'Success!',
+                        });
                       }
                     })
                     .catch((err) => {
                       console.log(err, 'this is submission error');
                     });
+                } else {
+                  console.log(`invalid ${this.props.item}`);
+                  this.setState({
+                    open: true,
+                    message: `Invalid ${capitalize(this.props.item)}`,
+                    title: 'Error!'
+                  });
                 }
               })
               .catch((err) => {
@@ -94,6 +119,12 @@ export default class ImageUploadForm extends React.Component {
     });
   }
 
+  closeModal() {
+    this.setState({
+      open: false,
+    });
+  }
+
   render() {
     if (this.state.loading) return <div> <div><iframe src="https://giphy.com/embed/xTk9ZvMnbIiIew7IpW" width="100%" height="100%" frameBorder="0" className="giphy-embed" allowFullScreen></iframe></div> <p><a href="https://giphy.com/gifs/loop-loading-loader-xTk9ZvMnbIiIew7IpW">Submitting Your Photo</a></p></div>
     return (
@@ -102,10 +133,40 @@ export default class ImageUploadForm extends React.Component {
         <br />
         <input id={`photoupload-${this.props.index}`} type="file" accept="image/*" />
         <button type="submit" onClick={this.handleSubmit}>Upload Image</button>
+        <UploadModal
+          item={capitalize(this.props.item)}
+          title={this.state.title}
+          message={this.state.message}
+          open={this.state.open}
+          close={this.closeModal}
+        />
       </div>
     );
   }
 }
+
+
+const UploadModal = ({ item, message, title, open, close }) => {
+  const actions = [
+    <FlatButton
+      label="Close"
+      primary
+      keyboardFocused
+      onClick={close}
+    />,
+  ];
+  return (
+    <Dialog
+      title={title}
+      actions={actions}
+      modal={false}
+      open={open}
+      onRequestClose={close}
+    >
+      <p>{message}</p>
+    </Dialog>
+  );
+};
 
 ImageUploadForm.propTypes = {
   challenge: PropTypes.string.isRequired,
