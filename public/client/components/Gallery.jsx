@@ -8,11 +8,25 @@ import Navbar from './Navbar.jsx';
 export default class Gallery extends React.Component {
   constructor(props) {
     super(props);
-    this.ESLintPlease = 'stop giving me stupid errors. seriously.';
+    this.state = {
+      images: [],
+      imageId: 0,
+    }
   }
 
+  componentWillMount() {
+    axios.get('/findSubmissions').then((res) => {
+      this.setState({ images: res.data, loaded: true });
+      console.log(this.state.images)
+    });
+  }
+
+  upVote() {
+    axios.post('/addVote', `imageId=${this.state.images[this.state.imageId].id}`);
+  }
 
   render() {
+    if (!this.state.loaded) return <div>Loading Gallery</div>;
     return (
       <MuiThemeProvider>
         <div>
@@ -22,21 +36,18 @@ export default class Gallery extends React.Component {
             open
             mobile
             style={{ position: 'inherit', width: '100%', height: '50%' }}
+            onStart={() => { this.upVote(); }}
+            onChange={(index) => { this.setState({ imageId: index }); }}
           >
-            <Slide
-              media={<img src="http://www.icons101.com/icon_png/size_256/id_79394/youtube.png" alt="" />}
-              mediaBackgroundStyle={{ backgroundColor: red400 }}
-              contentStyle={{ backgroundColor: red600 }}
-              title="This is a very cool feature"
-              subtitle="Just using this will blow your mind."
-            />
-            <Slide
-              media={<img src="http://www.icons101.com/icon_png/size_256/id_80975/GoogleInbox.png" alt="" />}
-              mediaBackgroundStyle={{ backgroundColor: blue400 }}
-              contentStyle={{ backgroundColor: blue600 }}
-              title="Ever wanted to be popular?"
-              subtitle="Well just mix two colors and your are good to go!"
-            />
+            {this.state.images.map(image =>
+              (<Slide
+                key={image.id}
+                media={<img src={image.image} height="300" width="300" alt="" />}
+                mediaBackgroundStyle={{ backgroundColor: blue600 }}
+                contentStyle={{ backgroundColor: blue400 }}
+                title={''}
+                subtitle={''}
+              />))}
           </AutoRotatingCarousel>
         </div>
       </MuiThemeProvider>

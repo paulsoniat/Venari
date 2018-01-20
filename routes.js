@@ -5,6 +5,7 @@ const models = require('./database/models');
 const path = require('path');
 const watson = require('watson-developer-cloud');
 const fs = require('fs');
+const sequelize = require('sequelize');
 
 passport.use(new Strategy(
   {
@@ -83,7 +84,7 @@ module.exports = (app) => {
   });
 
   app.post('/pictureAnalysis', (req, res) => {
-    console.log(req.body, "this is picture analysis request")
+    console.log(req.body, 'this is picture analysis request');
     const visual_recognition = watson.visual_recognition({
       api_key: process.env.WATSONKEY,
       version: 'v3',
@@ -162,6 +163,22 @@ module.exports = (app) => {
       });
     }).catch((err) => {
       console.log(err, 'this is error from item finding');
+    });
+  });
+
+
+  app.post('/addVote', (req, res) => {
+    console.log(req.body.imageId);
+    models.Submission.update({
+      score: sequelize.literal('score +1'),
+    }, { where: { id: req.body.imageId } }).then((image) => {
+      console.log(image);
+    });
+  });
+
+  app.get('/findSubmissions', (req, res) => {
+    models.Submission.findAll().then((submissions) => {
+      res.send(submissions);
     });
   });
 
