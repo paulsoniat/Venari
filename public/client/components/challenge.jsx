@@ -27,6 +27,11 @@ export default class Challenge extends React.Component {
   }
 
   componentWillMount() {
+    axios.get('/user')
+      .then((res) => {
+        this.setState({ user: res.data.id });
+      });
+
     axios.get('/challenges').then((res) => {
       res.data.forEach((challenge) => {
         if (challenge.id.toString() === this.state.challengeId) {
@@ -62,7 +67,7 @@ export default class Challenge extends React.Component {
               {this.state.items.map((item, index) => (
                 <TableRow key={item.id}>
                   <TableRowColumn>
-                    <ImageUploadForm index={index} challenge={this.state.challengeData.title} username="bob" item={item.name} />
+                    <ImageUploadForm index={index} challenge={this.state.challengeData.title} username={this.state.user} item={item.name} />
                   </TableRowColumn>
                 </TableRow>
                 ))}
