@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Css from '../css/index.css';
 import RaisedButton from 'material-ui/RaisedButton';
 import Style from '../css/index.styl';
 import ImageUploadForm from './ImageUploadForm.jsx';
