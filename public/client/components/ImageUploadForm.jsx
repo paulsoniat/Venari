@@ -11,6 +11,10 @@ export default class ImageUploadForm extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      loading: false,
+    };
+
     AWS.config.update({
       region: bucketRegion,
       credentials: new AWS.CognitoIdentityCredentials({
@@ -46,6 +50,7 @@ export default class ImageUploadForm extends React.Component {
         console.error('error uploading image', err);
       } else {
         const filepath = data.Location;
+        this.setState({ loading: true });
         axios.post('/pictureAnalysis', `imageFile=http://bnwrainbows.s3.amazonaws.com/${photoKey}`)
           .then((res) => {
             const classData = res.data.images[0].classifiers[0].classes;
@@ -55,6 +60,7 @@ export default class ImageUploadForm extends React.Component {
             });
             axios.post('/checkData', `dataArray=${classDataStructure}, ${this.props.item}`)
               .then((response) => {
+                this.setState({ loading: false });
                 if (response.data === 'yaaaaaaas') {
                   // add another then satement that checks Y/N from user submission check
                   axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challenge},http://bnwrainbows.s3.amazonaws.com/${photoKey}`)
@@ -62,13 +68,15 @@ export default class ImageUploadForm extends React.Component {
                       if (res.data === 'created') {
                         axios.post('/addPoint', `pointData=${this.props.item}`)
                           .then((pointResponse) => {
+                            this.setState({ loading: false });
                             console.log(pointResponse, 'this is add point res so we added a point to this MAFK');
                           })
                           .catch((err) => {
                             console.log(err, 'this is add point err');
                           });
-                      } else {
-                        console.log("already given points for this challenge, stupid MAFK")
+                        } else {
+                          this.setState({ loading: false });
+                        console.log('already given points for this challenge, stupid MAFK');
                       }
                     })
                     .catch((err) => {
@@ -87,6 +95,7 @@ export default class ImageUploadForm extends React.Component {
   }
 
   render() {
+    if (this.state.loading) return <div> <div><iframe src="https://giphy.com/embed/xTk9ZvMnbIiIew7IpW" width="100%" height="100%" frameBorder="0" className="giphy-embed" allowFullScreen></iframe></div> <p><a href="https://giphy.com/gifs/loop-loading-loader-xTk9ZvMnbIiIew7IpW">Submitting Your Photo</a></p></div>
     return (
       <div>
         Upload an image of a {this.props.item} for {this.props.challenge}:
