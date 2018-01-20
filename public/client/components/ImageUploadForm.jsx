@@ -130,7 +130,7 @@ export default class ImageUploadForm extends React.Component {
   }
 
   render() {
-    if (this.state.loading) return <div> <div><iframe src="https://giphy.com/embed/xTk9ZvMnbIiIew7IpW" width="100%" height="100%" frameBorder="0" className="giphy-embed" allowFullScreen></iframe></div> <p><a href="https://giphy.com/gifs/loop-loading-loader-xTk9ZvMnbIiIew7IpW"></a></p></div>
+    if (this.state.loading) return <div> <div><iframe src="https://giphy.com/embed/xTk9ZvMnbIiIew7IpW" width="100%" height="100%" frameBorder="0" className="giphy-embed" allowFullScreen /></div> <p><a href="https://giphy.com/gifs/loop-loading-loader-xTk9ZvMnbIiIew7IpW">Submitting Your Photo</a></p></div>;
     return (
       <div>
         Upload an image of a {this.props.item} for {this.props.challenge}:
@@ -144,6 +144,7 @@ export default class ImageUploadForm extends React.Component {
           open={this.state.open}
           close={this.closeModal}
         />
+        <FlatButton backgroundColor="LightGray" hoverColor="Gray" onClick={this.handleSubmit}>Upload Image</FlatButton>
       </div>
     );
   }
