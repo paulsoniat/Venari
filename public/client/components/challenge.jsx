@@ -52,32 +52,32 @@ export default class Challenge extends React.Component {
     return (
       <div id="challenge" >
         <MuiThemeProvider>
-          <Navbar />
-          <Table
-            // onCellClick={(index) => { this.setState({ itemIndex: index }); }}
-          >
-            <TableHeader 
-              displaySelectAll={false}
-              adjustForCheckbox={false}
-              enableSelectAll={false}
-            >
-              <TableRow>
-                <TableHeaderColumn style={{ fontWeight: 'bold', fontSize: '24px'}}>{this.state.challengeData.title}</TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody
-              displayRowCheckbox={false}
-              showRowHover
-            >
-              {this.state.items.map((item, index) => (
-                <TableRow key={item.id}>
-                  <TableRowColumn>
-                    <ImageUploadForm index={index} challenge={this.state.challengeData.title} username={this.state.user} item={item.name} />
-                  </TableRowColumn>
+          <div>
+            <Navbar />
+            <Table>
+              <TableHeader
+                displaySelectAll={false}
+                adjustForCheckbox={false}
+                enableSelectAll={false}
+              >
+                <TableRow>
+                  <TableHeaderColumn style={{ fontWeight: 'bold', fontSize: '24px'}}>{this.state.challengeData.title}</TableHeaderColumn>
                 </TableRow>
-                ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody
+                displayRowCheckbox={false}
+                showRowHover
+              >
+                {this.state.items.map((item, index) => (
+                  <TableRow key={item.id}>
+                    <TableRowColumn>
+                      <ImageUploadForm index={index} challenge={this.state.challengeData.title} username={this.state.user} item={item.name} />
+                    </TableRowColumn>
+                  </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </div>
         </MuiThemeProvider>
       </div>
     );

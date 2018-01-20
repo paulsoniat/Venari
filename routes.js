@@ -153,8 +153,9 @@ module.exports = (app) => {
         const userScore = user.dataValues.score;
         user.updateAttributes({
           score: userScore + pointValue,
-        }).then((res) => {
+        }).then((updated) => {
           console.log('updated points');
+          res.send(':ok-hand:');
         }).catch((err) => {
           console.log(err, 'this is user point error');
         });
