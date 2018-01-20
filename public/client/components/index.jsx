@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Css from '../css/index.css';
 import RaisedButton from 'material-ui/RaisedButton';
-import Style from '../css/index.styl';
 import ImageUploadForm from './ImageUploadForm.jsx';
 import Main from './Main.jsx';
 import Challenge from './challenge.jsx';

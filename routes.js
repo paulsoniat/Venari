@@ -125,7 +125,7 @@ module.exports = (app) => {
       where: { name: itemName },
     }).then((item) => {
       const itemId = item.dataValues.id;
-      routeHelpers.findOrCreateSubmission(3, itemId, link, (created) => {
+      routeHelpers.findOrCreateSubmission(req.user.id, itemId, link, (created) => {
         if (created) {
           res.send('created');
         } else {
