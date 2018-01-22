@@ -22,7 +22,10 @@ export default class Gallery extends React.Component {
   }
 
   upVote() {
-    axios.post('/addVote', `imageId=${this.state.images[this.state.imageId].id}`);
+    axios.post('/addVote', `imageId=${this.state.images[this.state.imageId].id}`)
+      .then((res) => {
+        console.log(res, 'this is addvote res');
+      });
   }
 
   render() {

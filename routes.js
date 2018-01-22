@@ -176,12 +176,12 @@ module.exports = (app) => {
       }
     });
     //else, say already voted for this picture
-    models.Submission.findOne({
-      where: { id: req.body.imageId },
-    }).then((submission) => {
-      console.log(submission, 'this is submission');
-      //
-    });
+    // models.Submission.findOne({
+    //   where: { id: req.body.imageId },
+    // }).then((submission) => {
+    //   console.log(submission, 'this is submission');
+    //   //
+    // });
   });
 
   app.get('/findSubmissions', (req, res) => {
