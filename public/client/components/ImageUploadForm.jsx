@@ -80,7 +80,6 @@ export default class ImageUploadForm extends React.Component {
                       if (res.data === 'created') {
                         axios.post('/addPoint', `pointData=${this.props.item}`)
                           .then((pointResponse) => {
-                            console.log(pointResponse, 'this is add point res so we added a point to this MAFK');
                             this.setState({
                               loading: false,
                               open: true,
@@ -92,7 +91,6 @@ export default class ImageUploadForm extends React.Component {
                             console.log(err, 'this is add point err');
                           });
                       } else {
-                        console.log("already given points for this challenge, stupid MAFK")
                         this.setState({
                           loading: false,
                           open: true,
@@ -136,7 +134,7 @@ export default class ImageUploadForm extends React.Component {
         Upload an image of a {this.props.item} for {this.props.challenge}:
         <br />
         <input id={`photoupload-${this.props.index}`} type="file" accept="image/*" />
-        <button type="submit" onClick={this.handleSubmit}>Upload Image</button>
+        {/* <button type="submit" onClick={this.handleSubmit}>Upload Image</button> */}
         <UploadModal
           item={capitalize(this.props.item)}
           title={this.state.title}
