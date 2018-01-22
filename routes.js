@@ -163,19 +163,38 @@ module.exports = (app) => {
 
   app.post('/addVote', (req, res) => {
     // console.log(req.body.imageId, "this is image id");
-    //create a vote with req.user and image id
-    //then if created a vote, find the submission
-    //use submission to find the voted for id
-    //add a point to that voted user
+    // create a vote with req.user and image id
+    // then if created a vote, find the submission
+    // use submission to find the voted for id
+    // add a point to that voted user
 
     routeHelpers.findOrCreateVote(req.user.id, req.body.imageId, (created) => {
       if (created) {
-        res.send('created');
+        models.Submission.findOne({
+          where: { id: req.body.imageId },
+        }).then((submission) => {
+          models.User.findOne({
+            where: { id: submission.dataValues.userId },
+          }).then((user) => {
+            models.Item.findOne({
+              where: { id: req.body.imageId },
+            })
+              .then((item) => {
+                const userScore = user.dataValues.score;
+                const itemScore = item.dataValues.value;
+                user.updateAttributes({
+                  score: userScore + itemScore,
+                }).then((updated) => {
+                  res.send('updated points');
+                });
+              });
+          });
+        });
       } else {
-        res.send('exists');
+        res.send('vote already exists, no cheating allowed in Venari');
       }
     });
-    //else, say already voted for this picture
+    // else, say already voted for this picture
     // models.Submission.findOne({
     //   where: { id: req.body.imageId },
     // }).then((submission) => {
