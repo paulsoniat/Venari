@@ -6,4 +6,5 @@ module.exports = {
   Submission: require('./Submission'),
   UserBadges: require('./UserBadges'),
   UserChallenges: require('./UserChallenges'),
+  Vote: require('./Votes'),
 };

@@ -162,11 +162,25 @@ module.exports = (app) => {
 
 
   app.post('/addVote', (req, res) => {
-    console.log(req.body.imageId);
-    models.Submission.update({
-      score: sequelize.literal('score +1'),
-    }, { where: { id: req.body.imageId } }).then((image) => {
-      console.log(image);
+    // console.log(req.body.imageId, "this is image id");
+    //create a vote with req.user and image id
+    //then if created a vote, find the submission
+    //use submission to find the voted for id
+    //add a point to that voted user
+
+    routeHelpers.findOrCreateVote(req.user.id, req.body.imageId, (created) => {
+      if (created) {
+        res.send('created');
+      } else {
+        res.send('exists');
+      }
+    });
+    //else, say already voted for this picture
+    models.Submission.findOne({
+      where: { id: req.body.imageId },
+    }).then((submission) => {
+      console.log(submission, 'this is submission');
+      //
     });
   });
 
