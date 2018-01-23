@@ -1,0 +1,21 @@
+{
+  "name": "Venari",
+  "short_name": "Venari",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#33A5FF",
+  "theme_color": "#317EFB",
+  "description": "A Photo based scavenger hunt",
+  "icons": [
+    {
+      "src": "css/venariSmallLogo.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "css/venariSmallLogo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

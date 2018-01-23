@@ -10,7 +10,7 @@ import { blue } from 'material-ui/styles/colors';
 const MovingLogo = () => (
   <div id="logo">
     <h1>
-      <img  src="https://vectr.com/ncreshon/d8uxNsdQBf.svg?width=640&height=640&select=d8uxNsdQBfpage0" alt='HEY COME BACK LOGO'  />
+      <img src="./client/css/venariLogo.svg" alt="Venari...Let the Search Begin" />
     </h1>
     <h2>
       <RaisedButton
