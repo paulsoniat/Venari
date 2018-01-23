@@ -225,6 +225,9 @@ module.exports = (app) => {
         });
       });
     });
+    setTimeout(() => {
+      res.send(submissionData);
+    }, 500);
   });
 
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
