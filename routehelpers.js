@@ -5,6 +5,7 @@ module.exports = {
   findAllChallenges: dbHelper.findAllChallenges,
   findSpecificChallenge: dbHelper.findSpecificChallenge,
   findOrCreateSubmission: dbHelper.findOrCreateSubmission,
+  findOrCreateVote: dbHelper.findOrCreateVote,
   getUsersData: (req, res) => {
     dbHelper.getLeaderboardData((err, data) => {
       if (err) {

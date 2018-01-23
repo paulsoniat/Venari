@@ -24,4 +24,8 @@ models.Item.belongsTo(models.Challenge);
 // a challenge has one badge
 models.Challenge.belongsTo(models.Badge);
 
+// Vote belongs to a voter and submission
+models.Submission.belongsToMany(models.User, { through: 'Vote' });
+models.User.belongsToMany(models.Submission, { through: 'Vote' });
+
 db.sync();

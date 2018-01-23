@@ -84,7 +84,6 @@ module.exports = (app) => {
   });
 
   app.post('/pictureAnalysis', (req, res) => {
-    console.log(req.body, 'this is picture analysis request');
     const visual_recognition = watson.visual_recognition({
       api_key: process.env.WATSONKEY,
       version: 'v3',
@@ -113,12 +112,10 @@ module.exports = (app) => {
       res.send('yaaaaaaas');
     } else {
       res.send('no');
-      // res.redirect to challenge at id?
     }
   });
 
   app.post('/saveSubmission', (req, res) => {
-    // const userId = req.user.id;
     const splitData = req.body.submissionData.split(',');
     const link = splitData[2];
     const itemName = splitData[0];
@@ -139,10 +136,7 @@ module.exports = (app) => {
   });
 
   app.post('/addPoint', (req, res) => {
-    // const userData = 'Paul';
     const userData = req.user.name;
-    const fullUserData = req.user;
-    console.log(userData, 'this is user data');
     let pointValue = 0;
     models.Item.findOne({
       where: { name: req.body.pointData },
@@ -168,11 +162,31 @@ module.exports = (app) => {
 
 
   app.post('/addVote', (req, res) => {
-    console.log(req.body.imageId);
-    models.Submission.update({
-      score: sequelize.literal('score +1'),
-    }, { where: { id: req.body.imageId } }).then((image) => {
-      console.log(image);
+    routeHelpers.findOrCreateVote(req.user.id, req.body.imageId, (created) => {
+      if (created) {
+        models.Submission.findOne({
+          where: { id: req.body.imageId },
+        }).then((submission) => {
+          models.User.findOne({
+            where: { id: submission.dataValues.userId },
+          }).then((user) => {
+            models.Item.findOne({
+              where: { id: req.body.imageId },
+            })
+              .then((item) => {
+                const userScore = user.dataValues.score;
+                const itemScore = item.dataValues.value;
+                user.updateAttributes({
+                  score: userScore + itemScore,
+                }).then(() => {
+                  res.send('updated points');
+                });
+              });
+          });
+        });
+      } else {
+        res.send('vote already exists, no cheating allowed in Venari');
+      }
     });
   });
 

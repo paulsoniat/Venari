@@ -74,7 +74,6 @@ export default class ImageUploadForm extends React.Component {
               .then((response) => {
                 this.setState({ loading: false });
                 if (response.data === 'yaaaaaaas') {
-                  // add another then satement that checks Y/N from user submission check
                   axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challenge},http://bnwrainbows.s3.amazonaws.com/${photoKey}`)
                     .then((res) => {
                       if (res.data === 'created') {
@@ -142,7 +141,7 @@ export default class ImageUploadForm extends React.Component {
           open={this.state.open}
           close={this.closeModal}
         />
-        <FlatButton backgroundColor="LightGray" hoverColor="Gray" onClick={this.handleSubmit}>Upload Image</FlatButton>
+        <FlatButton align="right" backgroundColor="LightGray" hoverColor="Gray" onClick={this.handleSubmit}>Upload Image</FlatButton>
       </div>
     );
   }

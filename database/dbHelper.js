@@ -20,6 +20,20 @@ module.exports = {
         callback(user);
       });
   },
+  findOrCreateVote: function findOrCreateVote(userId, submissionId, cb) {
+    models.Vote.findOrCreate({
+      where: {
+        userId,
+        submissionId,
+      },
+      // defaults: {
+      // },
+    }).spread((vote, created) => {
+      cb(created);
+    }).catch((err) => {
+      console.log(err, 'this is error after spread');
+    });
+  },
   findAllChallenges: function findAllChallenges(req, res) {
     models.Challenge.findAll().then((challenges) => {
       const challengeData = [];
