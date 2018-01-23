@@ -13,8 +13,8 @@ const styles = {
     justifyContent: 'space-around',
   },
   gridList: {
-    width: 500,
-    height: 450,
+    width: 350,
+    height: 350,
     overflowY: 'auto',
   },
 };
@@ -25,19 +25,19 @@ class Dashboard extends React.Component {
     super(props);
     this.tilesData = [
       {
-        img: 'client/css/giphy.gif',
+        img: 'client/css/challenges.png',
         title: 'Challenges',
       },
       {
-        img: 'client/css/giphy.gif',
+        img: 'client/css/leaderboard.png',
         title: 'Leaderboard',
       },
       {
-        img: 'client/css/giphy.gif',
+        img: 'client/css/gallery.png',
         title: 'Gallery',
       },
       {
-        img: 'client/css/giphy.gif',
+        img: 'client/css/trophies.png',
         title: 'Trophy Room',
       },
     ];
@@ -52,17 +52,17 @@ class Dashboard extends React.Component {
     //   }
     //   return prev;
     // });
-    switch(title) {
+    switch (title) {
       case 'Challenges':
         this.props.history.push('/main');
         break;
-        case 'Leaderboard':
+      case 'Leaderboard':
         this.props.history.push('/leaderboard');
         break;
-        case 'Gallery':
+      case 'Gallery':
         this.props.history.push('/gallery');
         break;
-        case 'Trophy Room':
+      case 'Trophy Room':
         this.props.history.push('/trophies');
         break;
       default:
@@ -76,7 +76,7 @@ class Dashboard extends React.Component {
         <div style={styles.root}>
           <Navbar history={this.props.history} />
           <GridList
-            cellHeight={180}
+            cellHeight="auto"
             style={styles.gridList}
           >
             {this.tilesData.map(tile => (
@@ -87,7 +87,7 @@ class Dashboard extends React.Component {
                 onClick={this.test}
                 // actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
               >
-                <img src={tile.img} alt="uh-oh spaghettios" />
+                <img src={tile.img} alt="uh-oh spaghettios" style={{ maxHeight: 150 }} />
               </GridTile>
             ))}
           </GridList>
