@@ -11,13 +11,13 @@ export default class Gallery extends React.Component {
     this.state = {
       images: [],
       imageId: 0,
-    }
+    };
   }
 
   componentWillMount() {
     axios.get('/findSubmissions').then((res) => {
-      this.setState({ images: res.data, loaded: true });
-      console.log(this.state.images)
+      // this.setState({ images: res.data, loaded: true });
+      console.log(res.data, "these are the images")
     });
   }
 

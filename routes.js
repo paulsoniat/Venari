@@ -204,8 +204,26 @@ module.exports = (app) => {
   });
 
   app.get('/findSubmissions', (req, res) => {
+    // const responseData = {};
+    const submissionData = [];
     models.Submission.findAll().then((submissions) => {
-      res.send(submissions);
+      submissions.forEach((submission) => {
+        models.User.findOne({
+          where: { id: submission.dataValues.userId },
+        }).then((user) => {
+          models.Item.findOne({
+            where: { id: submission.dataValues.itemId },
+          })
+            .then((item) => {
+              const individualSubmission = {
+                itemName: item.dataValues.name,
+                userName: user.dataValues.name,
+                image: submission.image,
+              };
+              submissionData.push(individualSubmission);
+            });
+        });
+      });
     });
   });
 
