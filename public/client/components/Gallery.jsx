@@ -4,6 +4,7 @@ import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 import { green400, green600, blue400, blue600, red400, red600 } from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Navbar from './Navbar.jsx';
+const capitalize = word => word.split('')[0].toUpperCase() + word.split('').slice(1).join('');
 
 export default class Gallery extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export default class Gallery extends React.Component {
 
   componentWillMount() {
     axios.get('/findSubmissions').then((res) => {
+      console.log(res, "this is the response")
       this.setState({ images: res.data, loaded: true });
     });
   }
@@ -47,7 +49,7 @@ export default class Gallery extends React.Component {
                 media={<img src={image.image} height="300" width="300" alt="" />}
                 mediaBackgroundStyle={{ backgroundColor: blue600 }}
                 contentStyle={{ backgroundColor: blue400 }}
-                title={image.itemName}
+                title={capitalize(image.itemName)}
                 subtitle={image.userName}
               />))}
           </AutoRotatingCarousel>
