@@ -27,7 +27,7 @@ const Navbar = ({ history }) => (
   <AppBar
     title={<span style={styles.title}>Venari</span>}
     showMenuIconButton={false}
-    onTitleClick={() => { history.push('home'); }}
+    onTitleClick={() => { history.push('/home'); }}
     iconElementRight={
       <IconMenu
         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
