@@ -207,6 +207,7 @@ module.exports = (app) => {
     // const responseData = {};
     const submissionData = [];
     models.Submission.findAll().then((submissions) => {
+      console.log(submissions, "this is submissions")
       submissions.forEach((submission) => {
         models.User.findOne({
           where: { id: submission.dataValues.userId },
@@ -216,6 +217,7 @@ module.exports = (app) => {
           })
             .then((item) => {
               const individualSubmission = {
+                id: submission.dataValues.id,
                 itemName: item.dataValues.name,
                 userName: user.dataValues.name,
                 image: submission.image,

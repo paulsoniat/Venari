@@ -16,8 +16,7 @@ export default class Gallery extends React.Component {
 
   componentWillMount() {
     axios.get('/findSubmissions').then((res) => {
-      // this.setState({ images: res.data, loaded: true });
-      console.log(res.data, "these are the images")
+      this.setState({ images: res.data, loaded: true });
     });
   }
 
@@ -48,8 +47,8 @@ export default class Gallery extends React.Component {
                 media={<img src={image.image} height="300" width="300" alt="" />}
                 mediaBackgroundStyle={{ backgroundColor: blue600 }}
                 contentStyle={{ backgroundColor: blue400 }}
-                title={''}
-                subtitle={''}
+                title={image.itemName}
+                subtitle={image.userName}
               />))}
           </AutoRotatingCarousel>
         </div>
