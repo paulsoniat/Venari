@@ -162,12 +162,6 @@ module.exports = (app) => {
 
 
   app.post('/addVote', (req, res) => {
-    // console.log(req.body.imageId, "this is image id");
-    // create a vote with req.user and image id
-    // then if created a vote, find the submission
-    // use submission to find the voted for id
-    // add a point to that voted user
-
     routeHelpers.findOrCreateVote(req.user.id, req.body.imageId, (created) => {
       if (created) {
         models.Submission.findOne({
@@ -184,7 +178,7 @@ module.exports = (app) => {
                 const itemScore = item.dataValues.value;
                 user.updateAttributes({
                   score: userScore + itemScore,
-                }).then((updated) => {
+                }).then(() => {
                   res.send('updated points');
                 });
               });
@@ -194,13 +188,6 @@ module.exports = (app) => {
         res.send('vote already exists, no cheating allowed in Venari');
       }
     });
-    // else, say already voted for this picture
-    // models.Submission.findOne({
-    //   where: { id: req.body.imageId },
-    // }).then((submission) => {
-    //   console.log(submission, 'this is submission');
-    //   //
-    // });
   });
 
   app.get('/findSubmissions', (req, res) => {
