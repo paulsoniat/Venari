@@ -6,12 +6,12 @@ models.User.hasMany(models.Submission);
 models.Submission.belongsTo(models.User);
 
 // user challenges join table
-models.User.belongsToMany(models.Challenge, { through: 'UserChallenges' });
-models.Challenge.belongsToMany(models.User, { through: 'UserChallenges' });
+models.User.belongsToMany(models.Challenge, { through: 'user_challenges' });
+models.Challenge.belongsToMany(models.User, { through: 'user_challenges' });
 
 // user badges join table
-models.User.belongsToMany(models.Badge, { through: 'UserBadges' });
-models.Badge.belongsToMany(models.User, { through: 'UserBadges' });
+models.User.belongsToMany(models.Badge, { through: 'user_badges' });
+models.Badge.belongsToMany(models.User, { through: 'user_badges' });
 
 // item has many submissions
 models.Item.hasMany(models.Submission);
@@ -25,7 +25,7 @@ models.Item.belongsTo(models.Challenge);
 models.Challenge.belongsTo(models.Badge);
 
 // Vote belongs to a voter and submission
-models.Submission.belongsToMany(models.User, { through: 'Vote' });
-models.User.belongsToMany(models.Submission, { through: 'Vote' });
+models.Submission.belongsToMany(models.User, { through: 'vote', as: 'Voter' });
+models.User.belongsToMany(models.Submission, { through: 'vote', as: 'Voted' });
 
 db.sync();

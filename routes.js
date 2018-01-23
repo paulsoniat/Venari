@@ -125,7 +125,20 @@ module.exports = (app) => {
       const itemId = item.dataValues.id;
       routeHelpers.findOrCreateSubmission(req.user.id, itemId, link, (created) => {
         if (created) {
-          res.send('created');
+          // if a submisison is created, check if this submission completes the challenge
+          routeHelpers.userCompletedChallenge(
+            req.user.id,
+            item.dataValues.challengeId,
+            (err, completed) => {
+              if (err) {
+                console.error('error', err);
+              } else if (completed) {
+                res.send('challenge complete');
+              } else {
+                res.send('created');
+              }
+            },
+          );
         } else {
           res.send('exists');
         }

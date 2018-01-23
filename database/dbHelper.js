@@ -84,5 +84,39 @@ module.exports = {
       console.log(err, 'this is error after spread');
     });
   },
+  userChallengeExists: (userId, challengeId) =>
+    models.UserChallenges.findOne({ where: { userId, challengeId } }),
+
+  getUserChallengeSubmissions: (userId, challengeId) =>
+    models.Challenge.findById(challengeId)
+      .then(challenge => challenge.getItems())
+      .then((items) => {
+        const promises = [];
+        // get all user submissions for this challenge
+        items.forEach((item) => {
+          promises.push(models.Submission.findOne({
+            where: {
+              userId,
+              itemId: item.dataValues.id,
+            },
+          }));
+        });
+        return Promise.all(promises);
+      })
+      .catch((err) => {
+        console.error(err);
+      }),
+  completeChallenge: (userId, challengeId) =>
+    models.UserChallenges.create({
+      userId,
+      challengeId,
+    }),
+  addBadge: (userId, badgeId) =>
+    models.UserBadges.create({
+      userId,
+      badgeId,
+    }),
+  getChallengeById: challengeId =>
+    models.Challenge.findById(challengeId),
 };
 
