@@ -18,4 +18,27 @@ module.exports = {
   getUserSession: (req, res) => {
     res.send(req.user);
   },
+  userCompletedChallenge: (userId, challengeId, callback) => {
+    dbHelper.userChallengeExists(userId, challengeId)
+      .then((found) => {
+        if (found) {
+          callback(null, true);
+        } else {
+          dbHelper.getUserChallengeSubmissions(userId, challengeId)
+            .then((submissions) => {
+              const completed = submissions.reduce((done, sub) => {
+                if (!sub) {
+                  return false;
+                }
+                return done;
+              }, true);
+              console.log('challenge completed', completed);
+              callback(null, completed);
+            });
+        }
+      })
+      .catch((err) => {
+        callback(err);
+      });
+  },
 };

@@ -43,6 +43,7 @@ export default class ImageUploadForm extends React.Component {
 
     const { files } = document.getElementById(`photoupload-${this.props.index}`);
     if (!files.length) {
+      // don't submit no file
       return this.setState({
         open: true,
         title: 'Error!',
@@ -79,6 +80,7 @@ export default class ImageUploadForm extends React.Component {
                       if (res.data === 'created') {
                         axios.post('/addPoint', `pointData=${this.props.item}`)
                           .then((pointResponse) => {
+                            // successful submission
                             this.setState({
                               loading: false,
                               open: true,
@@ -89,7 +91,17 @@ export default class ImageUploadForm extends React.Component {
                           .catch((err) => {
                             console.log(err, 'this is add point err');
                           });
+                      } else if (res.data === 'challenge complete') {
+                        // successful submission that completes challenge
+                        this.setState({
+                          loading: false,
+                          open: true,
+                          message: `${capitalize(this.props.item)} submission successful!
+                          ${this.props.challenge} Challenge Completed!`,
+                          title: 'Success!',
+                        });
                       } else {
+                        // successful update
                         this.setState({
                           loading: false,
                           open: true,
