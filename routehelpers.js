@@ -33,7 +33,14 @@ module.exports = {
                 return done;
               }, true);
               console.log('challenge completed', completed);
-              callback(null, completed);
+              if (completed) {
+                dbHelper.completeChallenge(userId, challengeId)
+                  .then(() => {
+                    callback(null, true);
+                  });
+              } else {
+                callback(null, false);
+              }
             });
         }
       })
