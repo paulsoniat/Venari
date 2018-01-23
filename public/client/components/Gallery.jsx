@@ -33,7 +33,7 @@ export default class Gallery extends React.Component {
     return (
       <MuiThemeProvider>
         <div>
-          <Navbar />
+          <Navbar history={this.props.history} />
           <AutoRotatingCarousel
             label="Vote for this picture"
             open

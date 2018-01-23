@@ -57,7 +57,7 @@ export default class Leaderboard extends React.Component {
       <div>
         <MuiThemeProvider>
           <div>
-            <Navbar />
+            <Navbar history={this.props.history} />
             <Table onRowSelection={this.handleSelected}>
               <TableHeader
                 displaySelectAll={false}
