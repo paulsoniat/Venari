@@ -111,5 +111,12 @@ module.exports = {
       userId,
       challengeId,
     }),
+  addBadge: (userId, badgeId) =>
+    models.UserBadges.create({
+      userId,
+      badgeId,
+    }),
+  getChallengeById: challengeId =>
+    models.Challenge.findById(challengeId),
 };
 
