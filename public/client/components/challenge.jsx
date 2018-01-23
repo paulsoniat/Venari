@@ -53,7 +53,7 @@ export default class Challenge extends React.Component {
       <div id="challenge" >
         <MuiThemeProvider>
           <div>
-            <Navbar />
+            <Navbar history={this.props.history} />
             <Table>
               <TableHeader
                 displaySelectAll={false}

@@ -23,20 +23,20 @@ const styles = {
  * This example uses an [IconButton](/#/components/icon-button) on the left, has a clickable `title`
 * through the `onClick` property, and a [FlatButton](/#/components/flat-button) on the right.
  */
-const Navbar = () => (
+const Navbar = ({ history }) => (
   <AppBar
     title={<span style={styles.title}>Venari</span>}
     showMenuIconButton={false}
-    onTitleClick={handleClick}
+    onTitleClick={() => { history.push('home'); }}
     iconElementRight={
       <IconMenu
         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
         anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
         targetOrigin={{ horizontal: 'left', vertical: 'top' }}
       >
-        <MenuItem primaryText="Trophy Room" containerElement={<Link to="/Trophies" />} />
+        <MenuItem primaryText="Trophy Room" containerElement={<Link to="/trophies" />} />
         <MenuItem primaryText="Leader Board" containerElement={<Link to="/leaderboard" />} />
-        <MenuItem primaryText="Gallery" containerElement={<Link to="/Gallery" />} />
+        <MenuItem primaryText="Gallery" containerElement={<Link to="/gallery" />} />
         <MenuItem primaryText='Challenges' containerElement={<Link to="/main" />} />
         <MenuItem primaryText="Sign out" href="/logout" />
       </IconMenu>}

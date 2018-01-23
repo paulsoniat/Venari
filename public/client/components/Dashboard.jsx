@@ -60,10 +60,10 @@ class Dashboard extends React.Component {
         this.props.history.push('/leaderboard');
         break;
         case 'Gallery':
-        this.props.history.push('/Gallery');
+        this.props.history.push('/gallery');
         break;
         case 'Trophy Room':
-        this.props.history.push('/Trophies');
+        this.props.history.push('/trophies');
         break;
       default:
         break;
@@ -74,7 +74,7 @@ class Dashboard extends React.Component {
     return (
       <MuiThemeProvider>
         <div style={styles.root}>
-          <Navbar />
+          <Navbar history={this.props.history} />
           <GridList
             cellHeight={180}
             style={styles.gridList}

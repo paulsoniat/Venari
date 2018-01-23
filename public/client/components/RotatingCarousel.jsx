@@ -28,7 +28,7 @@ export default class RotatingCarousel extends React.Component {
     if (!this.state.loaded) return <div>Loading New Challenges</div>;
     return (
       <div>
-        <Navbar />
+        <Navbar history={this.props.history} />
         <AutoRotatingCarousel
           label="Begin this Challenge"
           open

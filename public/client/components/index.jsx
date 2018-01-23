@@ -11,6 +11,7 @@ import MovingLogo from './MovingLogo.jsx';
 import Gallery from './Gallery.jsx';
 import Trophies from './Trophies.jsx';
 import Leaderboard from './Leaderboard.jsx';
+import Dashboard from './Dashboard.jsx';
 
 const Login = () => (
   <MuiThemeProvider>
@@ -23,10 +24,11 @@ const AppRouter = () => (
   <Router>
     <div>
       <Route exact path="/" component={Login} />
+      <Route exact path="/home" component={Dashboard} />
       <Route path="/challenge/:id" component={Challenge} />
       <Route path="/main" component={Main} />
-      <Route path="/Gallery" component={Gallery} />
-      <Route path="/Trophies" component={Trophies} />
+      <Route path="/gallery" component={Gallery} />
+      <Route path="/trophies" component={Trophies} />
       <Route path="/leaderboard" component={Leaderboard} />
     </div>
   </Router>
