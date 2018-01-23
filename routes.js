@@ -60,7 +60,7 @@ module.exports = (app) => {
   app.get(
     '/login/facebook/return',
     passport.authenticate('facebook', {
-      successRedirect: '/main',
+      successRedirect: '/home',
       failureRedirect: '/login',
     }),
   );
