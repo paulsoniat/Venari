@@ -51,4 +51,42 @@ module.exports = {
         callback(err);
       });
   },
+  createChallenge: (req, res) => {
+    const data = req.body;
+    const defaultBadge = 1;
+    const defaultValue = 5;
+    const newChallenge = {
+      title: data.title,
+      description: data.description,
+      image: data.image,
+      startDate: data.startDate,
+      endDate: data.endDate,
+      value: defaultValue,
+      badgeId: defaultBadge,
+    };
+    dbHelper.getChallengeByTitle(newChallenge.title)
+      .then((found) => {
+        if (found) {
+          res.send('challenge already exists');
+        } else {
+          dbHelper.createChallenge(newChallenge)
+            .then((created) => {
+              // create challenge items
+              console.log('new challenge', created);
+              const promises = data.items.map(item =>
+                dbHelper.addChallengeItem(created.dataValues.id, item));
+              return Promise.all(promises);
+            })
+            .then((items) => {
+              console.log('new challenge items', items);
+              res.send('created challenge');
+            });
+        }
+      })
+      .catch((err) => {
+        console.error(err, 'error creating challenge');
+        res.send(err);
+      });
+    // res.send(data);
+  },
 };
