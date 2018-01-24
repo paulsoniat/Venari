@@ -28,6 +28,8 @@ export default class CreateChallenge extends React.Component {
       item: '',
       autoOk: true,
       open: false,
+      modalTitle: '',
+      message: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -78,11 +80,16 @@ export default class CreateChallenge extends React.Component {
             image: '',
             items: [],
             item: '',
+            open: true,
+            modalTitle: 'Success!',
+            message: 'New Challenge Created',
           });
         });
     } else {
       this.setState({
         open: true,
+        modalTitle: 'Error!',
+        message: 'Please fill out all fields',
       });
     }
   }
@@ -118,7 +125,7 @@ export default class CreateChallenge extends React.Component {
       <MuiThemeProvider>
         <div>
           <Navbar history={this.props.history} />
-          <ErrorModal open={this.state.open} close={this.closeModal} />
+          <ErrorModal open={this.state.open} close={this.closeModal} title={this.state.modalTitle} message={this.state.message} />
           <div style={{ width: 300, margin: 'auto' }}>
             {/* <h3>Create Challenge</h3> */}
             <TextField floatingLabelText="Title" name="title" value={this.state.title} onChange={this.handleChange} />
@@ -166,7 +173,7 @@ export default class CreateChallenge extends React.Component {
   }
 }
 
-const ErrorModal = ({ open, close }) => {
+const ErrorModal = ({ open, close, title, message }) => {
   const actions = [
     <FlatButton
       label="Okay"
@@ -177,13 +184,13 @@ const ErrorModal = ({ open, close }) => {
   ];
   return (
     <Dialog
-      title="Error!"
+      title={title}
       actions={actions}
       modal={false}
       open={open}
       onRequestClose={close}
     >
-      <p>Please Complete All Fields</p>
+      <p>{message}</p>
     </Dialog>
   );
 };
