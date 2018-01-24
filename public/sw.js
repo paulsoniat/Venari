@@ -5,8 +5,8 @@ self.addEventListener('install', function (e) {
     caches.open('venari').then(function (cache) {
       return cache.addAll([
         '/',
-        '/client/css/venariLogo.svg',
-        '/client\css\phpThumb_generated_thumbnailico',
+        '/client/css/venariLogo.png',
+        '/client/css/phpThumb_generated_thumbnailico',
         'client/css/download.png',
         '/dist/index.js',
         '/index.html',

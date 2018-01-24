@@ -1,19 +1,29 @@
 {
   "name": "Venari",
   "short_name": "Venari",
-  "start_url": ".",
+  "start_url": "index.html=homescreen",
   "display": "standalone",
   "background_color": "#33A5FF",
   "theme_color": "#317EFB",
   "description": "A Photo based scavenger hunt",
   "icons": [
     {
-      "src": "css/venariSmallLogo.png",
-      "sizes": "48x48",
+      "src": "/client/css/venarilogo_7Xq_icon.ico",
+      "sizes": "32x32",
       "type": "image/png"
     },
     {
-      "src": "css/venariSmallLogo.png",
+      "src": "/client/css/venarilogo_clx_icon.ico",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/client/css/venarilogo_L0S_icon.ico",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/client/css/venarilogo_L0S_icon.ico",
       "sizes": "512x512",
       "type": "image/png"
     }
