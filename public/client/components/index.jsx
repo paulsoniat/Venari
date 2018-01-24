@@ -12,6 +12,7 @@ import Gallery from './Gallery.jsx';
 import Trophies from './Trophies.jsx';
 import Leaderboard from './Leaderboard.jsx';
 import Dashboard from './Dashboard.jsx';
+import CreateChallenge from './CreateChallenge.jsx';
 
 const Login = () => (
   <MuiThemeProvider>
@@ -30,6 +31,7 @@ const AppRouter = () => (
       <Route path="/gallery" component={Gallery} />
       <Route path="/trophies" component={Trophies} />
       <Route path="/leaderboard" component={Leaderboard} />
+      <Route path="/create" component={CreateChallenge} />
     </div>
   </Router>
 );

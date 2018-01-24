@@ -118,5 +118,16 @@ module.exports = {
     }),
   getChallengeById: challengeId =>
     models.Challenge.findById(challengeId),
+  getChallengeByTitle: title =>
+    models.Challenge.findOne({
+      where: { title },
+    }),
+  createChallenge: challenge =>
+    models.Challenge.create(challenge),
+  addChallengeItem: (challengeId, item) =>
+    models.Item.create({
+      challengeId,
+      name: item,
+    }),
 };
 

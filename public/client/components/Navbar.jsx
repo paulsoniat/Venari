@@ -5,13 +5,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import ReactDOM from 'react-dom'
-import Main from './Main.jsx';
 
-
-function handleClick() {
-  console.log('onClick triggered on the title component');
-}
 
 const styles = {
   title: {
@@ -37,7 +31,8 @@ const Navbar = ({ history }) => (
         <MenuItem primaryText="Trophy Room" containerElement={<Link to="/trophies" />} />
         <MenuItem primaryText="Leader Board" containerElement={<Link to="/leaderboard" />} />
         <MenuItem primaryText="Gallery" containerElement={<Link to="/gallery" />} />
-        <MenuItem primaryText='Challenges' containerElement={<Link to="/main" />} />
+        <MenuItem primaryText="Challenges" containerElement={<Link to="/main" />} />
+        <MenuItem primaryText="Create Challenge" containerElement={<Link to="/create" />} />
         <MenuItem primaryText="Sign out" href="/logout" />
       </IconMenu>}
   />

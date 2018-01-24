@@ -234,6 +234,8 @@ module.exports = (app) => {
 
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
 
+  app.post('/challenge', isLoggedIn, routeHelpers.createChallenge);
+
   app.get('/*', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });
