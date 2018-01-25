@@ -229,7 +229,7 @@ module.exports = (app) => {
     });
     setTimeout(() => {
       res.send(submissionData);
-    }, 500);
+    }, 3000);
   });
 
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
