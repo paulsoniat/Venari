@@ -203,34 +203,7 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/findSubmissions', (req, res) => {
-    // const responseData = {};
-    const submissionData = [];
-    models.Submission.findAll().then((submissions) => {
-      console.log(submissions, "this is submissions")
-      submissions.forEach((submission) => {
-        models.User.findOne({
-          where: { id: submission.dataValues.userId },
-        }).then((user) => {
-          models.Item.findOne({
-            where: { id: submission.dataValues.itemId },
-          })
-            .then((item) => {
-              const individualSubmission = {
-                id: submission.dataValues.id,
-                itemName: item.dataValues.name,
-                userName: user.dataValues.name,
-                image: submission.image,
-              };
-              submissionData.push(individualSubmission);
-            });
-        });
-      });
-    });
-    setTimeout(() => {
-      res.send(submissionData);
-    }, 3000);
-  });
+  app.get('/findSubmissions', routeHelpers.getSubmissionsData);
 
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
 
