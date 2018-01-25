@@ -203,7 +203,56 @@ module.exports = (app) => {
     });
   });
 
-  app.get('/findSubmissions', routeHelpers.getSubmissionsData);
+  app.get('/findSubmissions', (req, res) => {
+    // const responseData = {};
+    const submissionData = [];
+    models.Submission.findAll().then((submissions) => {
+      console.log(submissions, 'this is submissions');
+      submissions.forEach((submission) => {
+        models.User.findOne({
+          where: { id: submission.dataValues.userId },
+        }).then((user) => {
+          models.Item.findOne({
+            where: { id: submission.dataValues.itemId },
+          })
+            .then((item) => {
+              const individualSubmission = {
+                id: submission.dataValues.id,
+                itemName: item.dataValues.name,
+                userName: user.dataValues.name,
+                image: submission.image,
+              };
+              submissionData.push(individualSubmission);
+            });
+        });
+      });
+    });
+    setTimeout(() => {
+      res.send(submissionData);
+    }, 3000);
+  });
+
+
+  app.get('/getbadges', (req, res) => {
+    const results = [];
+    console.log(req.user.id, 'hfhfhfhjfhfhjfj');
+    models.UserChallenges.findAll({
+      where: { userId: req.user.id },
+    }).then((challenges) => {
+      console.log(challenges, ' CHALLENGES');
+      challenges.forEach((challenge) => {
+        models.Challenge.findOne({
+          where: { id: challenge.dataValues.challengeId },
+        }).then((event) => {
+          results.push(event);
+        });
+      });
+    });
+    setTimeout(() => {
+      res.send(results);
+    }, 1500);
+  });
+
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
 
   app.post('/challenge', isLoggedIn, routeHelpers.createChallenge);
