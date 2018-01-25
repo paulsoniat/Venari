@@ -204,6 +204,28 @@ module.exports = (app) => {
   });
 
   app.get('/findSubmissions', routeHelpers.getSubmissionsData);
+
+
+  app.get('/getbadges', (req, res) => {
+    const results = [];
+    console.log(req.user.id, 'hfhfhfhjfhfhjfj');
+    models.UserChallenges.findAll({
+      where: { userId: req.user.id },
+    }).then((challenges) => {
+      console.log(challenges, ' CHALLENGES');
+      challenges.forEach((challenge) => {
+        models.Challenge.findOne({
+          where: { id: challenge.dataValues.challengeId },
+        }).then((event) => {
+          results.push(event);
+        });
+      });
+    });
+    setTimeout(() => {
+      res.send(results);
+    }, 1500);
+  });
+
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
 
   app.post('/challenge', isLoggedIn, routeHelpers.createChallenge);

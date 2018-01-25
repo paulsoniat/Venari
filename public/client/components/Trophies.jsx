@@ -14,21 +14,33 @@ export default class Trophies extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      trophies: [{ id: 0, challenge: 'abc1', image: '../client/css/download.png' }, { id: 0, challenge: 'abc2', image: '../client/css/venariLogo.png' }],
+      trophies: [{ image: '/css/venariLogo.png' }],
       open: false,
+      trophy: '',
     };
     this.showDetails = this.showDetails.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
-  showDetails() {
-    this.setState({ open: true });
+  componentDidMount() {
+    axios.get('/getbadges')
+      .then((badges) => {
+        this.setState({ trophies: badges.data });
+        console.log(this.state.trophies);
+      });
+  }
+
+  showDetails(trophy) {
+    console.log(trophy);
+    this.setState({ open: true, trophy });
   }
   closeModal() {
     this.setState({
       open: false,
     });
   }
+
+
   render() {
     return (
       <MuiThemeProvider>
@@ -37,14 +49,15 @@ export default class Trophies extends React.Component {
           <div style={{ display: 'flex', flexFlow: 'row wrap' }}>
             {
           this.state.trophies.map(trophy =>
-            (<div onClick={() => this.showDetails()}>
+            (<div onClick={() => this.showDetails(trophy)}>
               <ChallengeModal
-                message={trophy.challenge}
+                message={this.state.trophy.title}
+                desc={this.state.trophy.description}
                 open={this.state.open}
                 close={this.closeModal}
               />
-              <Scene image={trophy.image} />
-                </div>
+              <Scene image="http://bnwrainbows.s3.amazonaws.com/AnotherTestChallenge/3/cat.png" />
+             </div>
             ))
         }
           </div>
@@ -55,7 +68,9 @@ export default class Trophies extends React.Component {
 }
 
 
-const ChallengeModal = ({ message, open, close }) => {
+const ChallengeModal = ({
+  desc, message, open, close,
+}) => {
   const actions = [
     <FlatButton
       label="Close"
@@ -72,7 +87,9 @@ const ChallengeModal = ({ message, open, close }) => {
       open={open}
       onRequestClose={close}
     >
-      <p>{message}</p>
+      <h2>You Completed:</h2>
+      <h3>{message}</h3>
+      <p>{desc}</p>
     </Dialog>
   );
 };
