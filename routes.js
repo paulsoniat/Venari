@@ -204,7 +204,6 @@ module.exports = (app) => {
   });
 
   app.get('/findSubmissions', routeHelpers.getSubmissionsData);
-
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
 
   app.post('/challenge', isLoggedIn, routeHelpers.createChallenge);
