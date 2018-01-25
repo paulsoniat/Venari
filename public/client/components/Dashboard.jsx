@@ -41,6 +41,10 @@ class Dashboard extends React.Component {
         img: 'client/css/create-challenge.png',
         title: 'Create Challenge',
       },
+      {
+        img: 'client/css/galleryicon.png',
+        title: 'Your Gallery',
+      },
     ];
     this.routeTo = this.routeTo.bind(this);
   }
@@ -68,6 +72,9 @@ class Dashboard extends React.Component {
         break;
       case 'Create Challenge':
         this.props.history.push('/create');
+        break;
+      case 'Your Gallery':
+        this.props.history.push('/UserGallery');
         break;
       default:
         break;

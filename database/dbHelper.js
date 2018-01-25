@@ -140,5 +140,18 @@ module.exports = {
         },
       ],
     }),
+  findUserSubmissions: id =>
+    models.Submission.findAll({
+      where: { userId: id },
+      include: [
+        {
+          model: models.User,
+        },
+        {
+          model: models.Item,
+        },
+      ],
+    }),
+
 };
 

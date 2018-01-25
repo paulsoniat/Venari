@@ -204,12 +204,14 @@ module.exports = (app) => {
   });
 
   app.get('/findSubmissions', routeHelpers.getSubmissionsData);
-
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
 
   app.post('/challenge', isLoggedIn, routeHelpers.createChallenge);
 
+  app.get('/userSubmissions', routeHelpers.getUserSubmissions);
+
   app.get('/*', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });
+
 };

@@ -6,6 +6,7 @@ module.exports = {
   findSpecificChallenge: dbHelper.findSpecificChallenge,
   findOrCreateSubmission: dbHelper.findOrCreateSubmission,
   findOrCreateVote: dbHelper.findOrCreateVote,
+  findUserSubmissions: dbHelper.findUserSubmissions,
   getUsersData: (req, res) => {
     dbHelper.getLeaderboardData((err, data) => {
       if (err) {
@@ -92,14 +93,28 @@ module.exports = {
   getSubmissionsData: (req, res) => {
     dbHelper.getSubmissionsData()
       .then((submissions) => {
-        const data = submissions.map((sub) => {
-          return {
-            id: sub.dataValues.id,
-            itemName: sub.dataValues.item.name,
-            userName: sub.dataValues.user.name,
-            image: sub.dataValues.image,
-          };
-        });
+        const data = submissions.map(sub => ({
+          id: sub.dataValues.id,
+          itemName: sub.dataValues.item.name,
+          userName: sub.dataValues.user.name,
+          image: sub.dataValues.image,
+        }));
+        res.send(data);
+      })
+      .catch((err) => {
+        console.error(err, 'error getting submissions');
+      });
+  },
+  getUserSubmissions: (req, res) => {
+    dbHelper.findUserSubmissions(req.user.id)
+      .then((submissions) => {
+        console.log(submissions, "this is submission")
+        const data = submissions.map(sub => ({
+          id: sub.dataValues.id,
+          image: sub.dataValues.image,
+          itemName: sub.dataValues.item.name,
+          date: sub.dataValues.createdAt.toString(),
+        }));
         res.send(data);
       })
       .catch((err) => {
