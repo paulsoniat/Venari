@@ -129,5 +129,16 @@ module.exports = {
       challengeId,
       name: item,
     }),
+  getSubmissionsData: () =>
+    models.Submission.findAll({
+      include: [
+        {
+          model: models.User,
+        },
+        {
+          model: models.Item,
+        },
+      ],
+    }),
 };
 

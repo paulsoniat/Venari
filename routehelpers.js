@@ -89,4 +89,21 @@ module.exports = {
       });
     // res.send(data);
   },
+  getSubmissionsData: (req, res) => {
+    dbHelper.getSubmissionsData()
+      .then((submissions) => {
+        const data = submissions.map((sub) => {
+          return {
+            id: sub.dataValues.id,
+            itemName: sub.dataValues.item.name,
+            userName: sub.dataValues.user.name,
+            image: sub.dataValues.image,
+          };
+        });
+        res.send(data);
+      })
+      .catch((err) => {
+        console.error(err, 'error getting submissions');
+      });
+  },
 };
