@@ -140,5 +140,10 @@ module.exports = {
         },
       ],
     }),
+  findUserSubmissions: id =>
+    models.Submission.findAll({
+      where: { userId: id },
+    }),
+
 };
 

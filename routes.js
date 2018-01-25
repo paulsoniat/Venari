@@ -208,7 +208,10 @@ module.exports = (app) => {
 
   app.post('/challenge', isLoggedIn, routeHelpers.createChallenge);
 
+  app.get('/userSubmissions', routeHelpers.getUserSubmissions);
+
   app.get('/*', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });
+
 };
