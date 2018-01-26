@@ -22,27 +22,27 @@ class Dashboard extends React.Component {
     super(props);
     this.tilesData = [
       {
-        img: 'client/css/challenges.png',
+        img: 'client/css/challenges.gif',
         title: 'Challenges',
       },
       {
-        img: 'client/css/leaderboard.png',
+        img: 'client/css/leaderboard.gif',
         title: 'Leaderboard',
       },
       {
-        img: 'client/css/gallery.png',
+        img: 'client/css/gallery.gif',
         title: 'Gallery',
       },
       {
-        img: 'client/css/trophies.png',
+        img: 'client/css/trophies.gif',
         title: 'Trophy Room',
       },
       {
-        img: 'client/css/create-challenge.png',
+        img: 'client/css/create-challenge.gif',
         title: 'Create Challenge',
       },
       {
-        img: 'client/css/galleryicon.png',
+        img: 'client/css/user-gallery.gif',
         title: 'Your Gallery',
       },
     ];
@@ -92,13 +92,14 @@ class Dashboard extends React.Component {
           >
             {this.tilesData.map(tile => (
               <GridTile
+                align="center"
                 key={tile.title}
                 title={tile.title}
                 titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
                 onClick={this.routeTo}
                 // actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
               >
-                <img src={tile.img} alt="uh-oh spaghettios" style={{ maxHeight: 150 }} />
+                <img src={tile.img} alt="uh-oh spaghettios" style={{ maxHeight: 125 }} />
               </GridTile>
             ))}
           </GridList>
