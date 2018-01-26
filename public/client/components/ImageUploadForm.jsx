@@ -10,6 +10,38 @@ const bucketRegion = 'us-east-2';
 const IdPoolId = 'us-east-2:5cdc129e-149d-4a6a-92dc-064f77740edf';
 const capitalize = word => word.split('')[0].toUpperCase() + word.split('').slice(1).join('');
 
+function fileToImage(file) {
+  return new Promise((resolve) => {
+    const img = new window.Image();
+    img.onload = () => {
+      resolve(img);
+    };
+    
+    const reader = new window.FileReader();
+    reader.addEventListener('load', () => {
+      img.src = reader.result;
+    });
+    reader.readAsDataURL(file);
+  });
+}
+
+function imageToCanvas(img, scaleFactor = 1) {
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  canvas.width = img.width * scaleFactor;
+  canvas.height = img.height * scaleFactor;
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+  return canvas;
+}
+
+function canvasToBlob(canvas, mimeType) {
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      resolve(blob);
+    });
+  }, mimeType);
+}
 
 export default class ImageUploadForm extends React.Component {
   constructor(props) {
@@ -43,7 +75,7 @@ export default class ImageUploadForm extends React.Component {
 
     const { files } = document.getElementById(`photoupload-${this.props.index}`);
     if (!files.length) {
-      // don't submit no file
+      // don't allow null submit
       return this.setState({
         open: true,
         title: 'Error!',
@@ -51,84 +83,92 @@ export default class ImageUploadForm extends React.Component {
       });
     }
     const file = files[0];
-    const photoKey = `${this.props.challenge.split(' ').join('')}/${this.props.username}/${this.props.item.split(' ').join('')}.png`;
-
-    this.s3.upload({
-      Key: photoKey,
-      Body: file,
-      ACL: 'public-read',
-      ContentType: 'image/png',
-    }, (err, data) => {
-      if (err) {
-        console.error('error uploading image', err);
-      } else {
-        const filepath = data.Location;
-        this.setState({ loading: true });
-        axios.post('/pictureAnalysis', `imageFile=https://bnwrainbows.s3.amazonaws.com/${photoKey}`)
-          .then((res) => {
-            const classData = res.data.images[0].classifiers[0].classes;
-            const classDataStructure = [];
-            classData.forEach((value) => {
-              classDataStructure.push(value.class);
-            });
-            axios.post('/checkData', `dataArray=${classDataStructure}, ${this.props.item}`)
-              .then((response) => {
-                this.setState({ loading: false });
-                if (response.data === 'yaaaaaaas') {
-                  axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challenge},https://bnwrainbows.s3.amazonaws.com/${photoKey}`)
-                    .then((res) => {
-                      if (res.data === 'created') {
-                        axios.post('/addPoint', `pointData=${this.props.item}`)
-                          .then((pointResponse) => {
-                            // successful submission
-                            this.setState({
-                              loading: false,
-                              open: true,
-                              message: `${capitalize(this.props.item)} submission successful`,
-                              title: 'Success!',
-                            });
-                          })
-                          .catch((err) => {
-                            console.log(err, 'this is add point err');
-                          });
-                      } else if (res.data === 'challenge complete') {
-                        // successful submission that completes challenge
-                        this.setState({
-                          loading: false,
-                          open: true,
-                          message: `${capitalize(this.props.item)} submission successful!
-                          ${this.props.challenge} Challenge Completed!`,
-                          title: 'Success!',
-                        });
-                      } else {
-                        // successful update
-                        this.setState({
-                          loading: false,
-                          open: true,
-                          message: `Updated ${capitalize(this.props.item)} submission`,
-                          title: 'Success!',
-                        });
-                      }
-                    })
-                    .catch((err) => {
-                      console.log(err, 'this is submission error');
-                    });
-                } else {
-                  console.log(`invalid ${this.props.item}`);
-                  this.setState({
-                    open: true,
-                    message: `Invalid ${capitalize(this.props.item)}`,
-                    title: 'Error!',
-                  });
-                }
-              })
-              .catch((err) => {
-                console.log(err, 'this is error in check data');
+    const maxWidth = 500;
+    const maxHeight = 500;
+    fileToImage(file).then((img) => {
+      let factor = Math.min(1, maxWidth / img.width);
+      return imageToCanvas(img, factor);
+    }).then((canvas) => {
+      return canvasToBlob(canvas, 'image/png');
+    }).then((blob) => {
+      const photoKey = `${this.props.challenge.split(' ').join('')}/${this.props.username}/${this.props.item.split(' ').join('')}.png`;
+      this.s3.upload({
+        Key: photoKey,
+        Body: blob,
+        ACL: 'public-read',
+        ContentType: 'image/png',
+      }, (err, data) => {
+        if (err) {
+          console.error('error uploading image', err);
+        } else {
+          const filepath = data.Location;
+          this.setState({ loading: true });
+          axios.post('/pictureAnalysis', `imageFile=https://bnwrainbows.s3.amazonaws.com/${photoKey}`)
+            .then((res) => {
+              const classData = res.data.images[0].classifiers[0].classes;
+              const classDataStructure = [];
+              classData.forEach((value) => {
+                classDataStructure.push(value.class);
               });
-          }).catch((err) => {
-            console.log(err.response, 'this is error overall');
-          });
-      }
+              axios.post('/checkData', `dataArray=${classDataStructure}, ${this.props.item}`)
+                .then((response) => {
+                  this.setState({ loading: false });
+                  if (response.data === 'yaaaaaaas') {
+                    axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challenge},https://bnwrainbows.s3.amazonaws.com/${photoKey}`)
+                      .then((res) => {
+                        if (res.data === 'created') {
+                          axios.post('/addPoint', `pointData=${this.props.item}`)
+                            .then((pointResponse) => {
+                              // successful submission
+                              this.setState({
+                                loading: false,
+                                open: true,
+                                message: `${capitalize(this.props.item)} submission successful`,
+                                title: 'Success!',
+                              });
+                            })
+                            .catch((err) => {
+                              console.log(err, 'this is add point err');
+                            });
+                        } else if (res.data === 'challenge complete') {
+                          // successful submission that completes challenge
+                          this.setState({
+                            loading: false,
+                            open: true,
+                            message: `${capitalize(this.props.item)} submission successful!
+                            ${this.props.challenge} Challenge Completed!`,
+                            title: 'Success!',
+                          });
+                        } else {
+                          // successful update
+                          this.setState({
+                            loading: false,
+                            open: true,
+                            message: `Updated ${capitalize(this.props.item)} submission`,
+                            title: 'Success!',
+                          });
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err, 'this is submission error');
+                      });
+                  } else {
+                    console.log(`invalid ${this.props.item}`);
+                    this.setState({
+                      open: true,
+                      message: `Invalid ${capitalize(this.props.item)}`,
+                      title: 'Error!',
+                    });
+                  }
+                })
+                .catch((err) => {
+                  console.log(err, 'this is error in check data');
+                });
+            }).catch((err) => {
+              console.log(err.response, 'this is error overall');
+            });
+        }
+      });
     });
   }
 
@@ -139,7 +179,7 @@ export default class ImageUploadForm extends React.Component {
   }
 
   render() {
-    if (this.state.loading) return <div> <div><iframe src="https://giphy.com/embed/xTk9ZvMnbIiIew7IpW" width="100%" height="100%" frameBorder="0" className="giphy-embed" allowFullScreen /></div> <p><a href="https://giphy.com/gifs/loop-loading-loader-xTk9ZvMnbIiIew7IpW">Submitting Your Photo</a></p></div>;
+    if (this.state.loading) return <div> <div><iframe src="https://giphy.com/embed/xTk9ZvMnbIiIew7IpW" width="100%" height="100%" frameBorder="0" className="giphy-embed" allowFullScreen /></div></div>;
     return (
       <div>
         Upload an image of a {this.props.item} for {this.props.challenge}:
@@ -154,6 +194,7 @@ export default class ImageUploadForm extends React.Component {
           close={this.closeModal}
         />
         <FlatButton align="right" backgroundColor="LightGray" hoverColor="Gray" onClick={this.handleSubmit}>Upload Image</FlatButton>
+        <br />
       </div>
     );
   }
