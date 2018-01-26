@@ -11,7 +11,15 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import AWS from 'aws-sdk';
+import Subheader from 'material-ui/Subheader';
+import Divider from 'material-ui/Divider';
+import { fileToImage, imageToCanvas, canvasToBlob } from '../util';
 import Navbar from './Navbar.jsx';
+
+const albumBucketName = 'bnwrainbows';
+const bucketRegion = 'us-east-2';
+const IdPoolId = 'us-east-2:5cdc129e-149d-4a6a-92dc-064f77740edf';
 
 export default class CreateChallenge extends React.Component {
   constructor(props) {
@@ -31,6 +39,19 @@ export default class CreateChallenge extends React.Component {
       modalTitle: '',
       message: '',
     };
+
+    AWS.config.update({
+      region: bucketRegion,
+      credentials: new AWS.CognitoIdentityCredentials({
+        IdentityPoolId: IdPoolId,
+      }),
+    });
+
+    this.s3 = new AWS.S3({
+      apiVersion: '2006-03-01',
+      params: { Bucket: albumBucketName },
+    });
+
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addItem = this.addItem.bind(this);
@@ -68,21 +89,53 @@ export default class CreateChallenge extends React.Component {
       image,
       items,
     } = this.state;
-    if (title !== '' && description !== '' && image !== '' && items.length > 0) {
-      axios.post('/challenge', this.state)
-        .then((response) => {
-          // console.log('response', response);
-          this.setState({
-            title: '',
-            description: '',
-            startDate: new Date(),
-            endDate: this.endDate,
-            image: '',
-            items: [],
-            item: '',
-            open: true,
-            modalTitle: 'Success!',
-            message: 'New Challenge Created',
+    const { files } = document.getElementById('challenge-image');
+
+    if (title !== '' && description !== '' && files.length > 0 && items.length > 0) {
+      const file = files[0];
+      const maxWidth = 500;
+      const maxHeight = 500;
+      fileToImage(file).then((img) => {
+        let factor = Math.min(1, maxWidth / img.width);
+        return imageToCanvas(img, factor);
+      })
+        .then((canvas) => {
+          return canvasToBlob(canvas, 'image/png');
+        })
+        .then((blob) => {
+          const photoKey = `challenges/${this.state.startDate.getFullYear()}/${this.state.startDate.getMonth()}/${this.state.startDate.getDate()}/${title.split(' ').join('')}.png`;
+          this.s3.upload({
+            Key: photoKey,
+            Body: blob,
+            ACL: 'public-read',
+            ContentType: 'image/png',
+          }, (err, data) => {
+            if (err) {
+              console.error('error uploading image', err);
+            } else {
+              this.setState({
+                image: `https://bnwrainbows.s3.amazonaws.com/${photoKey}`,
+              });
+              axios.post('/challenge', this.state)
+                .then((response) => {
+                  // console.log('response', response);
+                  this.setState({
+                    title: '',
+                    description: '',
+                    startDate: new Date(),
+                    endDate: this.endDate,
+                    image: '',
+                    items: [],
+                    item: '',
+                    open: true,
+                    modalTitle: 'Success!',
+                    message: 'New Challenge Created',
+                  });
+                })
+                .catch((err) => {
+                  console.log('error posting challenge', err);
+                });
+            }
           });
         });
     } else {
@@ -146,8 +199,8 @@ export default class CreateChallenge extends React.Component {
               value={this.state.endDate}
               onChange={this.changeEnd}
             />
-            <TextField floatingLabelText="Image URL" name="image" value={this.state.image} onChange={this.handleChange} />
-            {/* <h4>Items:</h4> */}
+            <Subheader>Image</Subheader>
+            <input type="file" id="challenge-image" accept="image/*" />
             <TextField floatingLabelText="Add an Item" name="item" value={this.state.item} onChange={this.handleChange} />
             <FloatingActionButton mini onClick={this.addItem} >
               <ContentAdd />
