@@ -8,6 +8,7 @@
   font: #0D47A1;
 }
 
+<<<<<<< HEAD
 @media screen and (max-width:1024px) {
   img.responsive {
     width: 400px;
@@ -31,4 +32,9 @@
 
 img.responsive {
   height: auto;
+=======
+.menuItem {
+  font-family: Pacifico;
+  background-color: #EC407A;
+>>>>>>> [styling] commit before pull
 }

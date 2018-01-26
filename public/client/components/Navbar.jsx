@@ -19,6 +19,7 @@ const styles = {
  */
 const Navbar = ({ history }) => (
   <AppBar
+    style={{ fontFamily: 'Lobster', backgroundColor: '#673AB7' }}
     title={<span style={styles.title}>Venari</span>}
     showMenuIconButton={false}
     onTitleClick={() => { history.push('/home'); }}
@@ -28,13 +29,13 @@ const Navbar = ({ history }) => (
         anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
         targetOrigin={{ horizontal: 'left', vertical: 'top' }}
       >
-        <MenuItem primaryText="Trophy Room" containerElement={<Link to="/trophies" />} />
-        <MenuItem primaryText="Leader Board" containerElement={<Link to="/leaderboard" />} />
-        <MenuItem primaryText="Gallery" containerElement={<Link to="/gallery" />} />
-        <MenuItem primaryText="Your Gallery" containerElement={<Link to="/userGallery" />} />
-        <MenuItem primaryText="Challenges" containerElement={<Link to="/main" />} />
-        <MenuItem primaryText="Create Challenge" containerElement={<Link to="/create" />} />
-        <MenuItem primaryText="Sign out" href="/logout" />
+        <MenuItem className="menuItem" primaryText="Trophy Room" containerElement={<Link to="/trophies" />} />
+        <MenuItem className="menuItem" primaryText="Leader Board" containerElement={<Link to="/leaderboard" />} />
+        <MenuItem className="menuItem" primaryText="Gallery" containerElement={<Link to="/gallery" />} />
+        <MenuItem className="menuItem" primaryText="Your Gallery" containerElement={<Link to="/userGallery" />} />
+        <MenuItem className="menuItem" primaryText="Challenges" containerElement={<Link to="/main" />} />
+        <MenuItem className="menuItem" primaryText="Create Challenge" containerElement={<Link to="/create" />} />
+        <MenuItem className="menuItem" primaryText="Sign out" href="/logout" />
       </IconMenu>}
   />
 );
