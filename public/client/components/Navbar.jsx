@@ -31,6 +31,7 @@ const Navbar = ({ history }) => (
         <MenuItem primaryText="Trophy Room" containerElement={<Link to="/trophies" />} />
         <MenuItem primaryText="Leader Board" containerElement={<Link to="/leaderboard" />} />
         <MenuItem primaryText="Gallery" containerElement={<Link to="/gallery" />} />
+        <MenuItem primaryText="Your Gallery" containerElement={<Link to="/userGallery" />} />
         <MenuItem primaryText="Challenges" containerElement={<Link to="/main" />} />
         <MenuItem primaryText="Create Challenge" containerElement={<Link to="/create" />} />
         <MenuItem primaryText="Sign out" href="/logout" />
