@@ -1,15 +1,34 @@
-#logo{
-background-image: url('/client/css/download.png');
-overflow: hidden;
-
-} 
-
 #logo {
- text-align: center;
+  background-image: url('/client/css/download.png');
+  text-align: center;
 }
+
 
 #challenge {
   font: #0D47A1;
 }
 
+@media screen and (max-width:1024px) {
+  img.responsive {
+    width: 400px;
+  }
+  #logo {
+    height: 100%
+  }
+}
 
+@media screen and (max-width:1024px) {
+  #logo {
+    height: 100%
+  }
+}
+
+@media screen and (min-width:1025px) {
+  img.responsive {
+    width: 650px;
+  }
+}
+
+img.responsive {
+  height: auto;
+}
