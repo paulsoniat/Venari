@@ -77,7 +77,9 @@ module.exports = (app) => {
   app.get('/challenge:id', isLoggedIn, (req, res) => {
     const resArr = [];
     resArr.push(req._parsedOriginalUrl);
-    const challengeId = resArr[0].path.slice(-1);
+    console.log('SHOULD BE CHALLENGE ID: ', resArr[0].path.split(':')[1]);
+    // const challengeId = resArr[0].path.slice(-1);
+    const challengeId = resArr[0].path.split(':')[1];
     models.Item.findAll({ where: { challengeId } }).then((items) => {
       res.send(items);
     });
