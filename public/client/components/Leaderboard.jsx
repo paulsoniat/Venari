@@ -34,7 +34,7 @@ export default class Leaderboard extends React.Component {
   componentDidMount() {
     axios.get('/users').then((response) => {
       this.setState({
-        data: response.data,
+        data: response.data.slice(0, 10),
       });
     });
   }
