@@ -88,7 +88,6 @@ module.exports = {
         console.error(err, 'error creating challenge');
         res.send(err);
       });
-    // res.send(data);
   },
   getSubmissionsData: (req, res) => {
     dbHelper.getSubmissionsData()
@@ -108,7 +107,6 @@ module.exports = {
   getUserSubmissions: (req, res) => {
     dbHelper.findUserSubmissions(req.user.id)
       .then((submissions) => {
-        console.log(submissions, "this is submission")
         const data = submissions.map(sub => ({
           id: sub.dataValues.id,
           image: sub.dataValues.image,

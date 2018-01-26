@@ -17,7 +17,6 @@ export default class Gallery extends React.Component {
 
   componentWillMount() {
     axios.get('/findSubmissions').then((res) => {
-      console.log(res, "this is the response")
       this.setState({ images: res.data, loaded: true });
     });
   }

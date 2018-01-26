@@ -64,7 +64,7 @@ export default class ImageUploadForm extends React.Component {
       } else {
         const filepath = data.Location;
         this.setState({ loading: true });
-        axios.post('/pictureAnalysis', `imageFile=http://bnwrainbows.s3.amazonaws.com/${photoKey}`)
+        axios.post('/pictureAnalysis', `imageFile=https://bnwrainbows.s3.amazonaws.com/${photoKey}`)
           .then((res) => {
             const classData = res.data.images[0].classifiers[0].classes;
             const classDataStructure = [];
@@ -75,7 +75,7 @@ export default class ImageUploadForm extends React.Component {
               .then((response) => {
                 this.setState({ loading: false });
                 if (response.data === 'yaaaaaaas') {
-                  axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challenge},http://bnwrainbows.s3.amazonaws.com/${photoKey}`)
+                  axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challenge},https://bnwrainbows.s3.amazonaws.com/${photoKey}`)
                     .then((res) => {
                       if (res.data === 'created') {
                         axios.post('/addPoint', `pointData=${this.props.item}`)
