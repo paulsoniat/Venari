@@ -38,6 +38,7 @@ export default class Gallery extends React.Component {
             label="Vote for this picture"
             open
             mobile
+            interval={5000}
             style={{ position: 'inherit', width: '100%', height: '50%' }}
             onStart={() => { this.upVote(); }}
             onChange={(index) => { this.setState({ imageId: index }); }}

@@ -33,6 +33,7 @@ export default class RotatingCarousel extends React.Component {
           label="Begin this Challenge"
           open
           mobile
+          interval={5000}
           style={{ position: 'inherit', width: '100%', height: '50%' }}
           onStart={() => { this.changePage(); }}
           onChange={(index) => { this.setState({ challengeId: index }); } }

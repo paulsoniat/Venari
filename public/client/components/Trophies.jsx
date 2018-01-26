@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 import { green400, green600, blue400, blue600, red400, red600 } from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
