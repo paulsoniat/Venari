@@ -64,6 +64,7 @@ export default class UserGallery extends React.Component {
             // label="Vote for this picture"
             open
             mobile
+            interval={5000}
             style={{ position: 'inherit', width: '100%', height: '50%' }}
             onStart={() => ''}
             onChange={(index) => { this.setState({ imageId: index }); }}
