@@ -75,7 +75,7 @@ export default class ImageUploadForm extends React.Component {
 
     const { files } = document.getElementById(`photoupload-${this.props.index}`);
     if (!files.length) {
-      // don't submit no file
+      // don't allow null submit
       return this.setState({
         open: true,
         title: 'Error!',
@@ -87,7 +87,6 @@ export default class ImageUploadForm extends React.Component {
     const maxHeight = 500;
     fileToImage(file).then((img) => {
       let factor = Math.min(1, maxWidth / img.width);
-      factor = Math.min(factor, maxHeight / img.height);
       return imageToCanvas(img, factor);
     }).then((canvas) => {
       return canvasToBlob(canvas, 'image/png');
