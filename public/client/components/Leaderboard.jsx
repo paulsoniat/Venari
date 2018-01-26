@@ -28,6 +28,7 @@ export default class Leaderboard extends React.Component {
     };
     this.handleSelected = this.handleSelected.bind(this);
     this.closeSelection = this.closeSelection.bind(this);
+    this.backgroundSelect = this.backgroundSelect.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +45,19 @@ export default class Leaderboard extends React.Component {
       open: true,
     });
   }
+
+  backgroundSelect(index) {
+    const eslintStop = this.shutUp;
+    if (index === 0) {
+      return '#FFD700';
+    } else if (index === 1) {
+      return '#C0C0C0';
+    } else if (index === 2) {
+      return '#CD7F32';
+    }
+    return '#FFFFFF';
+  }
+
 
   closeSelection() {
     this.setState({
@@ -75,7 +89,8 @@ export default class Leaderboard extends React.Component {
                 showRowHover
               >
                 {this.state.data.map((user, i) => (
-                  <TableRow key={user.id}>
+
+                  <TableRow key={user.id} style={{ background: this.backgroundSelect(i) }}>
                     <TableRowColumn style={this.state.numColStyle}>{i + 1}</TableRowColumn>
                     <TableRowColumn>{user.name}</TableRowColumn>
                     <TableRowColumn style={this.state.numColStyle}>{user.score}</TableRowColumn>
