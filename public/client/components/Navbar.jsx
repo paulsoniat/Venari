@@ -19,7 +19,7 @@ const styles = {
  */
 const Navbar = ({ history }) => (
   <AppBar
-    style={{ fontFamily: 'Lobster', backgroundColor: '#673AB7' }}
+    style={{ fontFamily: 'Lobster', backgroundColor: '#311B92' }}
     title={<span style={styles.title}>Venari</span>}
     showMenuIconButton={false}
     onTitleClick={() => { history.push('/home'); }}
