@@ -78,7 +78,7 @@ export default class Leaderboard extends React.Component {
                 adjustForCheckbox={false}
                 enableSelectAll={false}
               >
-                <TableRow style={{fontWeight: "bold", textAlign: 'center', fontFamily: "Nunito"}}>
+                <TableRow style={{ fontWeight: 'bold', textAlign: 'center', fontFamily: 'Nunito' }}>
                   <TableHeaderColumn style={this.state.numColStyle}>Rank</TableHeaderColumn>
                   <TableHeaderColumn>User</TableHeaderColumn>
                   <TableHeaderColumn style={this.state.numColStyle}>Score</TableHeaderColumn>
@@ -90,7 +90,7 @@ export default class Leaderboard extends React.Component {
               >
                 {this.state.data.map((user, i) => (
 
-                  <TableRow key={user.id} style={{ background: this.backgroundSelect(i), fontWeight: 'bold', fontFamily: "Nunito"}}>
+                  <TableRow key={user.id} style={{ background: this.backgroundSelect(i), fontWeight: 'bold', fontFamily: 'Nunito' }}>
                     <TableRowColumn style={this.state.numColStyle}>{i + 1}</TableRowColumn>
                     <TableRowColumn>{user.name}</TableRowColumn>
                     <TableRowColumn style={this.state.numColStyle}>{user.score}</TableRowColumn>
@@ -125,7 +125,6 @@ const Selected = ({ user, open, close }) => {
         onRequestClose={close}
       >
         <p>Challenges Completed: {user.challenges.length}</p>
-        <p>Badges Earned: {user.badges.length}</p>
         <p>Total Submissions: {user.submissions.length}</p>
         <p>Total Score: {user.score}</p>
       </Dialog> : null
