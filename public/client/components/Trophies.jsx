@@ -45,7 +45,7 @@ export default class Trophies extends React.Component {
       <MuiThemeProvider>
         <div >
           <Navbar history={this.props.history} />
-          <div style={{ display: 'flex', flexFlow: 'row wrap' }}>
+          <div style={{ display: 'flex', flexFlow: 'row wrap', background: 'white' }}>
             {
           this.state.trophies.map(trophy =>
             (<div onClick={() => this.showDetails(trophy)}>
