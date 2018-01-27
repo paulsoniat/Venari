@@ -83,7 +83,7 @@ export default class ImageUploadForm extends React.Component {
                 .then((response) => {
                   this.setState({ loading: false });
                   if (response.data === 'yaaaaaaas') {
-                    axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challenge},https://bnwrainbows.s3.amazonaws.com/${photoKey}`)
+                    axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challengeId},https://bnwrainbows.s3.amazonaws.com/${photoKey}`)
                       .then((res) => {
                         if (res.data === 'created') {
                           axios.post('/addPoint', `pointData=${this.props.item}`)
