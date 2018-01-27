@@ -51,4 +51,12 @@ img.responsive {
   height: auto;
 }
 
+body {
+  background: '#F8EEE7';
+  min-height: 100%;
+  margin: auto;
+}
 
+html {
+  height: 100%;
+}
