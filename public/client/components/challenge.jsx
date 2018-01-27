@@ -2,8 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import Navbar from './Navbar.jsx';
-
 import {
   Table,
   TableBody,
@@ -13,6 +11,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import axios from 'axios';
+import Navbar from './Navbar.jsx';
 import ImageUploadForm from './ImageUploadForm.jsx';
 
 
@@ -21,7 +20,6 @@ export default class Challenge extends React.Component {
     super(props);
     this.state = {
       items: [],
-      itemIndex: '',
       challengeData: [],
       challengeId: props.match.params.id.slice(1),
       user: '',
@@ -41,8 +39,8 @@ export default class Challenge extends React.Component {
         }
       });
 
-      axios.get(`/challenge:${this.state.challengeId}`).then((res) => {
-        this.setState({ items: res.data, loaded: true });
+      axios.get(`/challenge:${this.state.challengeId}`).then((response) => {
+        this.setState({ items: response.data, loaded: true });
       });
     });
   }
@@ -61,7 +59,7 @@ export default class Challenge extends React.Component {
                 enableSelectAll={false}
               >
                 <TableRow>
-                  <TableHeaderColumn style={{ fontWeight: 'bold', fontSize: '24px'}}>{this.state.challengeData.title}</TableHeaderColumn>
+                  <TableHeaderColumn style={{ fontWeight: 'bold', fontSize: '24px' }}>{this.state.challengeData.title}</TableHeaderColumn>
                 </TableRow>
               </TableHeader>
               <TableBody
@@ -71,7 +69,13 @@ export default class Challenge extends React.Component {
                 {this.state.items.map((item, index) => (
                   <TableRow key={item.id}>
                     <TableRowColumn>
-                      <ImageUploadForm index={index} challenge={this.state.challengeData.title} username={this.state.user} item={item.name} />
+                      <ImageUploadForm
+                        index={index}
+                        challengeId={this.state.challengeData.id}
+                        challenge={this.state.challengeData.title}
+                        user={this.state.user}
+                        item={item.name}
+                      />
                     </TableRowColumn>
                   </TableRow>
                   ))}

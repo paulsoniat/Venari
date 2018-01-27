@@ -103,7 +103,7 @@ export default class CreateChallenge extends React.Component {
           return canvasToBlob(canvas, 'image/png');
         })
         .then((blob) => {
-          const photoKey = `challenges/${this.state.startDate.getFullYear()}/${this.state.startDate.getMonth()}/${this.state.startDate.getDate()}/${title.split(' ').join('')}.png`;
+          const photoKey = `venari/challenges/${this.state.startDate.getFullYear()}/${this.state.startDate.getMonth()}/${this.state.startDate.getDate()}/${title.split(' ').join('')}.png`;
           this.s3.upload({
             Key: photoKey,
             Body: blob,
