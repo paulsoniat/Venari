@@ -13,6 +13,7 @@ const styles = {
     width: 350,
     height: 525,
     overflowY: 'auto',
+    fontFamily: 'Nunito',
   },
 };
 
@@ -95,6 +96,7 @@ class Dashboard extends React.Component {
                 align="center"
                 key={tile.title}
                 title={tile.title}
+                // style={{ fontFamily: 'Nunito'}}
                 titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
                 onClick={this.routeTo}
                 // actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
