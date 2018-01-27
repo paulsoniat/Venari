@@ -60,7 +60,7 @@ export default class ImageUploadForm extends React.Component {
     }).then((canvas) => {
       return canvasToBlob(canvas, 'image/png');
     }).then((blob) => {
-      const photoKey = `${this.props.challenge.split(' ').join('')}/${this.props.username}/${this.props.item.split(' ').join('')}.png`;
+      const photoKey = `venari/users/${this.props.user}/${this.props.challengeId}/${this.props.item.split(' ').join('')}.png`;
       this.s3.upload({
         Key: photoKey,
         Body: blob,
@@ -194,7 +194,8 @@ const UploadModal = ({ item, message, title, open, close }) => {
 
 ImageUploadForm.propTypes = {
   challenge: PropTypes.string.isRequired,
-  username: PropTypes.number.isRequired,
+  challengeId: PropTypes.number.isRequired,
+  user: PropTypes.number.isRequired,
   item: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
 };

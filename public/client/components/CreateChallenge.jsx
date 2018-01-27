@@ -103,7 +103,7 @@ export default class CreateChallenge extends React.Component {
           return canvasToBlob(canvas, 'image/png');
         })
         .then((blob) => {
-          const photoKey = `challenges/${this.state.startDate.getFullYear()}/${this.state.startDate.getMonth()}/${this.state.startDate.getDate()}/${title.split(' ').join('')}.png`;
+          const photoKey = `venari/challenges/${this.state.startDate.getFullYear()}/${this.state.startDate.getMonth()}/${this.state.startDate.getDate()}/${title.split(' ').join('')}.png`;
           this.s3.upload({
             Key: photoKey,
             Body: blob,
@@ -205,7 +205,7 @@ export default class CreateChallenge extends React.Component {
             <FloatingActionButton mini onClick={this.addItem} >
               <ContentAdd />
             </FloatingActionButton>
-            <p>Please test your items with <a href="https://visual-recognition-demo.ng.bluemix.net/" rel="noopener noreferrer" target="_blank">Watson</a> to make sure it recognizes the correct item</p>
+            <p style={{ fontWeight: 'bold', fontFamily: 'Nunito' }}>Please test your items with <a href="https://visual-recognition-demo.ng.bluemix.net/" rel="noopener noreferrer" target="_blank">Watson</a> to make sure it recognizes the item</p>
             <List>
               {this.state.items.map((item, i) =>
                 (
@@ -218,7 +218,9 @@ export default class CreateChallenge extends React.Component {
               }
             </List>
             <br />
-            <RaisedButton style={{ margin: 'auto' }} primary onClick={this.handleSubmit} label="Add Challenge" />
+            <div>
+              <RaisedButton style={{ margin: 'auto' }} primary onClick={this.handleSubmit} label="Add Challenge" />
+            </div>
           </div>
         </div>
       </MuiThemeProvider>
