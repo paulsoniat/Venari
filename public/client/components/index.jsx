@@ -24,7 +24,7 @@ const Login = () => (
 
 const AppRouter = () => (
   <Router>
-    <div>
+    <div style={{ backgroundColor: '#F8EEE7' }}>
       <Route exact path="/" component={Login} />
       <Route exact path="/home" component={Dashboard} />
       <Route path="/challenge/:id" component={Challenge} />

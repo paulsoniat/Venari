@@ -6,6 +6,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import Navbar from './Navbar.jsx';
+
 const capitalize = word => word.split('')[0].toUpperCase() + word.split('').slice(1).join('');
 
 export default class UserGallery extends React.Component {
@@ -15,10 +16,13 @@ export default class UserGallery extends React.Component {
       images: [],
       imageId: 0,
       open: true,
+      colorWheel: [["#7E57C2"], ["#558B2F"], ["#e4bd3b"], ["#416854"], ["#00897B"], ["#7B1FA2"]],
+      randomColor: [],
     };
     this.closeModal = this.closeModal.bind(this);
+    this.randomizeColor = this.randomizeColor.bind(this);
   }
-  
+
   componentWillMount() {
     axios.get('/userSubmissions').then((res) => {
       this.setState({ images: res.data, loaded: true });
@@ -27,6 +31,12 @@ export default class UserGallery extends React.Component {
 
   closeModal() {
     this.props.history.push('/main');
+  }
+
+  randomizeColor(index) {
+    const randomIndex = Math.floor((this.state.colorWheel.length) * Math.random());
+    console.log(randomIndex);
+    this.setState({ imageId: index, randomColor: this.state.colorWheel[randomIndex] });
   }
 
   render() {
@@ -64,16 +74,17 @@ export default class UserGallery extends React.Component {
             // label="Vote for this picture"
             open
             mobile
+            interval={5000}
             style={{ position: 'inherit', width: '100%', height: '50%' }}
             onStart={() => ''}
-            onChange={(index) => { this.setState({ imageId: index }); }}
+            onChange={index => (this.randomizeColor(index))}
           >
             {this.state.images.map(image =>
               (<Slide
                 key={image.id}
                 media={<img src={image.image} height="300" width="300" alt="" />}
-                mediaBackgroundStyle={{ backgroundColor: blue600 }}
-                contentStyle={{ backgroundColor: blue400 }}
+                mediaBackgroundStyle={{ backgroundColor: this.state.randomColor[0] || "#7E57C2"}}
+                contentStyle={{ backgroundColor: this.state.randomColor[0] || "#7E57C2"}}
                 title={capitalize(image.itemName)}
                 subtitle={image.date.slice(0, 16)}
               />))}

@@ -4,44 +4,13 @@ import axios from 'axios';
 import AWS from 'aws-sdk';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import { fileToImage, imageToCanvas, canvasToBlob } from '../util';
 
 const albumBucketName = 'bnwrainbows';
 const bucketRegion = 'us-east-2';
 const IdPoolId = 'us-east-2:5cdc129e-149d-4a6a-92dc-064f77740edf';
 const capitalize = word => word.split('')[0].toUpperCase() + word.split('').slice(1).join('');
 
-function fileToImage(file) {
-  return new Promise((resolve) => {
-    const img = new window.Image();
-    img.onload = () => {
-      resolve(img);
-    };
-    
-    const reader = new window.FileReader();
-    reader.addEventListener('load', () => {
-      img.src = reader.result;
-    });
-    reader.readAsDataURL(file);
-  });
-}
-
-function imageToCanvas(img, scaleFactor = 1) {
-  const canvas = document.createElement('canvas');
-  const ctx = canvas.getContext('2d');
-
-  canvas.width = img.width * scaleFactor;
-  canvas.height = img.height * scaleFactor;
-  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-  return canvas;
-}
-
-function canvasToBlob(canvas, mimeType) {
-  return new Promise((resolve, reject) => {
-    canvas.toBlob((blob) => {
-      resolve(blob);
-    });
-  }, mimeType);
-}
 
 export default class ImageUploadForm extends React.Component {
   constructor(props) {
