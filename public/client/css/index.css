@@ -52,6 +52,11 @@ img.responsive {
 }
 
 body {
-  background-color: '#F8EEE7';
-  height: 800
+  background: '#F8EEE7';
+  min-height: 100%;
+  margin: auto;
+}
+
+html {
+  height: 100%;
 }

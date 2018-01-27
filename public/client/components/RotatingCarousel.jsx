@@ -10,8 +10,11 @@ export default class RotatingCarousel extends React.Component {
     this.state = {
       challengeData: [],
       challengeId: 0,
+      colorWheel: [["#7E57C2"], ["#558B2F"], ["#e4bd3b"], ["#416854"], ["#00897B"], ["#7B1FA2"]],
+      randomColor: [],
     };
     this.changePage = this.changePage.bind(this);
+    this.randomizeColor = this.randomizeColor.bind(this);
   }
 
   componentWillMount() {
@@ -22,6 +25,12 @@ export default class RotatingCarousel extends React.Component {
 
   changePage() {
     this.props.history.push(`/challenge/:${this.state.challengeData[this.state.challengeId].id}`)
+  }
+
+  randomizeColor(index) {
+    const randomIndex = Math.floor((this.state.colorWheel.length) * Math.random());
+    console.log(randomIndex);
+    this.setState({ challengeId: index, randomColor: this.state.colorWheel[randomIndex] });
   }
 
   render() {
@@ -36,14 +45,14 @@ export default class RotatingCarousel extends React.Component {
           interval={5000}
           style={{ position: 'inherit', width: '100%', height: '50%' }}
           onStart={() => { this.changePage(); }}
-          onChange={(index) => { this.setState({ challengeId: index }); } }
+          onChange={index => (this.randomizeColor(index))}
         >
           {this.state.challengeData.map(challenge =>
             (<Slide 
               key={challenge.id}
               media={<img src={challenge.image} height="300" width="300" alt="" />}
-              mediaBackgroundStyle={{ backgroundColor: blue600 }}
-              contentStyle={{ backgroundColor: blue400 }}
+              mediaBackgroundStyle={{ backgroundColor: this.state.randomColor[0] || "#7E57C2" }}
+              contentStyle={{ backgroundColor: this.state.randomColor[0] || "#7E57C2" }}
               title={challenge.title}
               subtitle={challenge.description}
             />))}

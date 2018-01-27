@@ -12,7 +12,10 @@ export default class Gallery extends React.Component {
     this.state = {
       images: [],
       imageId: 0,
+      colorWheel: [["#7E57C2"], ["#558B2F"], ["#e4bd3b"], ["#416854"], ["#00897B"], ["#7B1FA2"]],
+      randomColor: [],
     };
+    this.randomizeColor = this.randomizeColor.bind(this);
   }
 
   componentWillMount() {
@@ -22,12 +25,13 @@ export default class Gallery extends React.Component {
   }
 
   upVote() {
-    axios.post('/addVote', `imageId=${this.state.images[this.state.imageId].id}`)
-      .then((res) => {
-        console.log(res, 'this is addvote res');
-      });
+    axios.post('/addVote', `imageId=${this.state.images[this.state.imageId].id}`);
   }
 
+  randomizeColor(index) {
+    const randomIndex = Math.floor((this.state.colorWheel.length) * Math.random());
+    this.setState({ imageId: index, randomColor: this.state.colorWheel[randomIndex] });
+  }
   render() {
     if (!this.state.loaded) return <div>Loading Gallery</div>;
     return (
@@ -41,14 +45,14 @@ export default class Gallery extends React.Component {
             interval={5000}
             style={{ position: 'inherit', width: '100%', height: '50%' }}
             onStart={() => { this.upVote(); }}
-            onChange={(index) => { this.setState({ imageId: index }); }}
+            onChange={index => (this.randomizeColor(index))}
           >
             {this.state.images.map(image =>
               (<Slide
                 key={image.id}
                 media={<img src={image.image} height="300" width="300" alt="" />}
-                mediaBackgroundStyle={{ backgroundColor: blue600 }}
-                contentStyle={{ backgroundColor: blue400 }}
+                mediaBackgroundStyle={{ backgroundColor: this.state.randomColor[0] || "#7E57C2" }}
+                contentStyle={{ backgroundColor: this.state.randomColor[0] || "#7E57C2" }}
                 title={capitalize(image.itemName)}
                 subtitle={image.userName}
               />))}
