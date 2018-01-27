@@ -1,6 +1,7 @@
 #logo {
   background-image: url('/client/css/download.png');
   text-align: center;
+  align-content: center;
 }
 
 
