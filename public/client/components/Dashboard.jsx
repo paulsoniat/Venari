@@ -87,7 +87,7 @@ class Dashboard extends React.Component {
         <div style={styles.root}>
           <Navbar history={this.props.history} />
           <GridList
-            cellHeight="auto"
+            cellHeight={150}
             style={styles.gridList}
           >
             {this.tilesData.map(tile => (
@@ -99,7 +99,7 @@ class Dashboard extends React.Component {
                 onClick={this.routeTo}
                 // actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
               >
-                <img src={tile.img} alt="uh-oh spaghettios" style={{ maxHeight: 125 }} />
+                <img src={tile.img} alt="uh-oh spaghettios" />
               </GridTile>
             ))}
           </GridList>
