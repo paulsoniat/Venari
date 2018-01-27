@@ -118,34 +118,44 @@ module.exports = (app) => {
   app.post('/saveSubmission', (req, res) => {
     const splitData = req.body.submissionData.split(',');
     const link = splitData[2];
+    const challengeId = splitData[1];
     const itemName = splitData[0];
-    models.Item.findOne({
-      where: { name: itemName },
-    }).then((item) => {
-      const itemId = item.dataValues.id;
-      routeHelpers.findOrCreateSubmission(req.user.id, itemId, link, (created) => {
-        if (created) {
-          // if a submisison is created, check if this submission completes the challenge
-          routeHelpers.userCompletedChallenge(
-            req.user.id,
-            item.dataValues.challengeId,
-            (err, completed) => {
-              if (err) {
-                console.error('error', err);
-              } else if (completed) {
-                res.send('challenge complete');
-              } else {
-                res.send('created');
-              }
-            },
-          );
-        } else {
-          res.send('exists');
+    models.Challenge.findById(challengeId)
+      .then((challenge) => {
+        return challenge.getItems();
+      })
+      .then((items) => {
+        const itemId = items.reduce((id, item) => {
+          return item.dataValues.name === itemName ? item.dataValues.id : id;
+        }, null);
+        if (itemId) {
+          routeHelpers.findOrCreateSubmission(req.user.id, itemId, link, (created) => {
+            if (created) {
+              // if a submisison is created, check if this submission completes the challenge
+              routeHelpers.userCompletedChallenge(
+                req.user.id,
+                challengeId,
+                (err, completed) => {
+                  if (err) {
+                    console.error('error', err);
+                    res.send(err);
+                  } else if (completed) {
+                    res.send('challenge complete');
+                  } else {
+                    res.send('created');
+                  }
+                },
+              );
+            } else {
+              res.send('exists');
+            }
+          });
         }
+      })
+      .catch((err) => {
+        console.error('error saving submission', err);
+        res.send(err);
       });
-    }).catch((err) => {
-      console.log(err, 'error in submission on server side');
-    });
   });
 
   app.post('/addPoint', (req, res) => {
