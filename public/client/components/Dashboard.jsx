@@ -10,7 +10,7 @@ const styles = {
     justifyContent: 'space-around',
   },
   gridList: {
-    width: 350,
+    width: 320,
     height: 525,
     overflowY: 'auto',
     fontFamily: 'Nunito',
@@ -52,12 +52,6 @@ class Dashboard extends React.Component {
 
   routeTo(e) {
     const title = e._targetInst._debugOwner.key;
-    // const tile = this.tilesData.reduce((prev, current) => {
-    //   if (current.title === title) {
-    //     return current;
-    //   }
-    //   return prev;
-    // });
     switch (title) {
       case 'Challenges':
         this.props.history.push('/main');
@@ -96,10 +90,8 @@ class Dashboard extends React.Component {
                 align="center"
                 key={tile.title}
                 title={tile.title}
-                // style={{ fontFamily: 'Nunito'}}
                 titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
                 onClick={this.routeTo}
-                // actionIcon={<IconButton><StarBorder color="white" /></IconButton>}
               >
                 <img src={tile.img} alt="uh-oh spaghettios" />
               </GridTile>
