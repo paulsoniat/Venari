@@ -13,7 +13,7 @@ export default class Trophies extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      trophies: [{ image: '/css/venariLogo.png' }],
+      trophies: [],
       open: false,
       trophy: '',
     };
@@ -55,7 +55,7 @@ export default class Trophies extends React.Component {
                 open={this.state.open}
                 close={this.closeModal}
               />
-              <Scene image="http://bnwrainbows.s3.amazonaws.com/AnotherTestChallenge/3/cat.png" />
+              <Scene image={trophy.image} />
              </div>
             ))
         }
