@@ -131,7 +131,6 @@ module.exports = (app) => {
         if (itemId) {
           routeHelpers.findOrCreateSubmission(req.user.id, itemId, link, (created) => {
             if (created) {
-              // if a submisison is created, check if this submission completes the challenge
               routeHelpers.userCompletedChallenge(
                 req.user.id,
                 challengeId,
@@ -192,7 +191,7 @@ module.exports = (app) => {
             where: { id: submission.dataValues.userId },
           }).then((user) => {
             models.Item.findOne({
-              where: { id: req.body.imageId },
+              where: { id: submission.dataValues.itemId },
             })
               .then((item) => {
                 const userScore = user.dataValues.score;
@@ -216,11 +215,9 @@ module.exports = (app) => {
 
   app.get('/getbadges', (req, res) => {
     const results = [];
-    // console.log(req.user.id, 'hfhfhfhjfhfhjfj');
     models.UserChallenges.findAll({
       where: { userId: req.user.id },
     }).then((challenges) => {
-      // console.log(challenges, ' CHALLENGES');
       challenges.forEach((challenge) => {
         models.Challenge.findOne({
           where: { id: challenge.dataValues.challengeId },

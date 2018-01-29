@@ -178,6 +178,7 @@ export default class ImageUploadForm extends React.Component {
           open={this.state.open}
           close={this.closeModal}
         />
+        
         <FlatButton align="right" backgroundColor="LightGray" hoverColor="Gray" onClick={this.handleSubmit}>Upload Image</FlatButton>
         <br />
       </div>

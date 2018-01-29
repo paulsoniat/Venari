@@ -33,6 +33,10 @@ height: 100%;
   #logo {
     height: 100%
   }
+  #trophyCanvas {
+    width: 400;
+    height: 400;
+  }
 }
 
 @media screen and (max-width:1024px) {
