@@ -1,31 +1,32 @@
 const THREE = require('three');
+
 import React from 'react';
 
 export default class Scene extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.start = this.start.bind(this)
-    this.stop = this.stop.bind(this)
-    this.animate = this.animate.bind(this)
+    this.start = this.start.bind(this);
+    this.stop = this.stop.bind(this);
+    this.animate = this.animate.bind(this);
   }
 
   componentDidMount() {
-    const width = this.mount.clientWidth
-    const height = this.mount.clientHeight
+    const width = this.mount.clientWidth;
+    const height = this.mount.clientHeight;
 
-    const scene = new THREE.Scene()
+    const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x00FFFFFF);
     const camera = new THREE.PerspectiveCamera(
       75,
       width / height,
       0.1,
-      1000
-    )
+      1000,
+    );
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
-    })
-    const geometry = new THREE.BoxGeometry(1, 1, 1)
+    });
+    const geometry = new THREE.BoxGeometry(1, 1, 1);
     const textureLoader = new THREE.TextureLoader();
     const texture0 = textureLoader.load(this.props.image);
     const texture1 = textureLoader.load(this.props.image);
@@ -56,12 +57,12 @@ export default class Scene extends React.Component {
     // const material = new THREE.MeshBasicMaterial({
     //   color: 0xff00ff
     // })
-    const cube = new THREE.Mesh(geometry, cubeMaterials)
+    const cube = new THREE.Mesh(geometry, cubeMaterials);
 
-    camera.position.z = 1.5
-    scene.add(cube)
+    camera.position.z = 1.5;
+    scene.add(cube);
     // renderer.setClearColor(0xffffff, 1);
-    renderer.setSize(width, height)
+    renderer.setSize(width, height);
 
     this.scene = scene;
     this.camera = camera;
@@ -97,25 +98,26 @@ export default class Scene extends React.Component {
   }
 
   renderScene() {
-    this.renderer.render(this.scene, this.camera)
+    this.renderer.render(this.scene, this.camera);
   }
 
   render() {
-    return ( <
-      div style = {
+    return (<div
+      className="trophyCanvas"
+      style={
         {
-          width: '150px',
-          height: '150px',
-          opacity: 1
+          width: '160px',
+          height: '160px',
+          opacity: 1,
         }
       }
-      ref = {
+      ref= {
         (mount) => {
-          this.mount = mount
+          this.mount = mount;
         }
       }
-      />
-    )
+    />
+    );
   }
 }
 
