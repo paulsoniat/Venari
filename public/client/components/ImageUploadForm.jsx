@@ -5,6 +5,9 @@ import AWS from 'aws-sdk';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import { fileToImage, imageToCanvas, canvasToBlob } from '../util';
+import FontIcon from 'material-ui/FontIcon';
+import FileFileUpload from 'material-ui/svg-icons/file/file-upload';
+import ImageAddPhoto from 'material-ui/svg-icons/image/add-a-photo';
 
 const albumBucketName = 'bnwrainbows';
 const bucketRegion = 'us-east-2';
@@ -166,8 +169,10 @@ export default class ImageUploadForm extends React.Component {
   render() {
     if (this.state.loading) return <div> <div><iframe src="https://giphy.com/embed/xTk9ZvMnbIiIew7IpW" width="100%" height="100%" frameBorder="0" className="giphy-embed" allowFullScreen /></div></div>;
     return (
-      <div>
+      <div className="upload">
+      <span className="rwd-line">
         Upload an image of a {this.props.item} for {this.props.challenge}:
+        </span>
         <br />
         <input id={`photoupload-${this.props.index}`} type="file" accept="image/*" />
         {/* <button type="submit" onClick={this.handleSubmit}>Upload Image</button> */}
@@ -179,7 +184,7 @@ export default class ImageUploadForm extends React.Component {
           close={this.closeModal}
         />
         
-        <FlatButton align="right" backgroundColor="LightGray" hoverColor="Gray" onClick={this.handleSubmit}>Upload Image</FlatButton>
+        <FlatButton icon={<FileFileUpload />} align="left" backgroundColor="LightGray" hoverColor="Gray" onClick={this.handleSubmit}></FlatButton>
         <br />
       </div>
     );

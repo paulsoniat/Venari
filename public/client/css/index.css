@@ -49,6 +49,17 @@ height: 100%;
   img.responsive {
     width: 650px;
   }
+ 
+}
+
+
+@media screen and (max-width:320px) {
+.upload{
+    position: relative;
+    align-content: center;
+    white-space: normal;
+  }
+  
 }
 
 img.responsive {
@@ -56,7 +67,7 @@ img.responsive {
 }
 
 body {
-  background: '#F8EEE7';
+  background: #F8EEE7;
   min-height: 100%;
   margin: auto;
 }
@@ -64,3 +75,4 @@ body {
 html {
   height: 100%;
 }
+
