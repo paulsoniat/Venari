@@ -55,12 +55,10 @@ export default class ImageUploadForm extends React.Component {
     const maxWidth = 500;
     const maxHeight = 500;
     fileToImage(file).then((img) => {
-      let factor = Math.min(1, maxWidth / img.width);
+      const factor = Math.min(1, maxWidth / img.width);
       return imageToCanvas(img, factor);
-    }).then((canvas) => {
-      return canvasToBlob(canvas, 'image/png');
-    }).then((blob) => {
-      const photoKey = `venari/users/${this.props.user}/${this.props.challengeId}/${this.props.item.split(' ').join('')}.png`;
+    }).then((canvas) => canvasToBlob(canvas, 'image/png')).then((blob) => {
+      const photoKey = `venari/users/${this.props.user}/temp.png`;
       this.s3.upload({
         Key: photoKey,
         Body: blob,
@@ -83,44 +81,56 @@ export default class ImageUploadForm extends React.Component {
                 .then((response) => {
                   this.setState({ loading: false });
                   if (response.data === 'yaaaaaaas') {
-                    axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challengeId},https://bnwrainbows.s3.amazonaws.com/${photoKey}`)
-                      .then((res) => {
-                        if (res.data === 'created') {
-                          axios.post('/addPoint', `pointData=${this.props.item}`)
-                            .then((pointResponse) => {
-                              // successful submission
+                    const realKey = `venari/users/${this.props.user}/${this.props.challengeId}/${this.props.item.split(' ').join('')}.png`;
+                    this.s3.upload({
+                      Key: realKey,
+                      Body: blob,
+                      ACL: 'public-read',
+                      ContentType: 'image/png',
+                    }, (realErr, realData) => {
+                      if (realErr) {
+                        console.error('error uploading image', realErr);
+                      } else {
+                        axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challengeId},https://bnwrainbows.s3.amazonaws.com/${realKey}`)
+                          .then((res) => {
+                            if (res.data === 'created') {
+                              axios.post('/addPoint', `pointData=${this.props.item}`)
+                                .then((pointResponse) => {
+                                  // successful submission
+                                  this.setState({
+                                    loading: false,
+                                    open: true,
+                                    message: `${capitalize(this.props.item)} submission successful`,
+                                    title: 'Success!',
+                                  });
+                                })
+                                .catch((err) => {
+                                  console.log(err, 'this is add point err');
+                                });
+                            } else if (res.data === 'challenge complete') {
+                              // successful submission that completes challenge
                               this.setState({
                                 loading: false,
                                 open: true,
-                                message: `${capitalize(this.props.item)} submission successful`,
+                                message: `${capitalize(this.props.item)} submission successful!
+                                ${this.props.challenge} Challenge Completed!`,
                                 title: 'Success!',
                               });
-                            })
-                            .catch((err) => {
-                              console.log(err, 'this is add point err');
-                            });
-                        } else if (res.data === 'challenge complete') {
-                          // successful submission that completes challenge
-                          this.setState({
-                            loading: false,
-                            open: true,
-                            message: `${capitalize(this.props.item)} submission successful!
-                            ${this.props.challenge} Challenge Completed!`,
-                            title: 'Success!',
+                            } else {
+                              // successful update
+                              this.setState({
+                                loading: false,
+                                open: true,
+                                message: `Updated ${capitalize(this.props.item)} submission`,
+                                title: 'Success!',
+                              });
+                            }
+                          })
+                          .catch((err) => {
+                            console.log(err, 'this is submission error');
                           });
-                        } else {
-                          // successful update
-                          this.setState({
-                            loading: false,
-                            open: true,
-                            message: `Updated ${capitalize(this.props.item)} submission`,
-                            title: 'Success!',
-                          });
-                        }
-                      })
-                      .catch((err) => {
-                        console.log(err, 'this is submission error');
-                      });
+                      }
+                    });
                   } else {
                     console.log(`invalid ${this.props.item}`);
                     this.setState({
@@ -170,7 +180,9 @@ export default class ImageUploadForm extends React.Component {
 }
 
 
-const UploadModal = ({ item, message, title, open, close }) => {
+const UploadModal = ({
+ item, message, title, open, close 
+}) => {
   const actions = [
     <FlatButton
       label="Close"
