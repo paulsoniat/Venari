@@ -25,7 +25,13 @@ export default class Gallery extends React.Component {
   }
 
   upVote() {
-    axios.post('/addVote', `imageId=${this.state.images[this.state.imageId].id}`);
+    axios.post('/addVote', `imageId=${this.state.images[this.state.imageId].id}`)
+    .then((response) => {
+      console.log(response, "this is vote response")
+    })
+    .catch((err) => {
+      console.log(err, "this is vote add error")
+    })
   }
 
   randomizeColor(index) {

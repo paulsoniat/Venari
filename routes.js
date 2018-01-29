@@ -184,16 +184,20 @@ module.exports = (app) => {
   app.post('/addVote', (req, res) => {
     routeHelpers.findOrCreateVote(req.user.id, req.body.imageId, (created) => {
       if (created) {
+        console.log("vote created")
         models.Submission.findOne({
           where: { id: req.body.imageId },
         }).then((submission) => {
+          console.log(submission, "submission found")
           models.User.findOne({
             where: { id: submission.dataValues.userId },
           }).then((user) => {
+            console.log(user, 'user found')
             models.Item.findOne({
               where: { id: req.body.imageId },
             })
               .then((item) => {
+                console.log(item, 'item found')
                 const userScore = user.dataValues.score;
                 const itemScore = item.dataValues.value;
                 user.updateAttributes({
