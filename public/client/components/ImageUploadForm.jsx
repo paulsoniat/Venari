@@ -57,7 +57,7 @@ export default class ImageUploadForm extends React.Component {
     fileToImage(file).then((img) => {
       const factor = Math.min(1, maxWidth / img.width);
       return imageToCanvas(img, factor);
-    }).then((canvas) => canvasToBlob(canvas, 'image/png')).then((blob) => {
+    }).then(canvas => canvasToBlob(canvas, 'image/png')).then((blob) => {
       const photoKey = `venari/users/${this.props.user}/temp.png`;
       this.s3.upload({
         Key: photoKey,
@@ -109,13 +109,19 @@ export default class ImageUploadForm extends React.Component {
                                 });
                             } else if (res.data === 'challenge complete') {
                               // successful submission that completes challenge
-                              this.setState({
-                                loading: false,
-                                open: true,
-                                message: `${capitalize(this.props.item)} submission successful!
-                                ${this.props.challenge} Challenge Completed!`,
-                                title: 'Success!',
-                              });
+                              axios.post('/addPoint', `pointData=${this.props.item}`)
+                                .then((pointResponse) => {
+                                  this.setState({
+                                    loading: false,
+                                    open: true,
+                                    message: `${capitalize(this.props.item)} submission successful!\n
+                                    ${this.props.challenge} Challenge Completed!`,
+                                    title: 'Success!',
+                                  });
+                                })
+                                .catch((err) => {
+                                  console.log(err, 'this is add point err');
+                                });
                             } else {
                               // successful update
                               this.setState({
@@ -181,7 +187,7 @@ export default class ImageUploadForm extends React.Component {
 
 
 const UploadModal = ({
- item, message, title, open, close 
+  item, message, title, open, close,
 }) => {
   const actions = [
     <FlatButton

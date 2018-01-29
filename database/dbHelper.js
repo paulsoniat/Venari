@@ -110,7 +110,20 @@ module.exports = {
     models.UserChallenges.create({
       userId,
       challengeId,
-    }),
+    })
+      .then(() =>
+        models.Challenge.findById(challengeId)
+          .then(challenge => challenge.dataValues.value))
+      .then((value) => {
+        models.User.findById(userId)
+          .then(user =>
+            user.updateAttributes({
+              score: user.dataValues.score + value,
+            }));
+      })
+      .catch((err) => {
+        console.log('error completing challenge', err);
+      }),
   addBadge: (userId, badgeId) =>
     models.UserBadges.create({
       userId,

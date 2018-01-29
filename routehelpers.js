@@ -36,8 +36,9 @@ module.exports = {
               console.log('challenge completed', completed);
               if (completed) {
                 dbHelper.completeChallenge(userId, challengeId)
-                  .then(() => dbHelper.getChallengeById(challengeId))
-                  .then(challenge => dbHelper.addBadge(userId, challenge.badgeId))
+                  // remove until we have meaningful badge features
+                  // .then(() => dbHelper.getChallengeById(challengeId))
+                  // .then(challenge => dbHelper.addBadge(userId, challenge.badgeId))
                   .then(() => {
                     callback(null, true);
                   });
