@@ -159,15 +159,13 @@ module.exports = (app) => {
   });
 
   app.post('/addPoint', (req, res) => {
-    const userData = req.user.name;
+    const userId = req.user.id;
     let pointValue = 0;
     models.Item.findOne({
       where: { name: req.body.pointData },
     }).then((item) => {
       pointValue = item.dataValues.value;
-      models.User.findOne({
-        where: { name: userData },
-      }).then((user) => {
+      models.User.findById(userId).then((user) => {
         const userScore = user.dataValues.score;
         user.updateAttributes({
           score: userScore + pointValue,
