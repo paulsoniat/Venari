@@ -4,6 +4,7 @@ import { AutoRotatingCarousel, Slide } from 'material-auto-rotating-carousel';
 import { green400, green600, blue400, blue600, red400, red600 } from 'material-ui/styles/colors';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import Navbar from './Navbar.jsx';
+
 const capitalize = word => word.split('')[0].toUpperCase() + word.split('').slice(1).join('');
 
 export default class Gallery extends React.Component {
@@ -12,7 +13,7 @@ export default class Gallery extends React.Component {
     this.state = {
       images: [],
       imageId: 0,
-      colorWheel: [["#7E57C2"], ["#558B2F"], ["#e4bd3b"], ["#416854"], ["#00897B"], ["#7B1FA2"]],
+      colorWheel: [['#7E57C2'], ['#558B2F'], ['#e4bd3b'], ['#416854'], ['#00897B'], ['#7B1FA2']],
       randomColor: [],
     };
     this.randomizeColor = this.randomizeColor.bind(this);
@@ -26,12 +27,9 @@ export default class Gallery extends React.Component {
 
   upVote() {
     axios.post('/addVote', `imageId=${this.state.images[this.state.imageId].id}`)
-    .then((response) => {
-      console.log(response, "this is vote response")
-    })
-    .catch((err) => {
-      console.log(err, "this is vote add error")
-    })
+      .catch((err) => {
+        console.log(err, 'this is vote add error');
+      });
   }
 
   randomizeColor(index) {
@@ -57,8 +55,8 @@ export default class Gallery extends React.Component {
               (<Slide
                 key={image.id}
                 media={<img src={image.image} height="300" width="300" alt="" />}
-                mediaBackgroundStyle={{ backgroundColor: this.state.randomColor[0] || "#7E57C2" }}
-                contentStyle={{ backgroundColor: this.state.randomColor[0] || "#7E57C2" }}
+                mediaBackgroundStyle={{ backgroundColor: this.state.randomColor[0] || '#7E57C2' }}
+                contentStyle={{ backgroundColor: this.state.randomColor[0] || '#7E57C2' }}
                 title={capitalize(image.itemName)}
                 subtitle={image.userName}
               />))}
