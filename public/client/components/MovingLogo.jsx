@@ -3,9 +3,6 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { blue, indigo500 } from 'material-ui/styles/colors';
-import FontIcon from 'material-ui/FontIcon';
-import ActionTimeline from 'material-ui/svg-icons/action/timeline';
-
 
 //separate logo and login
 
