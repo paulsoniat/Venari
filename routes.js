@@ -182,6 +182,7 @@ module.exports = (app) => {
 
 
   app.post('/addVote', (req, res) => {
+    console.log(req, "this is request");
     routeHelpers.findOrCreateVote(req.user.id, req.body.imageId, (created) => {
       if (created) {
         console.log("vote created")
@@ -194,7 +195,7 @@ module.exports = (app) => {
           }).then((user) => {
             console.log(user, 'user found')
             models.Item.findOne({
-              where: { id: req.body.imageId },
+              where: { id: submission.dataValues.itemId },
             })
               .then((item) => {
                 console.log(item, 'item found')
