@@ -52,6 +52,14 @@ class Dashboard extends React.Component {
         img: 'client/css/user-gallery.gif',
         title: 'Your Gallery',
       },
+      {
+        img: 'client/css/user-gallery.gif',
+        title: 'Geo Challenge',
+      },
+      {
+        img: 'client/css/user-gallery.gif',
+        title: 'Geo Gallery',
+      },
     ];
     this.routeTo = this.routeTo.bind(this);
   }
@@ -77,6 +85,9 @@ class Dashboard extends React.Component {
       case 'Your Gallery':
         this.props.history.push('/UserGallery');
         break;
+      case 'Geo Challenge':
+        this.props.history.push('/CreateGeoChallenge');
+        break;
       default:
         break;
     }
@@ -88,7 +99,7 @@ class Dashboard extends React.Component {
         <div style={styles.root}>
           <Navbar history={this.props.history} />
           <GridList
-            cellHeight={150}
+            cellHeight={125}
             style={styles.gridList}
           >
             {this.tilesData.map(tile => (

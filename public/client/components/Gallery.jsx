@@ -27,6 +27,9 @@ export default class Gallery extends React.Component {
 
   upVote() {
     axios.post('/addVote', `imageId=${this.state.images[this.state.imageId].id}`)
+      .then((res) => {
+        console.log(res);
+      })
       .catch((err) => {
         console.log(err, 'this is vote add error');
       });
