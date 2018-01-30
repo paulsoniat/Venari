@@ -18,8 +18,7 @@ export default class RotatingCarousel extends React.Component {
   }
 
   componentWillMount() {
-      //need to change this route
-    axios.get('/challenges').then((res) => {
+    axios.get('/locationChallenges').then((res) => {
       this.setState({ challengeData: res.data, loaded: true });
     });
   }
