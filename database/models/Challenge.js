@@ -35,7 +35,7 @@ const Challenge = db.define('challenge', {
   range: {
     type: Sequelize.INTEGER,
     allowNull: true,
-    defaultValue: 0.2,
+    defaultValue: 0.002,
   },
 });
 
