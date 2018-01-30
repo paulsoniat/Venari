@@ -20,6 +20,7 @@ const styles = {
     fontWeight: 'bold',
     marginTop: 25,
     marginRight: 10,
+    fontSize: '10pt',
   },
 };
 
@@ -30,35 +31,35 @@ class Dashboard extends React.Component {
     this.tilesData = [
       {
         img: 'client/css/challenges.gif',
-        title: 'Challenges',
+        title: 'Photo Challenges',
+      },
+      {
+        img: 'client/css/mapchallenge.gif',
+        title: 'Geo Challenges',
       },
       {
         img: 'client/css/leaderboard.gif',
         title: 'Leaderboard',
       },
       {
-        img: 'client/css/gallery.gif',
-        title: 'Gallery',
-      },
-      {
         img: 'client/css/trophies.gif',
         title: 'Trophy Room',
       },
       {
-        img: 'client/css/create-challenge.gif',
-        title: 'Create Challenge',
+        img: 'client/css/gallery.gif',
+        title: 'Gallery',
       },
       {
         img: 'client/css/user-gallery.gif',
         title: 'Your Gallery',
       },
       {
-        img: 'client/css/user-gallery.gif',
-        title: 'Geo Challenge',
+        img: 'client/css/camera.gif',
+        title: 'Add Photo Challenge',
       },
       {
-        img: 'client/css/user-gallery.gif',
-        title: 'Geo Gallery',
+        img: 'client/css/createGeo.gif',
+        title: 'Add Geo Challenge',
       },
     ];
     this.routeTo = this.routeTo.bind(this);
@@ -79,14 +80,17 @@ class Dashboard extends React.Component {
       case 'Trophy Room':
         this.props.history.push('/trophies');
         break;
-      case 'Create Challenge':
+      case 'Create Photo Challenge':
         this.props.history.push('/create');
         break;
       case 'Your Gallery':
         this.props.history.push('/UserGallery');
         break;
-      case 'Geo Challenge':
+      case 'Create Geo Challenge':
         this.props.history.push('/CreateGeoChallenge');
+        break;
+      case 'Geo Challenges':
+        this.props.history.push('/GeoChallenges');
         break;
       default:
         break;

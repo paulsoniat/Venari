@@ -194,7 +194,6 @@ module.exports = (app) => {
               where: { id: submission.dataValues.itemId },
             })
               .then((item) => {
-                console.log(item, "item found");
                 const userScore = user.dataValues.score;
                 const itemScore = item.dataValues.value;
                 user.updateAttributes({
