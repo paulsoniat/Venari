@@ -25,15 +25,15 @@ const Challenge = db.define('challenge', {
     defaultValue: 5,
   },
   longitude: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: true,
   },
   latitude: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: true,
   },
   range: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.FLOAT,
     allowNull: true,
     defaultValue: 0.002,
   },
