@@ -205,7 +205,7 @@ export default class CreateChallenge extends React.Component {
             <FloatingActionButton mini onClick={this.addItem} backgroundColor="#311B92">
               <ContentAdd />
             </FloatingActionButton>
-            <p style={{ fontWeight: 'bold', fontFamily: 'Nunito' }}>Please test your items with <a href="https://visual-recognition-demo.ng.bluemix.net/" rel="noopener noreferrer" target="_blank">Watson</a> to make sure it recognizes the item</p>
+            {/* <TextField floatingLabelText="Add a Location" name="location" value={this.state.item} onChange={this.handleLocationChange} /> */}
             <List>
               {this.state.items.map((item, i) =>
                 (

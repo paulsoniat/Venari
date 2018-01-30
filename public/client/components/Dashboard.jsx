@@ -68,7 +68,7 @@ class Dashboard extends React.Component {
   routeTo(e) {
     const title = e._targetInst._debugOwner.key;
     switch (title) {
-      case 'Challenges':
+      case 'Photo Challenges':
         this.props.history.push('/main');
         break;
       case 'Leaderboard':
@@ -80,13 +80,13 @@ class Dashboard extends React.Component {
       case 'Trophy Room':
         this.props.history.push('/trophies');
         break;
-      case 'Create Photo Challenge':
+      case 'Add Photo Challenge':
         this.props.history.push('/create');
         break;
       case 'Your Gallery':
         this.props.history.push('/UserGallery');
         break;
-      case 'Create Geo Challenge':
+      case 'Add Geo Challenge':
         this.props.history.push('/CreateGeoChallenge');
         break;
       case 'Geo Challenges':
