@@ -23,6 +23,7 @@ export default class Challenge extends React.Component {
       challengeData: [],
       challengeId: props.match.params.id.slice(1),
       user: '',
+      isGeo: false,
     };
   }
 
@@ -36,6 +37,11 @@ export default class Challenge extends React.Component {
       res.data.forEach((challenge) => {
         if (challenge.id.toString() === this.state.challengeId) {
           this.setState({ challengeData: challenge });
+        }
+        if (challenge.longitude && challenge.latitude) {
+          this.setState({
+            isGeo: true,
+          });
         }
       });
 
@@ -75,6 +81,7 @@ export default class Challenge extends React.Component {
                         challenge={this.state.challengeData.title}
                         user={this.state.user}
                         item={item.name}
+                        isGeo={this.state.isGeo}
                       />
                     </TableRowColumn>
                   </TableRow>
