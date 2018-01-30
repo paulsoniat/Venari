@@ -5,11 +5,19 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { blue500, red500, greenA200, green100 } from 'material-ui/styles/colors';
+import ActionHome from 'material-ui/svg-icons/action/home';
 
 
 const styles = {
   title: {
     cursor: 'pointer',
+    align: 'right',
+  },
+  small: {
+    width: 36,
+    height: 36,
+    padding: 5,
   },
 };
 
@@ -20,9 +28,11 @@ const styles = {
 const Navbar = ({ history }) => (
   <AppBar
     style={{ fontFamily: 'Lobster', backgroundColor: '#311B92' }}
-    title={<span style={styles.title}>Venari</span>}
-    showMenuIconButton={false}
-    onTitleClick={() => { history.push('/home'); }}
+    // title={<div style={styles.title}> Venari </div>}
+    iconElementLeft={
+      <ActionHome style={styles.small} color="#FFFFFF" touch />}
+    // showMenuIconButton={false}
+    onLeftIconButtonClick={() => { history.push('/home'); }}
     iconElementRight={
       <IconMenu
         iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
