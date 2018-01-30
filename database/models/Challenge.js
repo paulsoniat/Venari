@@ -24,6 +24,14 @@ const Challenge = db.define('challenge', {
     type: Sequelize.INTEGER,
     defaultValue: 5,
   },
+  longitude: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+  },
+  latitude: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+  },
 });
 
 module.exports = Challenge;

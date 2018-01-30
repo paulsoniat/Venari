@@ -57,6 +57,8 @@ module.exports = {
     const data = req.body;
     const defaultBadge = 1;
     const defaultValue = 5;
+    const longitude = data.longitude || null;
+    const latitude = data.latitude || null;
     const newChallenge = {
       title: data.title,
       description: data.description,
@@ -65,6 +67,8 @@ module.exports = {
       endDate: data.endDate,
       value: defaultValue,
       badgeId: defaultBadge,
+      longitude,
+      latitude,
     };
     dbHelper.getChallengeByTitle(newChallenge.title)
       .then((found) => {
@@ -118,6 +122,26 @@ module.exports = {
       })
       .catch((err) => {
         console.error(err, 'error getting submissions');
+      });
+  },
+  getPhotoChallenges: (req, res) => {
+    dbHelper.getPhotoChallenges()
+      .then((challenges) => {
+        res.send(challenges);
+      })
+      .catch((err) => {
+        console.log('error getting photo challenges', err);
+        res.send(err);
+      });
+  },
+  getGeoChallenges: (req, res) => {
+    dbHelper.getGeoChallenges()
+      .then((challenges) => {
+        res.send(challenges);
+      })
+      .catch((err) => {
+        console.log('error getting location challenges', err);
+        res.send(err);
       });
   },
 };
