@@ -202,7 +202,7 @@ export default class CreateChallenge extends React.Component {
             <Subheader>Image</Subheader>
             <input type="file" id="challenge-image" accept="image/*" />
             <TextField floatingLabelText="Add an Item" name="item" value={this.state.item} onChange={this.handleChange} />
-            <FloatingActionButton mini onClick={this.addItem} >
+            <FloatingActionButton mini onClick={this.addItem} backgroundColor="#311B92">
               <ContentAdd />
             </FloatingActionButton>
             <p style={{ fontWeight: 'bold', fontFamily: 'Nunito' }}>Please test your items with <a href="https://visual-recognition-demo.ng.bluemix.net/" rel="noopener noreferrer" target="_blank">Watson</a> to make sure it recognizes the item</p>
@@ -210,7 +210,7 @@ export default class CreateChallenge extends React.Component {
               {this.state.items.map((item, i) =>
                 (
                   <ListItem
-                    rightIcon={<IconButton onClick={this.removeItem.bind(this, i)}><ActionDelete /></IconButton>}
+                    rightIcon={<IconButton backgroundColor='#311B92' onClick={this.removeItem.bind(this, i)}><ActionDelete /></IconButton>}
                     primaryText={item}
                     key={item + i}
                   />
@@ -219,7 +219,7 @@ export default class CreateChallenge extends React.Component {
             </List>
             <br />
             <div>
-              <RaisedButton style={{ margin: 'auto' }} primary onClick={this.handleSubmit} label="Add Challenge" />
+              <RaisedButton style={{ margin: 'auto', fontFamily: 'Nunito' }} labelColor="#ffffff" backgroundColor="#311B92" onClick={this.handleSubmit} label="Add Challenge" />
             </div>
           </div>
         </div>
