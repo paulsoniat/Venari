@@ -20,6 +20,7 @@ const styles = {
     fontWeight: 'bold',
     marginTop: 25,
     marginRight: 10,
+    fontSize: '10pt',
   },
 };
 
@@ -30,7 +31,7 @@ class Dashboard extends React.Component {
     this.tilesData = [
       {
         img: 'client/css/challenges.gif',
-        title: 'Challenges',
+        title: 'Photo Challenges',
       },
       {
         img: 'client/css/mapchallenge.gif',
@@ -54,11 +55,11 @@ class Dashboard extends React.Component {
       },
       {
         img: 'client/css/camera.gif',
-        title: 'Create Photo Challenge',
+        title: 'Add Photo Challenge',
       },
       {
         img: 'client/css/createGeo.gif',
-        title: 'Create Geo Challenge',
+        title: 'Add Geo Challenge',
       },
     ];
     this.routeTo = this.routeTo.bind(this);
