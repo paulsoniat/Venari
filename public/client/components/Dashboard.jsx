@@ -15,6 +15,12 @@ const styles = {
     overflowY: 'auto',
     fontFamily: 'Nunito',
   },
+  title: {
+    color: 'black',
+    fontWeight: 'bold',
+    marginTop: 25,
+    marginRight: 10,
+  },
 };
 
 
@@ -90,8 +96,10 @@ class Dashboard extends React.Component {
                 align="center"
                 key={tile.title}
                 title={tile.title}
-                titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+                // titleBackground="linear-gradient(to top, rgba(0,0,0,0.7) 0%,rgba(0,0,0,0.3) 70%,rgba(0,0,0,0) 100%)"
+                titleBackground={false}
                 onClick={this.routeTo}
+                titleStyle={styles.title}
               >
                 <img src={tile.img} alt="uh-oh spaghettios" />
               </GridTile>
