@@ -32,6 +32,11 @@ const Challenge = db.define('challenge', {
     type: Sequelize.INTEGER,
     allowNull: true,
   },
+  range: {
+    type: Sequelize.INTEGER,
+    allowNull: true,
+    defaultValue: 0.002,
+  },
 });
 
 module.exports = Challenge;
