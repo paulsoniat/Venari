@@ -1,9 +1,3 @@
-html,body {
-  height: 100%;
-  /* margin: 0px;
-  padding: 0px; */
-}
-
 #logo {
   background-image: url('/client/css/download.png');
   text-align: center;

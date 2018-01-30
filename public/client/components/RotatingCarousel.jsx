@@ -43,7 +43,7 @@ export default class RotatingCarousel extends React.Component {
           open
           mobile
           interval={5000}
-          style={{ position: 'inherit', width: '100%', height: '50%' }}
+          style={{ position: 'inherit', width: '100%', height: '50%', overflow: 'hidden'}}
           onStart={() => { this.changePage(); }}
           onChange={index => (this.randomizeColor(index))}
         >
