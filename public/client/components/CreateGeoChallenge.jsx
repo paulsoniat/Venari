@@ -38,6 +38,7 @@ export default class CreateChallenge extends React.Component {
       open: false,
       modalTitle: '',
       message: '',
+      address: '',
     };
 
     AWS.config.update({
@@ -88,6 +89,7 @@ export default class CreateChallenge extends React.Component {
       description,
       image,
       items,
+      address,
     } = this.state;
     const { files } = document.getElementById('challenge-image');
 
@@ -124,6 +126,7 @@ export default class CreateChallenge extends React.Component {
                     description: '',
                     startDate: new Date(),
                     endDate: this.endDate,
+                    address: '',
                     image: '',
                     items: [],
                     item: '',
@@ -201,6 +204,7 @@ export default class CreateChallenge extends React.Component {
             />
             <Subheader>Image</Subheader>
             <input type="file" id="challenge-image" accept="image/*" />
+            <TextField floatingLabelText="Address City,State" name="address" value={this.state.address} onChange={this.handleChange} />
             <TextField floatingLabelText="Add an Item" name="item" value={this.state.item} onChange={this.handleChange} />
             <FloatingActionButton mini onClick={this.addItem} backgroundColor="#311B92">
               <ContentAdd />
