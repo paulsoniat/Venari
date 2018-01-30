@@ -4,10 +4,13 @@ import axios from 'axios';
 import AWS from 'aws-sdk';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import { fileToImage, imageToCanvas, canvasToBlob } from '../util';
 import FontIcon from 'material-ui/FontIcon';
+import IconButton from 'material-ui/IconButton';
 import FileFileUpload from 'material-ui/svg-icons/file/file-upload';
 import ImageAddPhoto from 'material-ui/svg-icons/image/add-a-photo';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+
+import { fileToImage, imageToCanvas, canvasToBlob } from '../util';
 
 const albumBucketName = 'bnwrainbows';
 const bucketRegion = 'us-east-2';
@@ -39,10 +42,21 @@ export default class ImageUploadForm extends React.Component {
     });
 
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.photoSubmit = this.photoSubmit.bind(this);
+    this.geoSubmit = this.geoSubmit.bind(this);
+    this.geoSuccess = this.geoSuccess.bind(this);
     this.closeModal = this.closeModal.bind(this);
   }
 
   handleSubmit(e) {
+    if (this.props.isGeo) {
+      this.geoSubmit(e);
+    } else {
+      this.photoSubmit(e);
+    }
+  }
+
+  photoSubmit(e) {
     e.preventDefault();
 
     const { files } = document.getElementById(`photoupload-${this.props.index}`);
@@ -160,6 +174,20 @@ export default class ImageUploadForm extends React.Component {
     });
   }
 
+  geoSubmit(e) {
+    e.preventDefault();
+    this.shutit = 'eslint';
+    navigator.geolocation.getCurrentPosition(this.geoSuccess);
+  }
+
+  geoSuccess(position) {
+    const latitude = position.coords.latitude;
+    const longitude = position.coords.longitude;
+    console.log('lat', latitude);
+    console.log('lon', longitude);
+    this.heyESlint = ':middle_finger_emoji:';
+  }
+
   closeModal() {
     this.setState({
       open: false,
@@ -170,11 +198,11 @@ export default class ImageUploadForm extends React.Component {
     if (this.state.loading) return <div> <div><iframe src="https://giphy.com/embed/xTk9ZvMnbIiIew7IpW" width="100%" height="100%" frameBorder="0" className="giphy-embed" allowFullScreen /></div></div>;
     return (
       <div className="upload">
-      <span className="rwd-line">
+        <span className="rwd-line">
         Upload an image of a {this.props.item} for {this.props.challenge}:
         </span>
         <br />
-        <input id={`photoupload-${this.props.index}`} type="file" accept="image/*" />
+        <input id={`photoupload-${this.props.index}`} type="file" accept="image/*" style={{ width: 225 }} />
         {/* <button type="submit" onClick={this.handleSubmit}>Upload Image</button> */}
         <UploadModal
           item={capitalize(this.props.item)}
@@ -222,4 +250,5 @@ ImageUploadForm.propTypes = {
   user: PropTypes.number.isRequired,
   item: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  isGeo: PropTypes.bool.isRequired,
 };
