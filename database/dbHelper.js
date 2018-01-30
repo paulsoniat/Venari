@@ -165,6 +165,17 @@ module.exports = {
         },
       ],
     }),
-
+  getPhotoChallenges: () =>
+    models.Challenge.findAll({
+      where: {
+        longitude: null,
+        latitude: null,
+      },
+    }),
+  getGeoChallenges: () =>
+    models.Challenge.findAll()
+      .then(challenges =>
+        challenges.filter(challenge =>
+          challenge.dataValues.longitude && challenge.dataValues.latitude)),
 };
 
