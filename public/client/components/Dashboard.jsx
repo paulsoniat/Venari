@@ -34,7 +34,7 @@ class Dashboard extends React.Component {
         title: 'Photo Challenges',
       },
       {
-        img: 'client/css/mapchallenge.gif',
+        img: 'client/css/mapChallenge.gif',
         title: 'Geo Challenges',
       },
       {
