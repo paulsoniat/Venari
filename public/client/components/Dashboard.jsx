@@ -19,7 +19,7 @@ const styles = {
     color: 'black',
     fontWeight: 'bold',
     marginTop: 25,
-    marginRight: 10
+    marginRight: 10,
   },
 };
 
