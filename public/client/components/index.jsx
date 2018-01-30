@@ -14,6 +14,7 @@ import Leaderboard from './Leaderboard.jsx';
 import Dashboard from './Dashboard.jsx';
 import CreateChallenge from './CreateChallenge.jsx';
 import UserGallery from './UserGallery.jsx';
+import CreateGeoChallenge from './CreateGeoChallenge.jsx';
 
 const Login = () => (
   <MuiThemeProvider>
@@ -34,6 +35,7 @@ const AppRouter = () => (
       <Route path="/leaderboard" component={Leaderboard} />
       <Route path="/create" component={CreateChallenge} />
       <Route path="/UserGallery" component={UserGallery} />
+      <Route path="/CreateGeoChallenge" component={CreateGeoChallenge} />
     </div>
   </Router>
 );

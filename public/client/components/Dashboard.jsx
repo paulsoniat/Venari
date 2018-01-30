@@ -54,11 +54,11 @@ class Dashboard extends React.Component {
       },
       {
         img: 'client/css/user-gallery.gif',
-        title: 'Your Gallery',
+        title: 'Geo Challenge',
       },
       {
         img: 'client/css/user-gallery.gif',
-        title: 'Your Gallery',
+        title: 'Geo Gallery',
       },
     ];
     this.routeTo = this.routeTo.bind(this);
@@ -84,6 +84,9 @@ class Dashboard extends React.Component {
         break;
       case 'Your Gallery':
         this.props.history.push('/UserGallery');
+        break;
+      case 'Geo Challenge':
+        this.props.history.push('/CreateGeoChallenge');
         break;
       default:
         break;
