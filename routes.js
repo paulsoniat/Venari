@@ -239,7 +239,7 @@ module.exports = (app) => {
 
   app.get('/photoChallenges', isLoggedIn, routeHelpers.getPhotoChallenges);
   
-  app.get('/geoChallenges', isLoggedIn, routeHelpers.getGeoChallenges);
+  app.get('/locationChallenges', isLoggedIn, routeHelpers.getGeoChallenges);
 
   app.get('/*', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
