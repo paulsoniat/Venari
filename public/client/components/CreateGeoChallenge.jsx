@@ -123,12 +123,10 @@ export default class CreateChallenge extends React.Component {
               axios.post('/getCoordinates', this.state)
                 .then((res) => {
                   const resData = res.data.results[0].geometry.location;
-                  console.log(resData, "this is resdata")
                   this.setState({
                     longitude: resData.lng,
                     latitude: resData.lat,
                   });
-                  console.log(this.state, "this is state")
                   axios.post('/challenge', this.state)
                     .then((response) => {
                       this.setState({

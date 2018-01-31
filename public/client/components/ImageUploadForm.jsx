@@ -240,6 +240,7 @@ export default class ImageUploadForm extends React.Component {
                         this.setState({
                           loading: false,
                           open: true,
+                          cofetti: true,
                           message: `${capitalize(this.props.item)} submission successful!\n
                                     ${this.props.challenge} Challenge Completed!`,
                           title: 'Success!',
@@ -278,12 +279,13 @@ export default class ImageUploadForm extends React.Component {
   closeModal() {
     this.setState({
       open: false,
+      confetti: false,
     });
   }
 
   render() {
     if (this.state.loading) return <div> <div><iframe src="https://giphy.com/embed/xTk9ZvMnbIiIew7IpW" width="100%" height="100%" frameBorder="0" className="giphy-embed" allowFullScreen /></div></div>;
-    if (this.state.confetti) return <Confetti className="Confetti" />;
+    // if (this.state.confetti) return document.getElementsByClassName('Confetti');
     return (
       <div className="upload">
         <span className="rwd-line">
@@ -299,8 +301,8 @@ export default class ImageUploadForm extends React.Component {
           open={this.state.open}
           close={this.closeModal}
         />
-        
-        <FlatButton icon={<FileFileUpload />} align="left" backgroundColor="LightGray" hoverColor="Gray" onClick={this.handleSubmit}></FlatButton>
+
+        <FlatButton icon={<FileFileUpload />} align="left" backgroundColor="LightGray" hoverColor="Gray" onClick={this.handleSubmit} />
         <br />
       </div>
     );
@@ -327,6 +329,7 @@ const UploadModal = ({
       open={open}
       onRequestClose={close}
     >
+    <Confetti className="Confetti" width={240} height={1000} />
       <p>{message}</p>
     </Dialog>
   );

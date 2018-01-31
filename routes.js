@@ -233,7 +233,7 @@ module.exports = (app) => {
     console.log(inputAddress, "this is joined split address")
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${inputAddress}&key=${process.env.GOOGLEKEY}`)
       .then((response) => {
-        console.log(response.data, 'this is respinse');
+        console.log(response, 'this is respinse');
         res.send(response.data);
       });
   });
