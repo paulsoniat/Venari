@@ -131,6 +131,7 @@ export default class CreateChallenge extends React.Component {
                   });
                   axios.post('/challenge', this.state)
                     .then((response) => {
+                      console.log(this.state)
                       this.setState({
                         title: '',
                         description: '',
