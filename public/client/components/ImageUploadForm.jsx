@@ -9,6 +9,7 @@ import IconButton from 'material-ui/IconButton';
 import FileFileUpload from 'material-ui/svg-icons/file/file-upload';
 import ImageAddPhoto from 'material-ui/svg-icons/image/add-a-photo';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
+import Confetti from 'react-confetti';
 
 import { fileToImage, imageToCanvas, canvasToBlob } from '../util';
 
@@ -234,6 +235,7 @@ export default class ImageUploadForm extends React.Component {
 
   render() {
     if (this.state.loading) return <div> <div><iframe src="https://giphy.com/embed/xTk9ZvMnbIiIew7IpW" width="100%" height="100%" frameBorder="0" className="giphy-embed" allowFullScreen /></div></div>;
+    if (this.state.confetti) return <Confetti className="Confetti" />;
     return (
       <div className="upload">
         <span className="rwd-line">
