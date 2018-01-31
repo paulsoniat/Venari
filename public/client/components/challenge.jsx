@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
+import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+
 import {
   Table,
   TableBody,
@@ -88,9 +90,30 @@ export default class Challenge extends React.Component {
                   ))}
               </TableBody>
             </Table>
+            {this.state.isGeo &&
+              <MyMapComponent
+                isMarkerShown
+                latitude={this.state.challengeData.latitude}
+                longitude={this.state.challengeData.longitude}
+                googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn3B7WV7V3dlHIWGqljuC5xGQHAMxJEuA&v=3.exp"
+                loadingElement={<div style={{ height: '100%' }} />}
+                containerElement={<div style={{ height: '400px' }} />}
+                mapElement={<div style={{ height: '100%' }} />}
+              />
+            }
           </div>
         </MuiThemeProvider>
       </div>
     );
   }
 }
+
+const MyMapComponent = withScriptjs(withGoogleMap(props =>
+  (
+    <GoogleMap
+      defaultZoom={12}
+      defaultCenter={{ lat: props.latitude, lng: props.longitude }}
+    >
+      {props.isMarkerShown && <Marker position={{ lat: props.latitude, lng: props.longitude }} />}
+    </GoogleMap>
+  )));
