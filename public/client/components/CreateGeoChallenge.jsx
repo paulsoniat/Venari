@@ -39,6 +39,8 @@ export default class CreateChallenge extends React.Component {
       modalTitle: '',
       message: '',
       address: '',
+      latitude: 0,
+      longitude: 0,
     };
 
     AWS.config.update({
@@ -90,6 +92,8 @@ export default class CreateChallenge extends React.Component {
       image,
       items,
       address,
+      latitude,
+      longitude,
     } = this.state;
     const { files } = document.getElementById('challenge-image');
 
@@ -98,12 +102,10 @@ export default class CreateChallenge extends React.Component {
       const maxWidth = 500;
       const maxHeight = 500;
       fileToImage(file).then((img) => {
-        let factor = Math.min(1, maxWidth / img.width);
+        const factor = Math.min(1, maxWidth / img.width);
         return imageToCanvas(img, factor);
       })
-        .then((canvas) => {
-          return canvasToBlob(canvas, 'image/png');
-        })
+        .then((canvas) => canvasToBlob(canvas, 'image/png'))
         .then((blob) => {
           const photoKey = `venari/challenges/${this.state.startDate.getFullYear()}/${this.state.startDate.getMonth()}/${this.state.startDate.getDate()}/${title.split(' ').join('')}.png`;
           this.s3.upload({
@@ -118,25 +120,34 @@ export default class CreateChallenge extends React.Component {
               this.setState({
                 image: `https://bnwrainbows.s3.amazonaws.com/${photoKey}`,
               });
-              axios.post('/challenge', this.state)
-                .then((response) => {
-                  // console.log('response', response);
+              axios.post('/getCoordinates', this.state)
+                .then((res) => {
+                  const resData = res.data.results[0].geometry.location;
+                  console.log(resData, "this is resdata")
                   this.setState({
-                    title: '',
-                    description: '',
-                    startDate: new Date(),
-                    endDate: this.endDate,
-                    address: '',
-                    image: '',
-                    items: [],
-                    item: '',
-                    open: true,
-                    modalTitle: 'Success!',
-                    message: 'New Challenge Created',
+                    longitude: resData.lng,
+                    latitude: resData.lat,
                   });
-                })
-                .catch((err) => {
-                  console.log('error posting challenge', err);
+                  console.log(this.state, "this is state")
+                  axios.post('/challenge', this.state)
+                    .then((response) => {
+                      this.setState({
+                        title: '',
+                        description: '',
+                        startDate: new Date(),
+                        endDate: this.endDate,
+                        address: '',
+                        image: '',
+                        items: [],
+                        item: '',
+                        open: true,
+                        modalTitle: 'Success!',
+                        message: 'New Challenge Created',
+                      });
+                    })
+                    .catch((err) => {
+                      console.log('error posting challenge', err);
+                    });
                 });
             }
           });
@@ -214,7 +225,7 @@ export default class CreateChallenge extends React.Component {
               {this.state.items.map((item, i) =>
                 (
                   <ListItem
-                    rightIcon={<IconButton backgroundColor='#311B92' onClick={this.removeItem.bind(this, i)}><ActionDelete /></IconButton>}
+                    rightIcon={<IconButton backgroundColor="#311B92" onClick={this.removeItem.bind(this, i)}><ActionDelete /></IconButton>}
                     primaryText={item}
                     key={item + i}
                   />
@@ -232,7 +243,9 @@ export default class CreateChallenge extends React.Component {
   }
 }
 
-const ErrorModal = ({ open, close, title, message }) => {
+const ErrorModal = ({
+ open, close, title, message 
+}) => {
   const actions = [
     <FlatButton
       label="Okay"
