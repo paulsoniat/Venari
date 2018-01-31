@@ -42,7 +42,7 @@ const Challenge = db.define('challenge', {
     defaultValue: 0.002,
   },
   prize: {
-    type: Sequelize.String,
+    type: Sequelize.STRING,
     allowNull: true,
   },
 });
