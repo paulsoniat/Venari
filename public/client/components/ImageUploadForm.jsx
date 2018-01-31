@@ -42,6 +42,8 @@ export default class ImageUploadForm extends React.Component {
       params: { Bucket: albumBucketName },
     });
 
+    this.tempKey = `venari/users/${this.props.user}/temp.png`;
+    this.realKey = `venari/users/${this.props.user}/${this.props.challengeId}/${this.props.item.split(' ').join('')}.png`;
     this.handleSubmit = this.handleSubmit.bind(this);
     this.photoSubmit = this.photoSubmit.bind(this);
     this.geoSubmit = this.geoSubmit.bind(this);
@@ -64,11 +66,13 @@ export default class ImageUploadForm extends React.Component {
     if (!files.length) {
       // don't allow null submit
       return this.setState({
+        loading: false,
         open: true,
         title: 'Error!',
         message: 'Please choose an image to submit',
       });
     }
+    this.setState({ loading: true });
     const file = files[0];
     const maxWidth = 500;
     const maxHeight = 500;
@@ -76,9 +80,8 @@ export default class ImageUploadForm extends React.Component {
       const factor = Math.min(1, maxWidth / img.width);
       return imageToCanvas(img, factor);
     }).then(canvas => canvasToBlob(canvas, 'image/png')).then((blob) => {
-      const photoKey = `venari/users/${this.props.user}/temp.png`;
       this.s3.upload({
-        Key: photoKey,
+        Key: this.tempKey,
         Body: blob,
         ACL: 'public-read',
         ContentType: 'image/png',
@@ -87,8 +90,7 @@ export default class ImageUploadForm extends React.Component {
           console.error('error uploading image', err);
         } else {
           const filepath = data.Location;
-          this.setState({ loading: true });
-          axios.post('/pictureAnalysis', `imageFile=https://bnwrainbows.s3.amazonaws.com/${photoKey}`)
+          axios.post('/pictureAnalysis', `imageFile=https://bnwrainbows.s3.amazonaws.com/${this.tempKey}`)
             .then((res) => {
               const classData = res.data.images[0].classifiers[0].classes;
               const classDataStructure = [];
@@ -97,11 +99,9 @@ export default class ImageUploadForm extends React.Component {
               });
               axios.post('/checkData', `dataArray=${classDataStructure}, ${this.props.item}`)
                 .then((response) => {
-                  this.setState({ loading: false });
                   if (response.data === 'yaaaaaaas') {
-                    const realKey = `venari/users/${this.props.user}/${this.props.challengeId}/${this.props.item.split(' ').join('')}.png`;
                     this.s3.upload({
-                      Key: realKey,
+                      Key: this.realKey,
                       Body: blob,
                       ACL: 'public-read',
                       ContentType: 'image/png',
@@ -109,7 +109,7 @@ export default class ImageUploadForm extends React.Component {
                       if (realErr) {
                         console.error('error uploading image', realErr);
                       } else {
-                        axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challengeId},https://bnwrainbows.s3.amazonaws.com/${realKey}`)
+                        axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challengeId},https://bnwrainbows.s3.amazonaws.com/${this.realKey}`)
                           .then((res) => {
                             if (res.data === 'created') {
                               axios.post('/addPoint', `pointData=${this.props.item}`)
@@ -158,6 +158,7 @@ export default class ImageUploadForm extends React.Component {
                   } else {
                     console.log(`invalid ${this.props.item}`);
                     this.setState({
+                      loading: false,
                       open: true,
                       message: `Invalid ${capitalize(this.props.item)}`,
                       title: 'Error!',
@@ -178,53 +179,100 @@ export default class ImageUploadForm extends React.Component {
   geoSubmit(e) {
     e.preventDefault();
     this.shutit = 'eslint';
-    navigator.geolocation.getCurrentPosition(this.geoSuccess);
+    navigator.geolocation.getCurrentPosition(this.geoSuccess, () => console.log('error getting location'));
   }
 
   geoSuccess(position) {
     this.heyESlint = ':middle_finger_emoji:';
+    const { files } = document.getElementById(`photoupload-${this.props.index}`);
+    if (!files.length) {
+      // don't allow null submit
+      return this.setState({
+        loading: false,
+        open: true,
+        title: 'Error!',
+        message: 'Please choose an image to submit',
+      });
+    }
+    this.setState({ loading: true });
+    const file = files[0];
     const { latitude, longitude } = position.coords;
-    console.log('lat', latitude);
-    console.log('lon', longitude);
     axios.post('/checkLocation', {
       latitude,
       longitude,
       challengeId: this.props.challengeId,
     }).then((response) => {
-      console.log(response);
+      if (response.data) {
+        const maxWidth = 500;
+        fileToImage(file).then((img) => {
+          const factor = Math.min(1, maxWidth / img.width);
+          return imageToCanvas(img, factor);
+        }).then(canvas => canvasToBlob(canvas, 'image/png')).then((blob) => {
+          this.s3.upload({
+            Key: this.realKey,
+            Body: blob,
+            ACL: 'public-read',
+            ContentType: 'image/png',
+          }, (err) => {
+            if (err) {
+              console.error('error uploading image', err);
+            } else {
+              axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challengeId},https://bnwrainbows.s3.amazonaws.com/${this.realKey}`)
+                .then((res) => {
+                  if (res.data === 'created') {
+                    axios.post('/addPoint', `pointData=${this.props.item}`)
+                      .then((pointResponse) => {
+                        // successful submission
+                        this.setState({
+                          loading: false,
+                          open: true,
+                          message: `${capitalize(this.props.item)} submission successful`,
+                          title: 'Success!',
+                        });
+                      })
+                      .catch((err) => {
+                        console.log(err, 'this is add point err');
+                      });
+                  } else if (res.data === 'challenge complete') {
+                    // successful submission that completes challenge
+                    axios.post('/addPoint', `pointData=${this.props.item}`)
+                      .then((pointResponse) => {
+                        this.setState({
+                          loading: false,
+                          open: true,
+                          message: `${capitalize(this.props.item)} submission successful!\n
+                                    ${this.props.challenge} Challenge Completed!`,
+                          title: 'Success!',
+                        });
+                      })
+                      .catch((err) => {
+                        console.log(err, 'this is add point err');
+                      });
+                  } else {
+                    // successful update
+                    this.setState({
+                      loading: false,
+                      open: true,
+                      message: `Updated ${capitalize(this.props.item)} submission`,
+                      title: 'Success!',
+                    });
+                  }
+                })
+                .catch((err) => {
+                  console.log(err, 'this is submission error');
+                });
+            }
+          });
+        });
+      } else {
+        return this.setState({
+          loading: false,
+          open: true,
+          title: 'Error!',
+          message: 'Please take your photo at the challenge location',
+        });
+      }
     });
-
-
-    // const { files } = document.getElementById(`photoupload-${this.props.index}`);
-    // if (!files.length) {
-    //   // don't allow null submit
-    //   return this.setState({
-    //     open: true,
-    //     title: 'Error!',
-    //     message: 'Please choose an image to submit',
-    //   });
-    // }
-    // const file = files[0];
-    // const maxWidth = 500;
-    // const maxHeight = 500;
-    // fileToImage(file).then((img) => {
-    //   const factor = Math.min(1, maxWidth / img.width);
-    //   return imageToCanvas(img, factor);
-    // }).then(canvas => canvasToBlob(canvas, 'image/png')).then((blob) => {
-    //   const photoKey = `venari/users/${this.props.user}/temp.png`;
-    //   this.s3.upload({
-    //     Key: photoKey,
-    //     Body: blob,
-    //     ACL: 'public-read',
-    //     ContentType: 'image/png',
-    //   }, (err, data) => {
-    //     if (err) {
-    //       console.error('error uploading image', err);
-    //     } else {
-
-    //     }
-    //   });
-    // });
   }
 
   closeModal() {
