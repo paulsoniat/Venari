@@ -38,12 +38,12 @@ export default class Challenge extends React.Component {
         if (challenge.id.toString() === this.state.challengeId) {
           this.setState({ challengeData: challenge });
         }
-        if (challenge.longitude && challenge.latitude) {
-          this.setState({
-            isGeo: true,
-          });
-        }
       });
+      if (this.state.challengeData.longitude && this.state.challengeData.latitude) {
+        this.setState({
+          isGeo: true,
+        });
+      }
 
       axios.get(`/challenge:${this.state.challengeId}`).then((response) => {
         this.setState({ items: response.data, loaded: true });
