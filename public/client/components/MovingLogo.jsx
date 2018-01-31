@@ -12,29 +12,26 @@ export default class MovingLogo extends React.Component {
     this.state = {
       open: false,
     };
-    this.handleOpen = this.handleOpen.bind(this)
-    this.handleClose = this.handleClose.bind(this)
+    this.handleOpen = this.handleOpen.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
   handleOpen() {
-    this.setState({ open: true })
+    this.setState({ open: true });
   }
 
   handleClose() {
-    this.setState({ open: false })
+    this.setState({ open: false });
   }
   render() {
     const actions = [
-      <FlatButton
-        label="Cancel"
-        primary={true}
-        onClick={this.handleClose}
-      />,
-      <FlatButton
-        label="Submit"
-        primary={true}
-        disabled={true}
-        onClick={this.handleClose}
-      />,
+      <div align="center">
+        <RaisedButton
+          label="Close"
+          labelColor="#ffffff"
+          onClick={this.handleClose}
+          backgroundColor="#3F51B5"
+        />
+      </div>,
     ];
     return (
       <div id="logo">
@@ -66,7 +63,7 @@ export default class MovingLogo extends React.Component {
           <Dialog
             title="Rules of The Hunt"
             actions={actions}
-            modal={true}
+            modal
             open={this.state.open}
           >
             <ul>
@@ -75,10 +72,10 @@ export default class MovingLogo extends React.Component {
               <li>Pictures of geo-challenge items must be taken at that location</li>
               <li>Complete the challenge when all items are collected </li>
               <li>Earn badges for completed challenges </li>
-            
-            
+
+
             </ul>
-        </Dialog>
+          </Dialog>
         </h2>
       </div>
     );
