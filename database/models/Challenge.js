@@ -24,6 +24,10 @@ const Challenge = db.define('challenge', {
     type: Sequelize.INTEGER,
     defaultValue: 5,
   },
+  address: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
   longitude: {
     type: Sequelize.INTEGER,
     allowNull: true,
@@ -36,6 +40,10 @@ const Challenge = db.define('challenge', {
     type: Sequelize.INTEGER,
     allowNull: true,
     defaultValue: 0.002,
+  },
+  prize: {
+    type: Sequelize.String,
+    allowNull: true,
   },
 });
 
