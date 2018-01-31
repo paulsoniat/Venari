@@ -41,6 +41,7 @@ export default class CreateChallenge extends React.Component {
       address: '',
       latitude: 0,
       longitude: 0,
+      prize: '',
     };
 
     AWS.config.update({
@@ -94,6 +95,7 @@ export default class CreateChallenge extends React.Component {
       address,
       latitude,
       longitude,
+      prize,
     } = this.state;
     const { files } = document.getElementById('challenge-image');
 
@@ -141,6 +143,9 @@ export default class CreateChallenge extends React.Component {
                         open: true,
                         modalTitle: 'Success!',
                         message: 'New Challenge Created',
+                        longitude: 0,
+                        latitude: 0,
+                        prize: '',
                       });
                     })
                     .catch((err) => {
@@ -218,6 +223,7 @@ export default class CreateChallenge extends React.Component {
             <FloatingActionButton mini onClick={this.addItem} backgroundColor="#311B92">
               <ContentAdd />
             </FloatingActionButton>
+            <TextField floatingLabelText="Add an Prize (Optional)" name="prize" value={this.state.prize} onChange={this.handleChange} />
             {/* <TextField floatingLabelText="Add a Location" name="location" value={this.state.item} onChange={this.handleLocationChange} /> */}
             <List>
               {this.state.items.map((item, i) =>
