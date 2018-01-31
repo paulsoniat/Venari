@@ -241,6 +241,8 @@ module.exports = (app) => {
   
   app.get('/locationChallenges', isLoggedIn, routeHelpers.getGeoChallenges);
 
+  app.post('/checkLocation', routeHelpers.checkLocation);
+
   app.get('/*', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
   });

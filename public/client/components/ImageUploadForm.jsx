@@ -181,11 +181,49 @@ export default class ImageUploadForm extends React.Component {
   }
 
   geoSuccess(position) {
-    const latitude = position.coords.latitude;
-    const longitude = position.coords.longitude;
+    this.heyESlint = ':middle_finger_emoji:';
+    const { latitude, longitude } = position.coords;
     console.log('lat', latitude);
     console.log('lon', longitude);
-    this.heyESlint = ':middle_finger_emoji:';
+    axios.post('/checkLocation', {
+      latitude,
+      longitude,
+      challengeId: this.props.challengeId,
+    }).then((response) => {
+      console.log(response);
+    });
+
+
+    // const { files } = document.getElementById(`photoupload-${this.props.index}`);
+    // if (!files.length) {
+    //   // don't allow null submit
+    //   return this.setState({
+    //     open: true,
+    //     title: 'Error!',
+    //     message: 'Please choose an image to submit',
+    //   });
+    // }
+    // const file = files[0];
+    // const maxWidth = 500;
+    // const maxHeight = 500;
+    // fileToImage(file).then((img) => {
+    //   const factor = Math.min(1, maxWidth / img.width);
+    //   return imageToCanvas(img, factor);
+    // }).then(canvas => canvasToBlob(canvas, 'image/png')).then((blob) => {
+    //   const photoKey = `venari/users/${this.props.user}/temp.png`;
+    //   this.s3.upload({
+    //     Key: photoKey,
+    //     Body: blob,
+    //     ACL: 'public-read',
+    //     ContentType: 'image/png',
+    //   }, (err, data) => {
+    //     if (err) {
+    //       console.error('error uploading image', err);
+    //     } else {
+
+    //     }
+    //   });
+    // });
   }
 
   closeModal() {
