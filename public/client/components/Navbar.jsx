@@ -45,6 +45,8 @@ const Navbar = ({ history }) => (
         <MenuItem className="menuItem" primaryText="Your Gallery" containerElement={<Link to="/userGallery" />} />
         <MenuItem className="menuItem" primaryText="Challenges" containerElement={<Link to="/main" />} />
         <MenuItem className="menuItem" primaryText="Create Challenge" containerElement={<Link to="/create" />} />
+        <MenuItem className="menuItem" primaryText="Create GeoChallenge" containerElement={<Link to="/CreateGeoChallenge" />} />
+        <MenuItem className="menuItem" primaryText="GeoChallenges" containerElement={<Link to="/GeoChallenges" />} />
         <MenuItem className="menuItem" primaryText="Sign out" href="/logout" />
       </IconMenu>}
   />

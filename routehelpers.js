@@ -60,6 +60,7 @@ module.exports = {
     const longitude = data.longitude || null;
     const latitude = data.latitude || null;
     const newChallenge = {
+      prize: data.prize,
       address: data.address,
       title: data.title,
       description: data.description,
