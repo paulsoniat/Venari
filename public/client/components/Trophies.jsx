@@ -16,6 +16,7 @@ export default class Trophies extends React.Component {
       trophies: [],
       open: false,
       trophy: '',
+      loading: true,
     };
     this.showDetails = this.showDetails.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -24,7 +25,7 @@ export default class Trophies extends React.Component {
   componentDidMount() {
     axios.get('/getbadges')
       .then((badges) => {
-        this.setState({ trophies: badges.data });
+        this.setState({ trophies: badges.data, loading: false });
         console.log(this.state.trophies);
       });
   }
@@ -41,6 +42,7 @@ export default class Trophies extends React.Component {
 
 
   render() {
+    if (this.state.loading) return <div> <div><iframe src="https://giphy.com/embed/xTk9ZvMnbIiIew7IpW" width="100%" height="100%" frameBorder="0" className="giphy-embed" allowFullScreen /></div></div>;
     return (
       <MuiThemeProvider>
         <div >

@@ -225,15 +225,13 @@ module.exports = (app) => {
     });
     setTimeout(() => {
       res.send(results);
-    }, 1500);
+    }, 2000);
   });
 
   app.post('/getCoordinates', (req, res) => {
     const inputAddress = req.body.address.split(" ").join('');
-    console.log(inputAddress, "this is joined split address")
     axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${inputAddress}&key=${process.env.GOOGLEKEY}`)
       .then((response) => {
-        console.log(response, 'this is respinse');
         res.send(response.data);
       });
   });
