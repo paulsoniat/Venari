@@ -177,5 +177,17 @@ module.exports = {
       .then(challenges =>
         challenges.filter(challenge =>
           challenge.dataValues.longitude && challenge.dataValues.latitude)),
+  checkLocation: (latitude, longitude, challengeId) =>
+    models.Challenge.findById(challengeId)
+      .then((challenge) => {
+        const upperLat = challenge.dataValues.latitude + challenge.dataValues.range;
+        const lowerLat = challenge.dataValues.latitude - challenge.dataValues.range;
+        const upperLon = challenge.dataValues.longitude + challenge.dataValues.range;
+        const lowerLon = challenge.dataValues.longitude - challenge.dataValues.range;
+        if (latitude <= upperLat && latitude >= lowerLat && longitude <= upperLon && longitude >= lowerLon) {
+          return true;
+        }
+        return false;
+      }),
 };
 

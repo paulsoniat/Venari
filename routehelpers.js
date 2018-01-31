@@ -144,4 +144,15 @@ module.exports = {
         res.send(err);
       });
   },
+  checkLocation: (req, res) => {
+    const { latitude, longitude, challengeId } = req.body;
+    dbHelper.checkLocation(latitude, longitude, challengeId)
+      .then((withinBounds) => {
+        res.send(withinBounds);
+      })
+      .catch((err) => {
+        console.error('error checking location', err);
+        res.send(err);
+      });
+  },
 };
