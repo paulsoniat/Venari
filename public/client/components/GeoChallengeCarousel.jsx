@@ -33,6 +33,7 @@ export default class RotatingCarousel extends React.Component {
   }
 
   render() {
+    
     if (!this.state.loaded) return <div>Loading New Challenges</div>;
     return (
       <div>
@@ -55,7 +56,7 @@ export default class RotatingCarousel extends React.Component {
               mediaBackgroundStyle={{ backgroundColor: this.state.randomColor[0] || '#7E57C2' }}
               contentStyle={{ backgroundColor: this.state.randomColor[0] || '#7E57C2' }}
               title={challenge.title}
-              subtitle={challenge.description}
+              subtitle={challenge.address}
             />))}
         </AutoRotatingCarousel>
       </div>
