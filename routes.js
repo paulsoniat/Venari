@@ -6,6 +6,7 @@ const path = require('path');
 const watson = require('watson-developer-cloud');
 const fs = require('fs');
 const sequelize = require('sequelize');
+const axios = require('axios');
 
 passport.use(new Strategy(
   {
@@ -121,13 +122,9 @@ module.exports = (app) => {
     const challengeId = splitData[1];
     const itemName = splitData[0];
     models.Challenge.findById(challengeId)
-      .then((challenge) => {
-        return challenge.getItems();
-      })
+      .then(challenge => challenge.getItems())
       .then((items) => {
-        const itemId = items.reduce((id, item) => {
-          return item.dataValues.name === itemName ? item.dataValues.id : id;
-        }, null);
+        const itemId = items.reduce((id, item) => (item.dataValues.name === itemName ? item.dataValues.id : id), null);
         if (itemId) {
           routeHelpers.findOrCreateSubmission(req.user.id, itemId, link, (created) => {
             if (created) {
@@ -229,6 +226,16 @@ module.exports = (app) => {
     setTimeout(() => {
       res.send(results);
     }, 1500);
+  });
+
+  app.post('/getCoordinates', (req, res) => {
+    const inputAddress = req.body.address.split(" ").join('');
+    console.log(inputAddress, "this is joined split address")
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${inputAddress}&key=${process.env.GOOGLEKEY}`)
+      .then((response) => {
+        console.log(response.data, 'this is respinse');
+        res.send(response.data);
+      });
   });
 
   app.get('/users', isLoggedIn, routeHelpers.getUsersData);
