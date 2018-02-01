@@ -13,6 +13,8 @@ const styles = {
   title: {
     cursor: 'pointer',
     align: 'right',
+    marginTop: 5,
+    fontFamily: 'Lobster',
   },
   small: {
     width: 36,
@@ -27,10 +29,10 @@ const styles = {
  */
 const Navbar = ({ history }) => (
   <AppBar
-    style={{ fontFamily: 'Lobster', backgroundColor: '#311B92' }}
-    // title={<div style={styles.title}> Venari </div>}
+    style={{ backgroundColor: '#311B92' }}
+    // title={<div style={styles.title}>Venari</div>}
     iconElementLeft={
-      <img className="NavLogo" src="./client/css/logoResize.png" alt="" />}
+      <img className="NavLogo" src="../client/css/logoResize.png" alt="" />}
     // showMenuIconButton={false}
     onLeftIconButtonClick={() => { history.push('/home'); }}
     iconElementRight={
@@ -39,14 +41,15 @@ const Navbar = ({ history }) => (
         anchorOrigin={{ horizontal: 'left', vertical: 'top' }}
         targetOrigin={{ horizontal: 'left', vertical: 'top' }}
       >
-        <MenuItem className="menuItem" primaryText="Trophy Room" containerElement={<Link to="/trophies" />} />
+        <MenuItem className="menuItem" primaryText="Home" containerElement={<Link to="/home" />} />
+        <MenuItem className="menuItem" primaryText="Photo Challenges" containerElement={<Link to="/main" />} />
+        <MenuItem className="menuItem" primaryText="Geo Challenges" containerElement={<Link to="/GeoChallenges" />} />
         <MenuItem className="menuItem" primaryText="Leader Board" containerElement={<Link to="/leaderboard" />} />
-        <MenuItem className="menuItem" primaryText="Gallery" containerElement={<Link to="/gallery" />} />
+        <MenuItem className="menuItem" primaryText="Trophy Room" containerElement={<Link to="/trophies" />} />
+        <MenuItem className="menuItem" primaryText="Public Gallery" containerElement={<Link to="/gallery" />} />
         <MenuItem className="menuItem" primaryText="Your Gallery" containerElement={<Link to="/userGallery" />} />
-        <MenuItem className="menuItem" primaryText="Challenges" containerElement={<Link to="/main" />} />
-        <MenuItem className="menuItem" primaryText="Create Challenge" containerElement={<Link to="/create" />} />
-        <MenuItem className="menuItem" primaryText="Create GeoChallenge" containerElement={<Link to="/CreateGeoChallenge" />} />
-        <MenuItem className="menuItem" primaryText="GeoChallenges" containerElement={<Link to="/GeoChallenges" />} />
+        <MenuItem className="menuItem" primaryText="Create Photo Challenge" containerElement={<Link to="/create" />} />
+        <MenuItem className="menuItem" primaryText="Create Geo Challenge" containerElement={<Link to="/CreateGeoChallenge" />} />
         <MenuItem className="menuItem" primaryText="Sign out" href="/logout" />
       </IconMenu>}
   />
