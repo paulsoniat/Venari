@@ -103,9 +103,9 @@ export default class Challenge extends React.Component {
                 latitude={this.state.challengeData.latitude}
                 longitude={this.state.challengeData.longitude}
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn3B7WV7V3dlHIWGqljuC5xGQHAMxJEuA&v=3.exp"
-                loadingElement={<div style={{ height: '90%' }} />}
-                containerElement={<div style={{ height: 'auto', width: 'auto', margin: '10px auto' }} />}
-                mapElement={<div style={{ height: '90%' }} />}
+                loadingElement={<div style={{ height: '95%', width: '95%', margin: '0 auto' }} />}
+                containerElement={<div style={{ height: '380px', margin: '0 auto' }} />}
+                mapElement={<div style={{ height: '95%', width: '95%', margin: '0 auto' }} />}
               />
             }
           </div>
