@@ -27,7 +27,10 @@ export default class Challenge extends React.Component {
       challengeId: props.match.params.id.slice(1),
       user: '',
       isGeo: false,
+      showMap: false,
+      showMapText: 'Show Map',
     };
+    this.toggleMap = this.toggleMap.bind(this);
   }
 
   componentWillMount() {
@@ -52,6 +55,20 @@ export default class Challenge extends React.Component {
         this.setState({ items: response.data, loaded: true });
       });
     });
+  }
+
+  toggleMap() {
+    if (this.state.showMap) {
+      this.setState({
+        showMap: false,
+        showMapText: 'Show Map',
+      });
+    } else {
+      this.setState({
+        showMap: true,
+        showMapText: 'Hide Map',
+      });
+    }
   }
 
   render() {
@@ -106,6 +123,15 @@ export default class Challenge extends React.Component {
               </TableBody>
             </Table>
             {this.state.isGeo &&
+              <RaisedButton
+                style={{ marginLeft: 110 }}
+                onClick={this.toggleMap}
+                label={this.state.showMapText}
+                backgroundColor="#311B92"
+                labelColor="#ffffff"
+              />
+            }
+            {this.state.showMap &&
               <MyMapComponent
                 isMarkerShown
                 latitude={this.state.challengeData.latitude}
