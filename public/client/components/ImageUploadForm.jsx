@@ -294,6 +294,9 @@ export default class ImageUploadForm extends React.Component {
         </span>
         <br />
         <input id={`photoupload-${this.props.index}`} type="file" accept="image/*" style={{ width: 225 }} />
+        <FloatingActionButton mini onClick={this.handleSubmit} backgroundColor="#311B92" >
+          <FileFileUpload />
+        </FloatingActionButton>
         <UploadModal
           item={capitalize(this.props.item)}
           title={this.state.title}
@@ -303,7 +306,8 @@ export default class ImageUploadForm extends React.Component {
           confetti={this.state.confetti}
         />
 
-        <FlatButton icon={<FileFileUpload />} align="right" backgroundColor="LightGray" hoverColor="Gray" onClick={this.handleSubmit} />
+        {/* <FlatButton icon={<FileFileUpload />} align="left" backgroundColor="LightGray" hoverColor="Gray" onClick={this.handleSubmit} /> */}
+        
         <br />
       </div>
     );

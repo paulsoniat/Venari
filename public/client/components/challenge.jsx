@@ -103,9 +103,9 @@ export default class Challenge extends React.Component {
                 latitude={this.state.challengeData.latitude}
                 longitude={this.state.challengeData.longitude}
                 googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyBn3B7WV7V3dlHIWGqljuC5xGQHAMxJEuA&v=3.exp"
-                loadingElement={<div style={{ height: '100%' }} />}
-                containerElement={<div style={{ height: '400px' }} />}
-                mapElement={<div style={{ height: '100%' }} />}
+                loadingElement={<div style={{ height: '90%' }} />}
+                containerElement={<div style={{ height: 'auto', width: 'auto', margin: '10px auto' }} />}
+                mapElement={<div style={{ height: '90%' }} />}
               />
             }
           </div>
@@ -118,7 +118,7 @@ export default class Challenge extends React.Component {
 const MyMapComponent = withScriptjs(withGoogleMap(props =>
   (
     <GoogleMap
-      defaultZoom={12}
+      defaultZoom={13}
       defaultCenter={{ lat: props.latitude, lng: props.longitude }}
     >
       {props.isMarkerShown && <Marker position={{ lat: props.latitude, lng: props.longitude }} />}
