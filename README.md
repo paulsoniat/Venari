@@ -21,25 +21,29 @@ node 8.8.1
 
 ### Installing
 
+*first 
+
+    $npm install
+
 A step by step series of examples that tell you have to get a development env running
 
-Say what the step will be
+To get the Webpack to bundle files and continue watching for changes
 
-```
-Give the example
-```
+    $npm run dev
 
-And repeat
+*in another terminal
 
-```
-until finished
-```
+To get the server started and running
 
-End with an example of getting some data out of the system or using it for a little demo
+    $npm start
+
+Now, go to localhost:3030 and you should see the site
 
 ## Running the tests
 
 Explain how to run the automated tests for this system
+
+    $npm test
 
 ### Break down into end to end tests
 
@@ -61,6 +65,12 @@ Give an example
 
 Add additional notes about how to deploy this on a live system
 
+You can use DigitalOcean, AWS (which we used), or another deployment service to deploy this. 
+
+https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EC2_GetStarted.html#ec2-launch-instance
+
+Above is a tutorial on how to deploy through AWS.
+
 ## Built With
 
 * [React](https://reactjs.org/docs) - The web framework used
@@ -70,7 +80,6 @@ Add additional notes about how to deploy this on a live system
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
 
 ## Authors
 

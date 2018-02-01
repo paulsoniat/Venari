@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import ToggleDisplay from 'react-toggle-display';
 
 import {
   Table,
@@ -70,12 +71,19 @@ export default class Challenge extends React.Component {
                   <TableHeaderColumn style={{ fontWeight: 'bold', fontSize: '24px' }}>{this.state.challengeData.title}
                   </TableHeaderColumn>
                 </TableRow>
-                <TableRow>
-                  <TableHeaderColumn style={{ fontWeight: 'bold', fontSize: '16px' }}>{this.state.challengeData.address}
-                    <br />
-                  Prize: {this.state.challengeData.prize}
-                  </TableHeaderColumn>
-                </TableRow>
+                <ToggleDisplay if={this.state.isGeo} tag="section">
+                  <TableRow>
+                    <TableHeaderColumn style={{ fontWeight: 'bold', fontSize: '16px' }}>{this.state.challengeData.address}
+                      <br />
+                      <ToggleDisplay if={this.state.prize} tag="section">
+                        <div>
+                        Prize: {this.state.challengeData.prize}
+                        </div>
+                      </ToggleDisplay>
+                    </TableHeaderColumn>
+                  </TableRow>
+                </ToggleDisplay>
+
               </TableHeader>
               <TableBody
                 displayRowCheckbox={false}
