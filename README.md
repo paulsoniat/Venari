@@ -1,17 +1,19 @@
 # Venari
 
-One Paragraph of project description goes here
+Venari is a photo recognition and geo-location scavenger hunt. Once logged in users can submit their own challenges as well as participate in current challenges. Once the user completes a challenge a badge is added to their trophy room.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+```
+npm install
+```
 
 ### Prerequisites
 
 What things you need to install the software and how to install them
 
 ```
-Give examples
+node 8.8.1
 ```
 
 ### Installing
@@ -84,6 +86,5 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
+* Operation Spark
+
