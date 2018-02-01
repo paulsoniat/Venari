@@ -67,7 +67,14 @@ export default class Challenge extends React.Component {
                 enableSelectAll={false}
               >
                 <TableRow>
-                  <TableHeaderColumn style={{ fontWeight: 'bold', fontSize: '24px' }}>{this.state.challengeData.title}</TableHeaderColumn>
+                  <TableHeaderColumn style={{ fontWeight: 'bold', fontSize: '24px' }}>{this.state.challengeData.title}
+                  </TableHeaderColumn>
+                </TableRow>
+                <TableRow>
+                  <TableHeaderColumn style={{ fontWeight: 'bold', fontSize: '16px' }}>{this.state.challengeData.address}
+                    <br />
+                  Prize: {this.state.challengeData.prize}
+                  </TableHeaderColumn>
                 </TableRow>
               </TableHeader>
               <TableBody
