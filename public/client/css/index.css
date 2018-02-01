@@ -2,19 +2,19 @@
   background-image: url('/client/css/download.png');
   text-align: center;
   align-content: center;
-position:fixed;
-padding:0;
-margin:0;
-top:0;
-left:0;
-width: 100%;
-height: 100%;
-}
-#appRouter{
-   display:block;
-   overflow:auto;
+  position: fixed;
+  padding: 0;
+  margin: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
+#appRouter {
+  display: block;
+  overflow: auto;
+}
 
 #challenge {
   font: #0D47A1;
@@ -43,17 +43,14 @@ height: 100%;
   img.responsive {
     width: 650px;
   }
- 
 }
 
-
 @media screen and (max-width:320px) {
-.upload{
+  .upload {
     position: relative;
     align-content: center;
     white-space: normal;
   }
-  
 }
 
 img.responsive {
@@ -69,4 +66,3 @@ body {
 html {
   height: 100%;
 }
-
