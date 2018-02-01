@@ -1,3 +1,6 @@
+![Logo of the project](./public/client/css/venariLogo.png)
+
+
 # Venari
 
 Venari is a photo recognition and geo-location scavenger hunt. Once logged in users can submit their own challenges as well as participate in current challenges. Once the user completes a challenge a badge is added to their trophy room.
@@ -60,17 +63,14 @@ Add additional notes about how to deploy this on a live system
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [React](https://reactjs.org/docs) - The web framework used
+* [NPM](https://docs.npmjs.com/) - Dependency Management
+* [Webpack](https://webpack.js.org/concepts//) - Used to complile files
 
 ## Contributing
 
 Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
 
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
 
 ## Authors
 
@@ -82,9 +82,8 @@ See also the list of [contributors](https://github.com/your/project/contributors
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the ISC License - see the [LICENSE.md](LICENSE.md) file for details
 
 ## Acknowledgments
 
 * Operation Spark
-
