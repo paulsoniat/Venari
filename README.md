@@ -3,7 +3,7 @@
 
 # Venari
 
-Venari is a photo recognition and geo-location scavenger hunt. Once logged in users can submit their own challenges as well as participate in current challenges. Once the user completes a challenge a badge is added to their trophy room.
+Venari is a scavenger hunt app that uses photo recognition and geo location to verify item submissions. Our hunters (users) participate in scavenger hunts by taking pictures of the items specified for the challenge. Hunters earn points for each item submitted and challenge completed, and earn a badge for completing a challenge. Hunters can also create and share their own challenges. 
 
 ## Getting Started
 
@@ -21,11 +21,18 @@ node 8.8.1
 
 ### Installing
 
+You will need a .env file with these variables:
+- port: the port to run the server
+- FBAPPID: the id of the app registered with facebook
+- FBAPPSECRET: the secret for the app registered with facebook
+- db_uri: a database connection uri for your database
+- WATSONKEY: an api key for IBM Watson
+- GOOGLEKEY: a google api key with geocoding permissions
+
 *first 
 
     $npm install
 
-A step by step series of examples that tell you have to get a development env running
 
 To get the Webpack to bundle files and continue watching for changes
 
@@ -37,29 +44,11 @@ To get the server started and running
 
     $npm start
 
-Now, go to localhost:3030 and you should see the site
+Now, go to localhost at the port specified and you should see the site
 
-## Running the tests
-
-Explain how to run the automated tests for this system
+## To Run the Tests
 
     $npm test
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
 
 ## Deployment
 
