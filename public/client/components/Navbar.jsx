@@ -32,7 +32,7 @@ const Navbar = ({ history }) => (
     style={{ backgroundColor: '#311B92' }}
     // title={<div style={styles.title}>Venari</div>}
     iconElementLeft={
-      <img className="NavLogo" src="./client/css/logoResize.png" alt="" />}
+      <img className="NavLogo" src="../client/css/logoResize.png" alt="" />}
     // showMenuIconButton={false}
     onLeftIconButtonClick={() => { history.push('/home'); }}
     iconElementRight={
