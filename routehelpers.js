@@ -59,8 +59,8 @@ module.exports = {
     const defaultValue = 5;
     const longitude = data.longitude || null;
     const latitude = data.latitude || null;
+    const prize = data.prize || null;
     const newChallenge = {
-      prize: data.prize,
       address: data.address,
       title: data.title,
       description: data.description,
@@ -71,6 +71,7 @@ module.exports = {
       badgeId: defaultBadge,
       longitude,
       latitude,
+      prize,
     };
     dbHelper.getChallengeByTitle(newChallenge.title)
       .then((found) => {
