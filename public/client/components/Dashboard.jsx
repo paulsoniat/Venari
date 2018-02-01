@@ -47,7 +47,7 @@ class Dashboard extends React.Component {
       },
       {
         img: 'client/css/gallery.gif',
-        title: 'Gallery',
+        title: 'Public Gallery',
       },
       {
         img: 'client/css/user-gallery.gif',
@@ -74,7 +74,7 @@ class Dashboard extends React.Component {
       case 'Leaderboard':
         this.props.history.push('/leaderboard');
         break;
-      case 'Gallery':
+      case 'Public Gallery':
         this.props.history.push('/gallery');
         break;
       case 'Trophy Room':
