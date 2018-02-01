@@ -30,7 +30,7 @@ export default class UserGallery extends React.Component {
   }
 
   closeModal() {
-    this.props.history.push('/main');
+    this.props.history.push('/home');
   }
 
   randomizeColor(index) {
