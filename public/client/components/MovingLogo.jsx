@@ -66,14 +66,11 @@ export default class MovingLogo extends React.Component {
             modal
             open={this.state.open}
           >
-            <ul>
-              <li>Choose a Challenge</li>
-              <li>Take a picture of that items on the challenge list </li>
-              <li>Pictures of geo-challenge items must be taken at that location</li>
-              <li>Complete the challenge when all items are collected </li>
-              <li>Earn badges for completed challenges </li>
-
-
+            <ul style={{ marginLeft: -30 }}>
+              <li style={{ marginBottom: 8 }}>Choose a challenge</li>
+              <li style={{ marginBottom: 8 }}>If it's a geo-challenge, go to the challenge location</li>
+              <li style={{ marginBottom: 8 }}>Take a picture of the items for that challenge</li>
+              <li style={{ marginBottom: 8 }}>Complete the challenge by taking a photo of all items</li>
             </ul>
           </Dialog>
         </h2>
