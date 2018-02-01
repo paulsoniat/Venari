@@ -1,6 +1,6 @@
 # Venari
 
-One Paragraph of project description goes here
+Venari is a photo recognition and geo-location scavenger hunt. Once logged in users can submit their own challenges as well as participate in current challenges. Once the user completes a challenge a badge is added to their trophy room.
 
 ## Getting Started
 
