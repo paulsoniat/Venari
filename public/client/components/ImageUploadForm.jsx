@@ -133,9 +133,8 @@ export default class ImageUploadForm extends React.Component {
                                     loading: false,
                                     open: true,
                                     confetti: true,
-                                    message: `${capitalize(this.props.item)} submission successful!\n
-                                    ${this.props.challenge} Challenge Completed!`,
-                                    title: 'Success!',
+                                    message: `${capitalize(this.props.item)} submission successful!`,
+                                    title: 'You Completed the Challenge!',
                                   });
                                 })
                                 .catch((err) => {
@@ -180,7 +179,13 @@ export default class ImageUploadForm extends React.Component {
   geoSubmit(e) {
     e.preventDefault();
     this.shutit = 'eslint';
-    navigator.geolocation.getCurrentPosition(this.geoSuccess, () => console.log('error getting location'));
+    navigator.geolocation.getCurrentPosition(this.geoSuccess, () => {
+      this.setState({
+        open: true,
+        title: 'Error!',
+        message: 'User location is required for submissions to geo-challenges',
+      });
+    });
   }
 
   geoSuccess(position) {
@@ -242,9 +247,8 @@ export default class ImageUploadForm extends React.Component {
                           loading: false,
                           open: true,
                           confetti: true,
-                          message: `${capitalize(this.props.item)} submission successful!\n
-                                    ${this.props.challenge} Challenge Completed!`,
-                          title: 'Success!',
+                          message: `${capitalize(this.props.item)} submission successful!`,
+                          title: 'You Completed the Challenge!',
                         });
                       })
                       .catch((err) => {
@@ -271,7 +275,7 @@ export default class ImageUploadForm extends React.Component {
           loading: false,
           open: true,
           title: 'Error!',
-          message: 'Please take your photo at the challenge location',
+          message: 'Please take your picture at the challenge location',
         });
       }
     });
@@ -290,7 +294,7 @@ export default class ImageUploadForm extends React.Component {
       
       <div className="upload">
         <span className="rwd-line">
-        Upload an image of a {this.props.item} for {this.props.challenge}:
+        Upload an image of a <span style={{ fontWeight: 'bold' }}>{this.props.item}</span>:
         </span>
         <br />
         <input id={`photoupload-${this.props.index}`} type="file" accept="image/*" style={{ width: 225 }} />
@@ -305,9 +309,6 @@ export default class ImageUploadForm extends React.Component {
           close={this.closeModal}
           confetti={this.state.confetti}
         />
-
-        {/* <FlatButton icon={<FileFileUpload />} align="left" backgroundColor="LightGray" hoverColor="Gray" onClick={this.handleSubmit} /> */}
-        
         <br />
       </div>
     );
