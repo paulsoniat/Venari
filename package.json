@@ -43,6 +43,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-swipeable-views": "^0.12.12",
+    "react-toggle-display": "^2.2.0",
     "requestify": "^0.2.5",
     "sequelize": "^4.31.1",
     "three": "^0.89.0",
