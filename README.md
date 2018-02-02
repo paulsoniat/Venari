@@ -33,12 +33,13 @@ You will need a .env file with these variables:
 
     $npm install
 
+*then
 
 To get the Webpack to bundle files and continue watching for changes
 
     $npm run dev
 
-*in another terminal
+*then open another terminal
 
 To get the server started and running
 
