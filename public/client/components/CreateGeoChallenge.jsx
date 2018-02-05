@@ -197,7 +197,6 @@ export default class CreateChallenge extends React.Component {
           <Navbar history={this.props.history} />
           <ErrorModal open={this.state.open} close={this.closeModal} title={this.state.modalTitle} message={this.state.message} />
           <div style={{ width: 300, margin: 'auto' }}>
-            {/* <h3>Create Challenge</h3> */}
             <TextField floatingLabelText="Title" name="title" value={this.state.title} onChange={this.handleChange} />
             <br />
             <TextField floatingLabelText="Description" name="description" value={this.state.description} onChange={this.handleChange} />
@@ -219,11 +218,11 @@ export default class CreateChallenge extends React.Component {
             <Subheader>Image</Subheader>
             <input type="file" id="challenge-image" accept="image/*" />
             <TextField floatingLabelText="Address City,State" name="address" value={this.state.address} onChange={this.handleChange} />
+            <TextField floatingLabelText="Add an Prize (Optional)" name="prize" value={this.state.prize} onChange={this.handleChange} />
             <TextField floatingLabelText="Add an Item" name="item" value={this.state.item} onChange={this.handleChange} />
             <FloatingActionButton mini onClick={this.addItem} backgroundColor="#311B92">
               <ContentAdd />
             </FloatingActionButton>
-            <TextField floatingLabelText="Add an Prize (Optional)" name="prize" value={this.state.prize} onChange={this.handleChange} />
             {/* <TextField floatingLabelText="Add a Location" name="location" value={this.state.item} onChange={this.handleLocationChange} /> */}
             <List>
               {this.state.items.map((item, i) =>
