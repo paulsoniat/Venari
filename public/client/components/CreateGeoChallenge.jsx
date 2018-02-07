@@ -120,7 +120,7 @@ export default class CreateChallenge extends React.Component {
               console.error('error uploading image', err);
             } else {
               this.setState({
-                image: `https://bnwrainbows.s3.amazonaws.com/${photoKey}`,
+                image: `https://bnwrainbows.s3.amazonaws.com/${encodeURIComponent(photoKey)}`,
               });
               axios.post('/getCoordinates', this.state)
                 .then((res) => {

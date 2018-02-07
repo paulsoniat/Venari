@@ -44,6 +44,8 @@ export default class ImageUploadForm extends React.Component {
 
     this.tempKey = `venari/users/${this.props.user}/temp.png`;
     this.realKey = `venari/users/${this.props.user}/${this.props.challengeId}/${this.props.item.split(' ').join('')}.png`;
+    this.encodedKey = `venari/users/${this.props.user}/${this.props.challengeId}/${encodeURIComponent(this.props.item.split(' ').join(''))}.png`;
+
     this.handleSubmit = this.handleSubmit.bind(this);
     this.photoSubmit = this.photoSubmit.bind(this);
     this.geoSubmit = this.geoSubmit.bind(this);
@@ -109,10 +111,10 @@ export default class ImageUploadForm extends React.Component {
                       if (realErr) {
                         console.error('error uploading image', realErr);
                       } else {
-                        axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challengeId},https://bnwrainbows.s3.amazonaws.com/${this.realKey}`)
+                        axios.post('/saveSubmission', { submissionData: `${this.props.item}, ${this.props.challengeId}, https://bnwrainbows.s3.amazonaws.com/${this.encodedKey}` })
                           .then((res) => {
                             if (res.data === 'created') {
-                              axios.post('/addPoint', `pointData=${this.props.item}`)
+                              axios.post('/addPoint', { pointData: `${this.props.item}` })
                                 .then((pointResponse) => {
                                   // successful submission
                                   this.setState({
@@ -127,7 +129,7 @@ export default class ImageUploadForm extends React.Component {
                                 });
                             } else if (res.data === 'challenge complete') {
                               // successful submission that completes challenge
-                              axios.post('/addPoint', `pointData=${this.props.item}`)
+                              axios.post('/addPoint', { pointData: `${this.props.item}` })
                                 .then((pointResponse) => {
                                   this.setState({
                                     loading: false,
@@ -223,10 +225,10 @@ export default class ImageUploadForm extends React.Component {
             if (err) {
               console.error('error uploading image', err);
             } else {
-              axios.post('/saveSubmission', `submissionData=${this.props.item}, ${this.props.challengeId},https://bnwrainbows.s3.amazonaws.com/${this.realKey}`)
+              axios.post('/saveSubmission', { submissionData: `${this.props.item},${this.props.challengeId},https://bnwrainbows.s3.amazonaws.com/${this.encodedKey}` })
                 .then((res) => {
                   if (res.data === 'created') {
-                    axios.post('/addPoint', `pointData=${this.props.item}`)
+                    axios.post('/addPoint', { pointData: `${this.props.item}` })
                       .then((pointResponse) => {
                         // successful submission
                         this.setState({
@@ -241,7 +243,7 @@ export default class ImageUploadForm extends React.Component {
                       });
                   } else if (res.data === 'challenge complete') {
                     // successful submission that completes challenge
-                    axios.post('/addPoint', `pointData=${this.props.item}`)
+                    axios.post('/addPoint', { pointData: `${this.props.item}` })
                       .then((pointResponse) => {
                         this.setState({
                           loading: false,
