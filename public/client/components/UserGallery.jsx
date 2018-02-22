@@ -46,11 +46,11 @@ export default class UserGallery extends React.Component {
         <MuiThemeProvider>
           <div>
             <Navbar history={this.props.history} />
-            <p style={{ textAlign: 'center', marginTop: 50 }}>There doesn't seem to be anything here...</p>
+            <p style={{ textAlign: 'center', marginTop: 50, fontFamily: 'Nunito' }}>There doesn't seem to be anything here...</p>
             <Dialog
               title="No User Images"
               actions={<FlatButton
-                label="Go To Challenges"
+                label="Return to Homepage"
                 primary
                 keyboardFocused
                 onClick={this.closeModal}
