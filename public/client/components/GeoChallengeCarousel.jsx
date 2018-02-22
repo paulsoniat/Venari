@@ -52,7 +52,7 @@ export default class RotatingCarousel extends React.Component {
           {this.state.challengeData.map(challenge =>
             (<Slide
               key={challenge.id}
-              media={<img src={challenge.image} height="300" width="300" alt="" />}
+              media={<img src={challenge.image} width="300" alt="" />}
               mediaBackgroundStyle={{ backgroundColor: this.state.randomColor[0] || '#7E57C2' }}
               contentStyle={{ backgroundColor: this.state.randomColor[0] || '#7E57C2' }}
               title={challenge.title}
