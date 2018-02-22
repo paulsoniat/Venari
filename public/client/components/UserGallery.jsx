@@ -46,11 +46,11 @@ export default class UserGallery extends React.Component {
         <MuiThemeProvider>
           <div>
             <Navbar history={this.props.history} />
-            <p style={{ textAlign: 'center', marginTop: 50 }}>There doesn't seem to be anything here...</p>
+            <p style={{ textAlign: 'center', marginTop: 50, fontFamily: 'Nunito' }}>There doesn't seem to be anything here...</p>
             <Dialog
               title="No User Images"
               actions={<FlatButton
-                label="Go To Challenges"
+                label="Return to Homepage"
                 primary
                 keyboardFocused
                 onClick={this.closeModal}
@@ -82,7 +82,7 @@ export default class UserGallery extends React.Component {
             {this.state.images.map(image =>
               (<Slide
                 key={image.id}
-                media={<img src={image.image} height="300" width="300" alt="" />}
+                media={<img src={image.image} width="300" alt="" />}
                 mediaBackgroundStyle={{ backgroundColor: this.state.randomColor[0] || "#7E57C2"}}
                 contentStyle={{ backgroundColor: this.state.randomColor[0] || "#7E57C2"}}
                 title={capitalize(image.itemName)}
